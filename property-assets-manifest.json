@@ -1,0 +1,427 @@
+{
+  "generatedAt": "2026-07-20T22:40:41.851Z",
+  "source": "Apartment Corp public portfolio page",
+  "totalProperties": 42,
+  "properties": [
+    {
+      "id": "arbor-crest",
+      "name": "Arbor Crest",
+      "cardText": "120 UNITS 1BR / 2BR / 3BR · Avg 938 sq ft · ELIHA through 2026 FLORIDA 120 UNITS TAX CREDIT / AFFORDABLE Arbor Crest 64 N Cleveland Street, Quincy, FL 32351 A 120-unit apartment community developed in 2006 using Section 42 Low Income Housing Tax Credits. Five three-story buildings offering spacious 1, 2 and 3 bedroom floor plans with an average size of 938 sq ft. Located 20 minutes northwest of Tallahassee. 1BR / 2BR / 3BR · Avg 938 sq ft · ELIHA through 2026 2006 VIEW LISTING",
+      "sourceImageUrl": "https://apartmentcorp.com/manus-storage/arbor-crest_067cfae6.png",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/arbor-crest/hero.png",
+      "mediaType": "image/png",
+      "assetUrl": "/manus-storage/arbor-crest-hero_bb59ee9e.png"
+    },
+    {
+      "id": "grove-park-terrace",
+      "name": "Grove Park Terrace",
+      "cardText": "60 UNITS 1BR/1BA · 2BR/1BA · 3BR/1BA TEXAS 60 UNITS LIHTC Grove Park Terrace 400 Peters St, Waxahachie, TX 75165 Located 1 mile from downtown Waxahachie — the Crossroads of Texas — with 55 residents commuting to Dallas/Ft Worth. Currently at 91.7% occupancy. Benefits from proximity to one of the strongest job markets in the country. 1BR/1BA · 2BR/1BA · 3BR/1BA VIEW LISTING",
+      "sourceImageUrl": "https://apartmentcorp.com/manus-storage/grove_park_terrace_dbf7aa5d.png",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/grove-park-terrace/hero.png",
+      "mediaType": "image/png",
+      "assetUrl": "/manus-storage/grove-park-terrace-hero_81fb8928.png"
+    },
+    {
+      "id": "thomasville-church-homes",
+      "name": "Thomasville Church Homes",
+      "cardText": "100 UNITS 1BR–4BR · Clubhouse · Basketball Court · Playground NORTH CAROLINA 100 UNITS LIHTC Thomasville Church Homes 904 Doak Street, Thomasville, NC 27360 Located in Thomasville, NC — birthplace of Old Dominion Freight Line and Thomasville Furniture Industries. Single family homes and retail centers with a clubhouse, basketball court, and playground. 1BR–4BR · Clubhouse · Basketball Court · Playground VIEW LISTING",
+      "sourceImageUrl": "https://apartmentcorp.com/manus-storage/thomasville_church_homes_2924b4b5.png",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/thomasville-church-homes/hero.png",
+      "mediaType": "image/png",
+      "assetUrl": "/manus-storage/thomasville-church-homes-hero_d2e97276.png"
+    },
+    {
+      "id": "boca-ciega",
+      "name": "Boca Ciega",
+      "cardText": "109 UNITS 109 Units · St. Petersburg, FL · Tampa Bay Area FLORIDA 109 UNITS RESIDENTIAL Boca Ciega 3401 37th Street South, St. Petersburg, FL 22711 A 109-unit residential community nestled alongside Tampa Bay in Saint Petersburg — known for its artistic vibe along Central Avenue, theaters, art galleries, craft breweries, and eclectic shops. Home to Tampa Bay Rays at Tropicana Field. 109 Units · St. Petersburg, FL · Tampa Bay Area VIEW LISTING",
+      "sourceImageUrl": "https://apartmentcorp.com/manus-storage/boca_ciega_townhomes_d31607e4.png",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/boca-ciega/hero.png",
+      "mediaType": "image/png",
+      "assetUrl": "/manus-storage/boca-ciega-hero_c6fb7b8f.png"
+    },
+    {
+      "id": "opa-locka",
+      "name": "Opa Locka",
+      "cardText": "65 UNITS 65 Units · South Florida Location FLORIDA 65 UNITS RESIDENTIAL Opa Locka 2860 NW 135th Street, Opa Locka, FL 33054 Located 12 miles northwest of downtown Miami and six miles west of the Atlantic Coast beaches. Access to South Florida's tropical setting, parks, and warm ocean breezes. 65 Units · South Florida Location",
+      "sourceImageUrl": "https://apartmentcorp.com/manus-storage/opa_locka_9ac8e35f.png",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/opa-locka/hero.png",
+      "mediaType": "image/png",
+      "assetUrl": "/manus-storage/opa-locka-hero_e963ea41.png"
+    },
+    {
+      "id": "macedonia",
+      "name": "Macedonia",
+      "cardText": "100 UNITS 2BR / 3BR · Built 2021 FLORIDA 100 UNITS LIHTC Macedonia 1722 W 17th Street, Panama City, FL 32405 Located in Panama City with a walkable downtown, diverse eateries, and world-class beaches a short drive away. Near Lake Huntington, St. Andrews Marina, and Pretty Bayou Island. 2BR / 3BR · Built 2021 2021",
+      "sourceImageUrl": "https://apartmentcorp.com/manus-storage/macedonia_garden_apts_e3596dbd.png",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/macedonia/hero.png",
+      "mediaType": "image/png",
+      "assetUrl": "/manus-storage/macedonia-hero_a1de77c1.png"
+    },
+    {
+      "id": "riverchase",
+      "name": "Riverchase",
+      "cardText": "80 UNITS 3BR & 4BR · Avg 1,336 sq ft · No direct competitors GEORGIA 80 UNITS LIHTC Riverchase 106 Tybee Court, Augusta, GA 30901 Minutes from downtown Augusta, offering some of the largest rental units in the city. The only complex in the submarket with 4-bedroom floor plans and the only single family rental community with no direct competitors. 3BR & 4BR · Avg 1,336 sq ft · No direct competitors VIEW LISTING",
+      "sourceImageUrl": "https://apartmentcorp.com/manus-storage/riverchase-apts_c66b0d92.png",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/riverchase/hero.png",
+      "mediaType": "image/png",
+      "assetUrl": "/manus-storage/riverchase-hero_8ba01c67.png"
+    },
+    {
+      "id": "silver-springs",
+      "name": "Silver Springs",
+      "cardText": "100 UNITS 1BR–4BR · REAC Score 95 · Waitlisted NORTH CAROLINA 100 UNITS LIHTC Silver Springs 950 NE 20th Street, Hickory, NC 28601 Consistently near 100% occupancy with a wait list. Scored a 95 on its latest REAC inspection. One of the most stable assets in the portfolio with excellent physical condition. 1BR–4BR · REAC Score 95 · Waitlisted",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/silver-springs/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/silver-springs-hero_ff4a691a.jpg"
+    },
+    {
+      "id": "marrero-3",
+      "name": "Marrero 3",
+      "cardText": "173 UNITS 173 Homes · 3BR & 4BR · New Orleans Metro · 95% Market Occupancy LOUISIANA 173 UNITS LIHTC PORTFOLIO Marrero 3 1050 Manhattan Blvd., Harvey, LA 70058 A 173-home single family LIHTC portfolio in Marrero, Harvey, and Hammond, Louisiana. Developed 2002–2005 using Section 42 Low Income Housing Tax Credits. New Orleans market occupancy reported at a healthy 95%. 173 Homes · 3BR & 4BR · New Orleans Metro · 95% Market Occupancy 2002–2005 VIEW LISTING",
+      "sourceImageUrl": "https://apartmentcorp.com/manus-storage/marrero-3-homes_9013acd8.png",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/marrero-3/hero.png",
+      "mediaType": "image/png",
+      "assetUrl": "/manus-storage/marrero-3-hero_211793e0.png"
+    },
+    {
+      "id": "yorkshire-windsor-village",
+      "name": "Yorkshire / Windsor Village",
+      "cardText": "132 UNITS 1BR / 2BR / 4BR · Avg 769 sq ft · LIHTC LOUISIANA 132 UNITS TAX CREDIT Yorkshire / Windsor Village 2020 N. Hearne Avenue, Shreveport, LA 77109 Two contiguous apartment communities in Shreveport — Louisiana's third largest city and a cultural and gaming center on the Louisiana/Texas border. 1BR / 2BR / 4BR · Avg 769 sq ft · LIHTC VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/yorkshire-windsor-village/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/yorkshire-windsor-village-hero_28c5c0da.jpg"
+    },
+    {
+      "id": "st-charles-place",
+      "name": "St. Charles Place",
+      "cardText": "121 UNITS 2BR/1BA & 3BR/2BA · Gulf Coast Region LOUISIANA 121 UNITS LIHTC St. Charles Place 1011 18th Street, Lake Charles, LA 70607 Located in Lake Charles — 30 miles from the Gulf Coast of Mexico. A bustling multicultural community with white sandy beaches, award-winning cuisine, and frequent cultural activities. 2BR/1BA & 3BR/2BA · Gulf Coast Region",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/st-charles-place/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/st-charles-place-hero_783455a7.jpg"
+    },
+    {
+      "id": "columbia-village-townhomes",
+      "name": "Columbia Village Townhomes",
+      "cardText": "80 UNITS 2BR / 3BR / 4BR · Near Yosemite · 100% Occupancy CALIFORNIA 80 UNITS TOWNHOMES / LIHTC Columbia Village Townhomes 11299 Columbia Village Dr., Sonora, CA 95370 Nestled within Sonora — a close-knit mountain community on the outskirts of Yosemite National Park. Regularly operates at or near 100% occupancy with a waiting list. 2BR / 3BR / 4BR · Near Yosemite · 100% Occupancy VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/columbia-village-townhomes/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/columbia-village-townhomes-hero_691e71ba.jpg"
+    },
+    {
+      "id": "forest-view",
+      "name": "Forest View",
+      "cardText": "60 UNITS 1BR/1BA & 2BR/2BA · HUD & LIHTC CALIFORNIA 60 UNITS AFFORDABLE / HUD / LIHTC Forest View 19499 Hess Ave., Sonora, CA 95370 Nestled within Sonora on the outskirts of Yosemite National Park. Regularly operates at or near 100% occupancy with a waiting list of future tenants. 1BR/1BA & 2BR/2BA · HUD & LIHTC VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/forest-view/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/forest-view-hero_88c967bb.jpg"
+    },
+    {
+      "id": "oak-hills-apartments",
+      "name": "Oak Hills Apartments",
+      "cardText": "80 UNITS 2BR/2BA & 3BR/2BA · Near Yosemite CALIFORNIA 80 UNITS AFFORDABLE / HUD / LIHTC Oak Hills Apartments 10260 Preston Lane, Jamestown, CA 95327 Nestled within Jamestown on the outskirts of Yosemite National Park. Regularly operates at or near 100% occupancy with a waiting list and excellent amenity package. 2BR/2BA & 3BR/2BA · Near Yosemite VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/oak-hills-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/oak-hills-apartments-hero_d08c0b60.jpg"
+    },
+    {
+      "id": "pacific-pointe-apartments",
+      "name": "Pacific Pointe Apartments",
+      "cardText": "80 UNITS Renovated 2000 · Extended Use Through 2029 · Near 100% Occupancy CALIFORNIA 80 UNITS SECTION 42 LIHTC Pacific Pointe Apartments 1025 Rosemarie Ln, Stockton, CA 95207 Part of a two-property portfolio with Granite Ridge totaling 160 units. Built 1971, renovated 2000. Consistently near 100% occupancy. Central location between San Francisco and Sacramento. Renovated 2000 · Extended Use Through 2029 · Near 100% Occupancy 1971",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/pacific-pointe-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/pacific-pointe-apartments-hero_9d31fc00.jpg"
+    },
+    {
+      "id": "granite-ridge-apartments",
+      "name": "Granite Ridge Apartments",
+      "cardText": "80 UNITS Renovated 2000 · 29% Section 8 · Extended Use Through 2029 CALIFORNIA 80 UNITS SECTION 42 LIHTC Granite Ridge Apartments 246 E Iris Ave, Stockton, CA 95210 Sister property to Pacific Pointe. Two-property portfolio totaling 160 units. Built 1973, renovated 2000. 29% Section 8 voucher occupancy. Extended use restrictions through 2029. Renovated 2000 · 29% Section 8 · Extended Use Through 2029 1973 VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/granite-ridge-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/granite-ridge-apartments-hero_68ccccc2.jpg"
+    },
+    {
+      "id": "lexington-arms-apartments",
+      "name": "Lexington Arms Apartments",
+      "cardText": "61 UNITS 61 Single Family Homes · DFW Metro · 35% Population Growth TEXAS 61 UNITS LIHTC / SINGLE FAMILY Lexington Arms Apartments 418 Lexington Dr #A, Waxahachie, TX 75165 61 single family homes benefiting from close proximity to the Dallas/Ft. Worth Metroplex — one of the strongest job markets in the country. Population within 5-mile radius has grown 35% since 2000. 61 Single Family Homes · DFW Metro · 35% Population Growth VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/lexington-arms-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/lexington-arms-apartments-hero_888adc6b.jpg"
+    },
+    {
+      "id": "breckenridge-village",
+      "name": "Breckenridge Village",
+      "cardText": "66 UNITS 4BR · Avg 1,341 sq ft · $803/mo avg rent TEXAS 66 UNITS TAX CREDIT / SINGLE FAMILY Breckenridge Village 2001 N Floyd St., Ennis, TX 75119 66 single family homes built 1996–1997 using Section 42 LIHTC. Located 30 miles south of Dallas with 4-bedroom floor plans averaging 1,341 sq ft. Current rents average $803/month. 4BR · Avg 1,341 sq ft · $803/mo avg rent 1996–1997 VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/breckenridge-village/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/breckenridge-village-hero_212b7201.jpg"
+    },
+    {
+      "id": "the-thibodaux-apartments",
+      "name": "The Thibodaux Apartments",
+      "cardText": "108 UNITS 108 Units · Cajun Country · Near Nicholls State University LOUISIANA 108 UNITS LOW INCOME HOUSING The Thibodaux Apartments 1300 Ridgefield Ave., Thibodaux, LA 70301 Located in Thibodaux — the largest city in Cajun Country's Lafourche Parish. A quiet college town 55 miles from New Orleans, home to Nicholls State University with 7,000+ students. 108 Units · Cajun Country · Near Nicholls State University VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1555636222-cae831e670b3?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/the-thibodaux-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/the-thibodaux-apartments-hero_a6531f35.jpg"
+    },
+    {
+      "id": "village-green-apartments",
+      "name": "Village Green Apartments",
+      "cardText": "80 UNITS REAC Score 93 · 98% Section 8 · Community Room & Playground MISSISSIPPI 80 UNITS HUD & CONVENTIONAL Village Green Apartments 105 Creek Bend Rd, Natchez, MS 39120 LIHTC property placed in service 1997. Subject to Mark-to-Market Use Agreement through 2036. 98% Project-Based Section 8 rent subsidy. April 2018 REAC Score: 93. REAC Score 93 · 98% Section 8 · Community Room & Playground 1997",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/village-green-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/village-green-apartments-hero_b84a23ad.jpg"
+    },
+    {
+      "id": "river-pointe-apartments",
+      "name": "River Pointe Apartments",
+      "cardText": "160 UNITS 2BR / 3BR / 4BR · Avg 1,245 sq ft · 80% Section 8 OHIO 160 UNITS LIHTC River Pointe Apartments 777 Avonia Drive, Columbus, OH 43228 A 160-unit garden apartment community 10 minutes west of downtown Columbus. Built 1996 with 2, 3 and 4 bedroom floor plans averaging 1,245 sq ft. 80% Section 8 voucher occupancy. 2BR / 3BR / 4BR · Avg 1,245 sq ft · 80% Section 8 1996 VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/river-pointe-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/river-pointe-apartments-hero_7791cc71.jpg"
+    },
+    {
+      "id": "grace-townhomes",
+      "name": "Grace Townhomes",
+      "cardText": "112 UNITS 1BR / 2BR / 3BR · Avg 982 sq ft · 100% Occupancy TEXAS 112 UNITS TOWNHOMES / LIHTC Grace Townhomes 1212 Grace Circle, Ennis, TX 75119 A 112-unit LIHTC garden apartment community 30 miles south of Dallas. Built 2001 with 1, 2 and 3 bedroom floor plans averaging 982 sq ft. Regularly operates at 100% occupancy. 1BR / 2BR / 3BR · Avg 982 sq ft · 100% Occupancy 2001 VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/grace-townhomes/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/grace-townhomes-hero_4780a983.jpg"
+    },
+    {
+      "id": "jefferson-arms-apartments",
+      "name": "Jefferson Arms Apartments",
+      "cardText": "75 UNITS 2BR/1BA & 3BR/1BA · Avg 900 sq ft · HUD FLORIDA 75 UNITS HUD Jefferson Arms Apartments 1425 E. Clark Ave #K, Monticello, FL 32344 75 units in Monticello, FL — 28 miles from Florida State University and one mile from the historic Perkins Opera House. 2BR/1BA and 3BR/1BA units averaging 900 sq ft. 2BR/1BA & 3BR/1BA · Avg 900 sq ft · HUD",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1576941089067-2de3c901e126?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/jefferson-arms-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/jefferson-arms-apartments-hero_fe5f5a57.jpg"
+    },
+    {
+      "id": "coral-village",
+      "name": "Coral Village",
+      "cardText": "72 UNITS 72 Units · HUD Property · Cape Coral, FL FLORIDA 72 UNITS HUD Coral Village 121 NE 10th Street, Cape Coral, FL 33909 A 72-unit HUD-assisted apartment community located in Cape Coral, Florida. Offering affordable housing with convenient access to local amenities in one of Southwest Florida's fastest-growing cities. 72 Units · HUD Property · Cape Coral, FL VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/coral-village/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/coral-village-hero_39fb0225.jpg"
+    },
+    {
+      "id": "walnut-hill-apartments",
+      "name": "Walnut Hill Apartments",
+      "cardText": "168 UNITS 2BR & 3BR · 168 Units · LIHTC VIRGINIA 168 UNITS LIHTC Walnut Hill Apartments 102 Lieutenants Run Drive, Petersburg, VA 23805 A 168-unit LIHTC apartment community in Petersburg, Virginia, offering spacious 2 and 3 bedroom floor plans. Conveniently located with easy access to the greater Richmond metro area. 2BR & 3BR · 168 Units · LIHTC VIEW LISTING",
+      "sourceImageUrl": "https://apartmentcorp.com/manus-storage/walnut_hill_c1f3c314.png",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/walnut-hill-apartments/hero.png",
+      "mediaType": "image/png",
+      "assetUrl": "/manus-storage/walnut-hill-apartments-hero_cbefb1b4.png"
+    },
+    {
+      "id": "holiday-apartments",
+      "name": "Holiday Apartments",
+      "cardText": "115 UNITS 2BR / 3BR / 4BR / 5BR · 115 Units · Project-Based Section 8 MISSISSIPPI 115 UNITS PROJECT-BASED SECTION 8 Holiday Apartments 601 Old Washington Road, Natchez, MS 39120 A 115-unit Project-Based Section 8 apartment community in historic Natchez, Mississippi, offering 2, 3, 4, and 5 bedroom floor plans. Located on Old Washington Road, providing quality affordable housing for large families in one of the South's most historically rich cities. 2BR / 3BR / 4BR / 5BR · 115 Units · Project-Based Section 8",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/holiday-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/holiday-apartments-hero_3b57dbe7.jpg"
+    },
+    {
+      "id": "cumberland-apartments",
+      "name": "Cumberland Apartments",
+      "cardText": "68 UNITS 1BR / 2BR / 3BR / 4BR · 68 Units · HUD MISSISSIPPI 68 UNITS HUD Cumberland Apartments 100 Cumberland Drive, Crystal Springs, MS 39059 A 68-unit HUD-assisted apartment community in Crystal Springs, Mississippi, offering 1, 2, 3, and 4 bedroom floor plans. Serving families of all sizes with affordable housing in Copiah County, approximately 30 miles south of Jackson. 1BR / 2BR / 3BR / 4BR · 68 Units · HUD",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1464082354059-27db6ce50048?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/cumberland-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/cumberland-apartments-hero_228e45d2.jpg"
+    },
+    {
+      "id": "la-promesa",
+      "name": "La Promesa",
+      "cardText": "136 UNITS 2BR & 3BR · 136 Units · HUD / LIHTC TEXAS 136 UNITS HUD / LIHTC La Promesa 4590 N Texas Ave, Odessa, TX 79762 A 136-unit HUD and LIHTC apartment community in Odessa, Texas, offering spacious 2 and 3 bedroom floor plans. Providing quality affordable housing in the heart of the Permian Basin. 2BR & 3BR · 136 Units · HUD / LIHTC",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/la-promesa/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/la-promesa-hero_bb942001.jpg"
+    },
+    {
+      "id": "the-gates-on-manhattan",
+      "name": "The Gates On Manhattan",
+      "cardText": "276 UNITS 1BR / 2BR / 3BR · 276 Units · Conventional & Section 8 LOUISIANA 276 UNITS CONVENTIONAL / SECTION 8 The Gates On Manhattan 1050 Manhattan Blvd, Harvey, LA 70058 A 276-unit mixed-income apartment community in Harvey, Louisiana, offering 1, 2, and 3 bedroom floor plans. Combining conventional market-rate units with Section 8 assisted housing just minutes from downtown New Orleans. 1BR / 2BR / 3BR · 276 Units · Conventional & Section 8 VIEW LISTING",
+      "sourceImageUrl": "https://apartmentcorp.com/manus-storage/gates_on_manhattan_7f1a44b6.png",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/the-gates-on-manhattan/hero.png",
+      "mediaType": "image/png",
+      "assetUrl": "/manus-storage/the-gates-on-manhattan-hero_2253accc.png"
+    },
+    {
+      "id": "ruby-diamond-homes",
+      "name": "Ruby Diamond Homes",
+      "cardText": "73 UNITS 3BR & 4BR · 73 Homes · LIHTC LOUISIANA 73 UNITS LIHTC Ruby Diamond Homes 7120 Kayla Ct, Marrero, LA 70072 A 73-home LIHTC single-family rental community in Marrero, Louisiana, offering spacious 3 and 4 bedroom homes. Providing quality affordable housing for families in the greater New Orleans metro area on the West Bank. 3BR & 4BR · 73 Homes · LIHTC VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/ruby-diamond-homes/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/ruby-diamond-homes-hero_49e6817b.jpg"
+    },
+    {
+      "id": "star-homes",
+      "name": "Star Homes",
+      "cardText": "48 UNITS 2BR / 3BR / 4BR · 48 Homes · LIHTC LOUISIANA 48 UNITS LIHTC Star Homes 7120 Kayla Ct, Marrero, LA 70072 A 48-home LIHTC single-family rental community in Marrero, Louisiana, offering 2, 3, and 4 bedroom homes. Located on the West Bank of the greater New Orleans metro area, providing quality affordable housing for families of all sizes. 2BR / 3BR / 4BR · 48 Homes · LIHTC VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/star-homes/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/star-homes-hero_b21df7b6.jpg"
+    },
+    {
+      "id": "north-pointe-apartments",
+      "name": "North Pointe Apartments",
+      "cardText": "27 UNITS 2BR / 3BR / 4BR · 27 Units · LIHTC LOUISIANA 27 UNITS LIHTC North Pointe Apartments 2580 Freddie St, Shreveport, LA 71107 A 27-unit LIHTC apartment community in Shreveport, Louisiana, offering 2, 3, and 4 bedroom floor plans. Providing affordable housing in North Shreveport with convenient access to local services and employment centers. 2BR / 3BR / 4BR · 27 Units · LIHTC",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1555636222-cae831e670b3?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/north-pointe-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/north-pointe-apartments-hero_7d7278b7.jpg"
+    },
+    {
+      "id": "granite-bayou-pointe-apartments",
+      "name": "Granite Bayou Pointe Apartments",
+      "cardText": "60 UNITS 1BR / 2BR / 3BR / 4BR · 60 Units · LIHTC LOUISIANA 60 UNITS LIHTC Granite Bayou Pointe Apartments 8139 Fork Bayou Ln, Shreveport, LA 71106 A 60-unit LIHTC apartment community in Shreveport, Louisiana, offering 1, 2, 3, and 4 bedroom floor plans. Situated along Fork Bayou Lane, providing quality affordable housing for families of all sizes in the Shreveport metro area. 1BR / 2BR / 3BR / 4BR · 60 Units · LIHTC VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1592595896551-12b371d546d5?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/granite-bayou-pointe-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/granite-bayou-pointe-apartments-hero_26578fb5.jpg"
+    },
+    {
+      "id": "pelican-bay-apartments",
+      "name": "Pelican Bay Apartments",
+      "cardText": "152 UNITS 1BR / 2BR / 3BR / 4BR · 152 Units · LIHTC LOUISIANA 152 UNITS LIHTC Pelican Bay Apartments 2121 N Lobdell Blvd, Baton Rouge, LA 70806 A 152-unit LIHTC apartment community in Baton Rouge, Louisiana, offering 1, 2, 3, and 4 bedroom floor plans. Conveniently located on N Lobdell Blvd, providing quality affordable housing for families of all sizes in the heart of Louisiana's capital city. 1BR / 2BR / 3BR / 4BR · 152 Units · LIHTC VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1460317442991-0ec209397118?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/pelican-bay-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/pelican-bay-apartments-hero_5280d90e.jpg"
+    },
+    {
+      "id": "howell-place-apartments",
+      "name": "Howell Place Apartments",
+      "cardText": "48 UNITS 1BR / 2BR / 3BR / 4BR · 48 Units · LIHTC LOUISIANA 48 UNITS LIHTC Howell Place Apartments 4150 72nd Ave, Baton Rouge, LA 70807 A 48-unit LIHTC apartment community in Baton Rouge, Louisiana, offering 1, 2, 3, and 4 bedroom floor plans. Providing quality affordable housing for families of all sizes in the Baton Rouge metro area. 1BR / 2BR / 3BR / 4BR · 48 Units · LIHTC VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/howell-place-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/howell-place-apartments-hero_e0937795.jpg"
+    },
+    {
+      "id": "pirates-bend-apartments",
+      "name": "Pirates Bend Apartments",
+      "cardText": "48 UNITS 1BR / 2BR / 3BR / 4BR · 48 Units · LIHTC LOUISIANA 48 UNITS LIHTC Pirates Bend Apartments 8165 Plank Rd, Baton Rouge, LA 70811 A 48-unit LIHTC apartment community in Baton Rouge, Louisiana, offering 1, 2, 3, and 4 bedroom floor plans. Conveniently located on Plank Road, providing quality affordable housing for families in the north Baton Rouge corridor. 1BR / 2BR / 3BR / 4BR · 48 Units · LIHTC VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/pirates-bend-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/pirates-bend-apartments-hero_39c6e118.jpg"
+    },
+    {
+      "id": "wilmington-arms-apartments",
+      "name": "Wilmington Arms Apartments",
+      "cardText": "162 UNITS 1BR / 2BR / 3BR / 4BR · 162 Units · Section 8 CALIFORNIA 162 UNITS SECTION 8 Wilmington Arms Apartments 700 W Laurel St, Compton, CA 90220 A 162-unit Section 8 apartment community in Compton, California, offering 1, 2, 3, and 4 bedroom floor plans. Providing quality affordable housing for families in the greater Los Angeles metro area, with convenient access to employment centers and transportation corridors. 1BR / 2BR / 3BR / 4BR · 162 Units · Section 8",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/wilmington-arms-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/wilmington-arms-apartments-hero_bd8200c1.jpg"
+    },
+    {
+      "id": "anaheim-gardens-apartments",
+      "name": "Anaheim Gardens Apartments",
+      "cardText": "80 UNITS 1BR / 2BR / 3BR · 80 Units · HUD / Section 8 CALIFORNIA 80 UNITS HUD / SECTION 8 Anaheim Gardens Apartments 1511 Anaheim St, Harbor City, CA 90710 An 80-unit HUD and Section 8 apartment community in Harbor City, California, offering 1, 2, and 3 bedroom floor plans. Providing quality affordable housing in the South Bay area of Los Angeles County, with convenient access to the 110 Freeway and local employment centers. 1BR / 2BR / 3BR · 80 Units · HUD / Section 8",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/anaheim-gardens-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/anaheim-gardens-apartments-hero_7d82dd02.jpg"
+    },
+    {
+      "id": "fairfax-senior-terrace-apartments",
+      "name": "Fairfax Senior Terrace Apartments",
+      "cardText": "46 UNITS 46 Units · HUD / Section 8 · Senior Housing CALIFORNIA 46 UNITS HUD / SECTION 8 Fairfax Senior Terrace Apartments 737 S Genesee Ave, Los Angeles, CA 90036 A 46-unit HUD and Section 8 senior apartment community in the heart of Los Angeles, California. Located in the Fairfax District near Melrose Avenue, offering quality affordable housing for seniors in one of LA's most vibrant and walkable neighborhoods. 46 Units · HUD / Section 8 · Senior Housing",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/fairfax-senior-terrace-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/fairfax-senior-terrace-apartments-hero_eced4a66.jpg"
+    },
+    {
+      "id": "midtown-manor-apartments",
+      "name": "Midtown Manor Apartments",
+      "cardText": "52 UNITS 1BR · 52 Units · Section 8 CALIFORNIA 52 UNITS SECTION 8 Midtown Manor Apartments 528 W 50th St, Los Angeles, CA 90037 A 52-unit Section 8 apartment community in South Los Angeles, California, offering 1 bedroom floor plans. Providing quality affordable housing in the Midtown neighborhood with convenient access to public transportation, employment centers, and the amenities of the greater Los Angeles metro area. 1BR · 52 Units · Section 8",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/midtown-manor-apartments/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/midtown-manor-apartments-hero_127bb8f7.jpg"
+    },
+    {
+      "id": "crossroads-of-lee-s-summit",
+      "name": "Crossroads of Lee's Summit",
+      "cardText": "160 UNITS 2BR / 3BR · 160 Units · LIHTC MISSOURI 160 UNITS LIHTC Crossroads of Lee's Summit 220 NE Town Centre Blvd, Lee's Summit, MO 64064 A 160-unit LIHTC apartment community in Lee's Summit, Missouri, offering 2 and 3 bedroom floor plans. Located in the Town Centre corridor of one of Kansas City's fastest-growing suburbs, providing quality affordable housing with convenient access to major employment centers, retail, and transportation. 2BR / 3BR · 160 Units · LIHTC VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/crossroads-of-lee-s-summit/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/crossroads-of-lee-s-summit-hero_91b36ad9.jpg"
+    },
+    {
+      "id": "river-garden-estates",
+      "name": "River Garden Estates",
+      "cardText": "123 UNITS 123 Units · LIHTC · Sacramento, CA CALIFORNIA 123 UNITS LIHTC River Garden Estates 3801 Norwood Ave, Sacramento, CA 95838 A 123-unit LIHTC apartment community in Sacramento, California, offering quality affordable rental homes in the River Garden neighborhood. Conveniently located with access to employment centers, public transportation, and the amenities of the Sacramento metro area. 123 Units · LIHTC · Sacramento, CA VIEW LISTING",
+      "sourceImageUrl": "https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?w=600&q=80",
+      "sourcePage": "https://apartmentcorp.com/portfolio",
+      "localImagePath": "/home/ubuntu/webdev-static-assets/Property Photos/river-garden-estates/hero.jpg",
+      "mediaType": "image/jpeg",
+      "assetUrl": "/manus-storage/river-garden-estates-hero_0ba4c28b.jpg"
+    }
+  ]
+}

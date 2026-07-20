@@ -1,0 +1,172 @@
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/anaheim-gardens-apartments-hero.jpg (size: 66591 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/anaheim-gardens-apartments-hero_7d82dd02.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/arbor-crest-hero.png (size: 3278540 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/arbor-crest-hero_bb59ee9e.png
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/boca-ciega-hero.png (size: 3584886 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/boca-ciega-hero_c6fb7b8f.png
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/breckenridge-village-hero.jpg (size: 66462 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/breckenridge-village-hero_212b7201.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/columbia-village-townhomes-hero.jpg (size: 66591 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/columbia-village-townhomes-hero_691e71ba.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/coral-village-hero.jpg (size: 39854 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/coral-village-hero_39fb0225.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/crossroads-of-lee-s-summit-hero.jpg (size: 80986 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/crossroads-of-lee-s-summit-hero_91b36ad9.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/cumberland-apartments-hero.jpg (size: 47488 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/cumberland-apartments-hero_228e45d2.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/fairfax-senior-terrace-apartments-hero.jpg (size: 39854 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/fairfax-senior-terrace-apartments-hero_eced4a66.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/forest-view-hero.jpg (size: 69921 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/forest-view-hero_88c967bb.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/grace-townhomes-hero.jpg (size: 57619 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/grace-townhomes-hero_4780a983.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/granite-bayou-pointe-apartments-hero.jpg (size: 56075 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/granite-bayou-pointe-apartments-hero_26578fb5.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/granite-ridge-apartments-hero.jpg (size: 66535 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/granite-ridge-apartments-hero_68ccccc2.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/grove-park-terrace-hero.png (size: 2583795 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/grove-park-terrace-hero_81fb8928.png
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/holiday-apartments-hero.jpg (size: 72411 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/holiday-apartments-hero_3b57dbe7.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/howell-place-apartments-hero.jpg (size: 83026 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/howell-place-apartments-hero_e0937795.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/jefferson-arms-apartments-hero.jpg (size: 67759 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/jefferson-arms-apartments-hero_fe5f5a57.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/la-promesa-hero.jpg (size: 59466 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/la-promesa-hero_bb942001.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/lexington-arms-apartments-hero.jpg (size: 64342 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/lexington-arms-apartments-hero_888adc6b.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/macedonia-hero.png (size: 3318507 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/macedonia-hero_a1de77c1.png
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/marrero-3-hero.png (size: 3141970 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/marrero-3-hero_211793e0.png
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/midtown-manor-apartments-hero.jpg (size: 62334 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/midtown-manor-apartments-hero_127bb8f7.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/north-pointe-apartments-hero.jpg (size: 47252 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/north-pointe-apartments-hero_7d7278b7.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/oak-hills-apartments-hero.jpg (size: 39854 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/oak-hills-apartments-hero_d08c0b60.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/opa-locka-hero.png (size: 2968931 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/opa-locka-hero_e963ea41.png
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/pacific-pointe-apartments-hero.jpg (size: 72411 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/pacific-pointe-apartments-hero_9d31fc00.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/pelican-bay-apartments-hero.jpg (size: 48533 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/pelican-bay-apartments-hero_5280d90e.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/pirates-bend-apartments-hero.jpg (size: 50384 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/pirates-bend-apartments-hero_39c6e118.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/river-garden-estates-hero.jpg (size: 76919 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/river-garden-estates-hero_0ba4c28b.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/river-pointe-apartments-hero.jpg (size: 65983 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/river-pointe-apartments-hero_7791cc71.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/riverchase-hero.png (size: 2809097 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/riverchase-hero_8ba01c67.png
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/ruby-diamond-homes-hero.jpg (size: 62334 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/ruby-diamond-homes-hero_49e6817b.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/silver-springs-hero.jpg (size: 80986 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/silver-springs-hero_ff4a691a.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/st-charles-place-hero.jpg (size: 44507 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/st-charles-place-hero_783455a7.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/star-homes-hero.jpg (size: 80986 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/star-homes-hero_b21df7b6.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/the-gates-on-manhattan-hero.png (size: 3156077 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/the-gates-on-manhattan-hero_2253accc.png
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/the-thibodaux-apartments-hero.jpg (size: 47252 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/the-thibodaux-apartments-hero_a6531f35.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/thomasville-church-homes-hero.png (size: 3490000 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/thomasville-church-homes-hero_d2e97276.png
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/village-green-apartments-hero.jpg (size: 76919 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/village-green-apartments-hero_b84a23ad.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/walnut-hill-apartments-hero.png (size: 2847724 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/walnut-hill-apartments-hero_cbefb1b4.png
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/wilmington-arms-apartments-hero.jpg (size: 72411 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/wilmington-arms-apartments-hero_bd8200c1.jpg
+Uploading file (webdev private): /home/ubuntu/webdev-static-assets/propertymax-upload/yorkshire-windsor-village-hero.jpg (size: 60838 bytes)
+File uploaded successfully!
+Storage Path: /manus-storage/yorkshire-windsor-village-hero_28c5c0da.jpg
+
+========== Upload Summary ==========
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/anaheim-gardens-apartments-hero.jpg -> /manus-storage/anaheim-gardens-apartments-hero_7d82dd02.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/arbor-crest-hero.png -> /manus-storage/arbor-crest-hero_bb59ee9e.png
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/boca-ciega-hero.png -> /manus-storage/boca-ciega-hero_c6fb7b8f.png
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/breckenridge-village-hero.jpg -> /manus-storage/breckenridge-village-hero_212b7201.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/columbia-village-townhomes-hero.jpg -> /manus-storage/columbia-village-townhomes-hero_691e71ba.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/coral-village-hero.jpg -> /manus-storage/coral-village-hero_39fb0225.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/crossroads-of-lee-s-summit-hero.jpg -> /manus-storage/crossroads-of-lee-s-summit-hero_91b36ad9.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/cumberland-apartments-hero.jpg -> /manus-storage/cumberland-apartments-hero_228e45d2.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/fairfax-senior-terrace-apartments-hero.jpg -> /manus-storage/fairfax-senior-terrace-apartments-hero_eced4a66.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/forest-view-hero.jpg -> /manus-storage/forest-view-hero_88c967bb.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/grace-townhomes-hero.jpg -> /manus-storage/grace-townhomes-hero_4780a983.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/granite-bayou-pointe-apartments-hero.jpg -> /manus-storage/granite-bayou-pointe-apartments-hero_26578fb5.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/granite-ridge-apartments-hero.jpg -> /manus-storage/granite-ridge-apartments-hero_68ccccc2.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/grove-park-terrace-hero.png -> /manus-storage/grove-park-terrace-hero_81fb8928.png
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/holiday-apartments-hero.jpg -> /manus-storage/holiday-apartments-hero_3b57dbe7.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/howell-place-apartments-hero.jpg -> /manus-storage/howell-place-apartments-hero_e0937795.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/jefferson-arms-apartments-hero.jpg -> /manus-storage/jefferson-arms-apartments-hero_fe5f5a57.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/la-promesa-hero.jpg -> /manus-storage/la-promesa-hero_bb942001.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/lexington-arms-apartments-hero.jpg -> /manus-storage/lexington-arms-apartments-hero_888adc6b.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/macedonia-hero.png -> /manus-storage/macedonia-hero_a1de77c1.png
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/marrero-3-hero.png -> /manus-storage/marrero-3-hero_211793e0.png
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/midtown-manor-apartments-hero.jpg -> /manus-storage/midtown-manor-apartments-hero_127bb8f7.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/north-pointe-apartments-hero.jpg -> /manus-storage/north-pointe-apartments-hero_7d7278b7.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/oak-hills-apartments-hero.jpg -> /manus-storage/oak-hills-apartments-hero_d08c0b60.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/opa-locka-hero.png -> /manus-storage/opa-locka-hero_e963ea41.png
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/pacific-pointe-apartments-hero.jpg -> /manus-storage/pacific-pointe-apartments-hero_9d31fc00.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/pelican-bay-apartments-hero.jpg -> /manus-storage/pelican-bay-apartments-hero_5280d90e.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/pirates-bend-apartments-hero.jpg -> /manus-storage/pirates-bend-apartments-hero_39c6e118.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/river-garden-estates-hero.jpg -> /manus-storage/river-garden-estates-hero_0ba4c28b.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/river-pointe-apartments-hero.jpg -> /manus-storage/river-pointe-apartments-hero_7791cc71.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/riverchase-hero.png -> /manus-storage/riverchase-hero_8ba01c67.png
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/ruby-diamond-homes-hero.jpg -> /manus-storage/ruby-diamond-homes-hero_49e6817b.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/silver-springs-hero.jpg -> /manus-storage/silver-springs-hero_ff4a691a.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/st-charles-place-hero.jpg -> /manus-storage/st-charles-place-hero_783455a7.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/star-homes-hero.jpg -> /manus-storage/star-homes-hero_b21df7b6.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/the-gates-on-manhattan-hero.png -> /manus-storage/the-gates-on-manhattan-hero_2253accc.png
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/the-thibodaux-apartments-hero.jpg -> /manus-storage/the-thibodaux-apartments-hero_a6531f35.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/thomasville-church-homes-hero.png -> /manus-storage/thomasville-church-homes-hero_d2e97276.png
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/village-green-apartments-hero.jpg -> /manus-storage/village-green-apartments-hero_b84a23ad.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/walnut-hill-apartments-hero.png -> /manus-storage/walnut-hill-apartments-hero_cbefb1b4.png
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/wilmington-arms-apartments-hero.jpg -> /manus-storage/wilmington-arms-apartments-hero_bd8200c1.jpg
+[SUCCESS] /home/ubuntu/webdev-static-assets/propertymax-upload/yorkshire-windsor-village-hero.jpg -> /manus-storage/yorkshire-windsor-village-hero_28c5c0da.jpg
+=====================================
+Total: 42, Success: 42, Failed: 0
