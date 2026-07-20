@@ -6,3 +6,20 @@
 - [x] Update the flyer preview immediately when the manager selects a building or changes the referral reward.
 - [x] Retain reliable Print Flyer and Download PNG actions in the simplified interface.
 - [x] Validate the standalone page on desktop and mobile and document its green dashboard-button link.
+- [x] Inspect the Colonial Estates reference PDF and record the exact fixed flyer elements.
+- [x] Replace the current generated flyer design with the Colonial Estates template structure.
+- [x] Limit dynamic flyer fields to the reference-defined property photo, property name, address, contact number, referral reward, and QR destination.
+- [x] Validate the template against the reference and re-test print/PNG output.
+- [x] Identify every reference-derived field that varies by property, including names, contact details, reward rules, QR destinations, and any other content visible in the PDF.
+- [x] Confirm the variable-field map with the PDF before modifying the live template.
+- [x] Build the per-property `Flyer Photo` grid with an immediate selected-photo checkmark and live preview update.
+- [x] Populate the flyer’s property name, address, and manager phone number from the selected property’s data.
+- [x] Preserve the Colonial Estates-style navy/lime template, three steps, disclaimer, `Spread the Word` element, and Equal Housing mark across all properties.
+- [x] Ensure Print Flyer hides every surrounding control and prints only one 8.5 × 11 flyer page.
+- [x] Add a property-specific photo library grid, with selectable hero photo and visible selected state.
+- [x] Support editable referral amount, auto-populated property name, address, and phone number, plus a property website QR destination.
+- [x] Keep one-click print output limited to the 8.5 × 11 flyer and retain high-resolution PNG export.
+- [x] Restrict the first implementation and data-validation pass to Arbor Crest, Grove Park Terrace, Thomasville Church Homes, Boca Ciega, Opa Locka, and Macedonia.
+- [x] Validate the six-property pilot before preparing any additional portfolio properties.
+- [x] Verify the first six properties’ address and contact fields against the supplied Notion template before using them in the flyer.
+- [x] Verify the six pilot manager phone numbers and extensions against the supplied Company Contacts Notion page before using them in the flyer.
