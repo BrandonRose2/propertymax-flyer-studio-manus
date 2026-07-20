@@ -23,3 +23,9 @@
 - [x] Validate the six-property pilot before preparing any additional portfolio properties.
 - [x] Verify the first six properties’ address and contact fields against the supplied Notion template before using them in the flyer.
 - [x] Verify the six pilot manager phone numbers and extensions against the supplied Company Contacts Notion page before using them in the flyer.
+- [ ] Keep the page bounded to the print-ready flyer module only, excluding asset-library, ad-copy, and property-specification hub pages.
+- [ ] Align the property picker, photo-picker trigger, editable referral amount, print/PNG actions, and live preview with the requested print-ready flyer module flow.
+- [ ] Revalidate the final module-only experience on desktop and mobile before delivery.
+- [ ] Inspect the shared reference task’s Print-Ready Flyers section and record its exact control and preview behavior.
+- [ ] Match the standalone module to the shared reference while retaining the six-property pilot data.
+- [ ] Inspect the public Property Marketing Asset Hub flyer section and replace the inaccessible shared-task reference with its observed workflow and styling details.

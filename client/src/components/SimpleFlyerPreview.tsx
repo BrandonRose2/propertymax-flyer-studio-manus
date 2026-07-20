@@ -1,21 +1,19 @@
 /**
- * Colonial Estates reference-template reminder: navy/lime print artifact, not a dashboard card.
- * Only approved property data, selected hero photo, reward amount, and QR destination are dynamic.
+ * Public Property Marketing Asset Hub reference reminder: navy/lime print artifact, not a dashboard card.
+ * Only approved property data, selected hero photo, and reward amount are dynamic in the flyer itself.
  */
 import { forwardRef } from "react";
 import { Banknote, Home, MapPin, UsersRound } from "lucide-react";
-import { QRCodeSVG } from "qrcode.react";
 import type { PilotFlyerProperty } from "@/data/pilotFlyerProperties";
 
 type SimpleFlyerPreviewProps = {
   property: PilotFlyerProperty;
   imageUrl: string;
   reward: string;
-  qrDestination: string;
 };
 
 export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewProps>(
-  function SimpleFlyerPreview({ property, imageUrl, reward, qrDestination }, ref) {
+  function SimpleFlyerPreview({ property, imageUrl, reward }, ref) {
     const contactLine = `${property.officePhone} • Ext. ${property.extension}`;
 
     return (
@@ -83,20 +81,20 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
         </section>
 
         <footer className="referral-flyer__bottom">
-          <div className="spread-word-mark" aria-hidden="true">♥</div>
+          <div className="spread-word-mark" aria-hidden="true">
+            <span>SPREAD THE WORD.</span>
+            <small>ENJOY THE REWARDS!</small>
+          </div>
           <div className="thank-you-copy">
             <b>THANK YOU FOR HELPING US</b>
             <strong>Build a Better Community!</strong>
-            <span>Call leasing: {contactLine}</span>
           </div>
           <div className="address-pill"><MapPin aria-hidden="true" /> {property.address}</div>
-          <div className="flyer-qr" aria-label="Property website QR code">
-            <QRCodeSVG value={qrDestination || property.qrDestination} size={40} level="M" includeMargin={false} />
-          </div>
           <div className="equal-housing" aria-label="Equal housing opportunity">
             <Home aria-hidden="true" />
             <span>EQUAL HOUSING<br />OPPORTUNITY</span>
           </div>
+          <p className="flyer-contact-line">Questions? Contact the Leasing Office for details. &nbsp;•&nbsp; {contactLine}</p>
         </footer>
       </article>
     );

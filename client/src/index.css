@@ -64,19 +64,16 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .flyer-shell { width: min(100%, 980px); margin: 0 auto; }
 .tool-header { display: flex; align-items: center; gap: 12px; margin: 0 0 15px; }
 .tool-header__rule { width: 2px; height: 38px; background: #94be25; }
-.tool-header p { margin: 0 0 3px; color: #717974; font-size: 9px; font-weight: 800; letter-spacing: .14em; }
 .tool-header h1 { margin: 0; color: #122a49; font-family: "Lora", Georgia, serif; font-size: clamp(25px, 3.2vw, 34px); font-weight: 500; letter-spacing: -.045em; line-height: 1.05; }
 
 .flyer-controls { padding: 18px 20px 17px; background: rgba(255, 255, 253, .87); border: 1px solid #dcdcd2; border-radius: 4px; box-shadow: 0 7px 26px rgba(28, 45, 52, .055); }
 .tool-instructions { max-width: 830px; margin: 0 0 16px; color: #5f6966; font-size: 12px; line-height: 1.5; }
-.control-grid { display: grid; grid-template-columns: minmax(240px, 1.35fr) minmax(130px, .62fr) minmax(230px, 1.1fr); gap: 12px; align-items: end; }
+.control-grid { display: grid; grid-template-columns: minmax(240px, 1.35fr) minmax(130px, .62fr); gap: 12px; align-items: end; }
 .control-field { display: grid; gap: 6px; }
 .control-field > label { display: flex; align-items: center; gap: 5px; color: #34434d; font-size: 11px; font-weight: 800; }
 .control-field [data-slot="select-trigger"], .control-field input { height: 38px; color: #182d48; background: #fff; border-color: #cdd0ca; border-radius: 3px; box-shadow: none; font-size: 12px; }
 .control-field input:focus, .control-field [data-slot="select-trigger"]:focus { border-color: #719b22; box-shadow: 0 0 0 2px rgba(118, 160, 33, .14); }
 .control-field > span { min-height: 12px; color: #77807a; font-size: 9px; line-height: 1.2; }
-.qr-control input { font-size: 10px; }
-
 .photo-picker-control { margin-top: 17px; padding-top: 14px; border-top: 1px solid #e5e4db; }
 .photo-picker-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .photo-picker-heading > div { display: grid; gap: 3px; }
@@ -110,30 +107,30 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .flyer-preview-frame { display: grid; place-items: center; padding: 8px 0 0; }
 .referral-flyer { width: min(100%, 612px); aspect-ratio: 8.5 / 11; display: flex; flex-direction: column; overflow: hidden; color: #082d54; background: #fff; box-shadow: 0 16px 32px rgba(33, 48, 52, .24), 0 1px 0 rgba(255,255,255,.9) inset; font-family: "DM Sans", Arial, sans-serif; }
 
-.referral-flyer__top { position: relative; z-index: 2; height: 17.5%; overflow: visible; background: #062b52; }
-.property-wordmark { position: absolute; z-index: 2; top: 14%; left: 7%; display: flex; align-items: center; gap: 8px; color: #fff; }
-.property-wordmark__lantern { width: 49px; height: 49px; color: #fff; }
+.referral-flyer__top { position: relative; z-index: 2; height: 11%; overflow: visible; border-top: 7px solid #b7dc43; background: #fff; }
+.property-wordmark { position: absolute; z-index: 2; top: 22%; left: 7%; display: flex; align-items: center; gap: 7px; color: #082d54; }
+.property-wordmark__lantern { width: 31px; height: 31px; color: #082d54; }
 .property-wordmark__lantern svg { width: 100%; height: 100%; }
-.property-wordmark strong { display: block; max-width: 220px; color: #fff; font-family: Georgia, serif; font-size: clamp(21px, 3.6vw, 35px); font-weight: 500; letter-spacing: -.055em; line-height: .88; text-transform: uppercase; }
-.property-wordmark small { display: block; margin-top: 6px; color: #b8d848; font-size: 6.5px; font-weight: 800; letter-spacing: .24em; text-align: center; }
-.top-curve { position: absolute; z-index: 1; right: -20%; bottom: -58%; width: 88%; height: 100%; border: 4px solid #aacf2d; border-right: 0; border-radius: 50% 0 0 0; opacity: .9; transform: rotate(-8deg); }
-.earn-badge { position: absolute; z-index: 3; top: 0; right: 5.2%; display: grid; justify-items: center; width: 29%; min-height: 146%; padding: 9% 5% 9%; color: #082d54; background: #a9d22e; clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0 88%); text-align: center; }
+.property-wordmark strong { display: block; max-width: none; color: #082d54; font-family: Georgia, serif; font-size: clamp(16px, 1.8vw, 22px); font-weight: 700; letter-spacing: -.055em; line-height: .9; text-transform: uppercase; white-space: nowrap; }
+.property-wordmark small { display: block; margin-top: 3px; color: #759a23; font-size: 5px; font-weight: 800; letter-spacing: .2em; text-align: center; }
+.top-curve { position: absolute; z-index: 1; right: 0; bottom: 0; left: 0; height: 5px; background: #b7dc43; }
+.earn-badge { position: absolute; z-index: 3; top: -2%; right: 5.2%; display: grid; justify-items: center; width: 28%; min-height: 215%; padding: 9% 5% 9%; color: #fff; border: 5px solid #b7dc43; background: #082d54; clip-path: polygon(4% 0, 100% 0, 100% 96%, 88% 100%, 0 94%, 0 5%); text-align: center; }
 .earn-badge span { font-size: clamp(13px, 2.2vw, 21px); font-weight: 900; letter-spacing: .035em; line-height: 1; }
 .earn-badge strong { color: #fff; font-size: clamp(35px, 6.4vw, 61px); font-weight: 950; letter-spacing: -.1em; line-height: .83; text-shadow: 2px 2px 0 #082d54; }
-.earn-badge i { width: 80%; border-top: 4px dotted #082d54; }
-.earn-badge b { color: #082d54; font-size: clamp(7px, 1.15vw, 11px); font-weight: 900; letter-spacing: .03em; line-height: 1.05; }
+.earn-badge i { width: 80%; border-top: 4px dotted #fff; }
+.earn-badge b { color: #b7dc43; font-size: clamp(7px, 1.15vw, 11px); font-weight: 900; letter-spacing: .03em; line-height: 1.05; }
 
-.referral-flyer__hero { position: relative; height: 34.5%; overflow: visible; background: #2e5a74; }
+.referral-flyer__hero { position: relative; height: 39%; overflow: visible; background: #2e5a74; }
 .referral-flyer__hero > img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .hero-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3, 28, 50, .05) 0%, rgba(3, 28, 50, .3) 100%); }
-.community-ribbon { position: absolute; z-index: 3; bottom: -8.5%; left: 14%; display: flex; align-items: center; gap: 6px; width: 68%; min-height: 20%; padding: 3.5% 6%; color: #fff; background: #082d54; clip-path: polygon(3% 24%, 10% 8%, 91% 0, 98% 21%, 100% 55%, 93% 83%, 8% 100%, 0 76%); transform: rotate(-.6deg); }
-.community-ribbon svg { width: 26px; height: 26px; fill: #fff; }
-.community-ribbon span { display: flex; flex-wrap: wrap; align-items: baseline; gap: 3px; font-size: clamp(8px, 1.4vw, 13px); line-height: 1; }
+.community-ribbon { position: absolute; z-index: 3; right: 2%; bottom: 2%; left: auto; display: flex; align-items: center; gap: 5px; width: 47%; min-height: 13%; padding: 2.3% 4%; color: #fff; background: #082d54; clip-path: polygon(3% 24%, 10% 8%, 91% 0, 98% 21%, 100% 55%, 93% 83%, 8% 100%, 0 76%); transform: rotate(-.6deg); }
+.community-ribbon svg { width: 18px; height: 18px; fill: #fff; }
+.community-ribbon span { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px; font-size: clamp(6px, 1.05vw, 10px); line-height: 1; }
 .community-ribbon b { font-weight: 950; }
 .community-ribbon em { color: #b5d93e; font-style: normal; font-weight: 900; }
-.community-ribbon small { width: 100%; margin-top: 2px; color: #fff; font-family: Georgia, serif; font-size: clamp(8px, 1.2vw, 12px); font-style: italic; text-align: right; }
+.community-ribbon small { width: 100%; margin-top: 1px; color: #fff; font-family: Georgia, serif; font-size: clamp(6px, .9vw, 8px); font-style: italic; text-align: right; }
 
-.referral-flyer__body { height: 34%; display: grid; grid-template-columns: .97fr 1.03fr; gap: 5.3%; padding: 6.6% 7% 2.7%; background: #fff; }
+.referral-flyer__body { height: 31%; display: grid; grid-template-columns: .97fr 1.03fr; gap: 5.3%; padding: 6.6% 7% 2.7%; background: #fff; }
 .referral-steps h2 { margin: 0 0 8px; color: #082d54; font-family: Georgia, serif; font-size: clamp(21px, 3.3vw, 32px); font-weight: 900; letter-spacing: -.075em; line-height: .9; }
 .referral-step { display: grid; grid-template-columns: 21px 28px 1fr; column-gap: 5px; align-items: center; padding: 5px 0; border-bottom: 1px dashed #9ba5a4; }
 .referral-step > span { display: grid; place-items: center; width: 20px; height: 20px; color: #fff; border-radius: 50%; background: #082d54; font-size: 10px; font-weight: 900; }
@@ -150,18 +147,19 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .share-offer p { margin: 5px 0 0; color: #fff; font-size: clamp(7px, 1.13vw, 10px); font-weight: 700; line-height: 1.05; }
 .flyer-disclaimer { margin: 0; color: #273b51; font-size: clamp(4.9px, .75vw, 7px); font-style: italic; font-weight: 600; line-height: 1.12; text-align: center; }
 
-.referral-flyer__bottom { position: relative; height: 14%; display: grid; grid-template-columns: 13% 1fr auto; grid-template-rows: 1fr auto; gap: 0 7px; align-items: center; padding: 4% 7% 4.5%; color: #082d54; background: linear-gradient(90deg, #b7dc43 0%, #b7dc43 68%, #a5ce31 68%); }
-.spread-word-mark { display: grid; place-items: center; grid-row: 1 / span 2; width: clamp(30px, 5.5vw, 54px); height: clamp(30px, 5.5vw, 54px); color: #fff; border: 4px solid #fff; border-radius: 50%; background: #082d54; font-size: clamp(16px, 3vw, 28px); }
-.thank-you-copy { display: grid; align-content: center; gap: 1px; }
+.referral-flyer__bottom { position: relative; height: 19%; display: grid; grid-template-columns: 14% 1fr 14%; grid-template-rows: 1fr auto auto; column-gap: 7px; align-items: center; padding: 4% 7% 4.5%; color: #082d54; background: #fff; }
+.spread-word-mark { display: grid; place-content: center; grid-column: 1; grid-row: 1 / span 2; width: clamp(35px, 6.2vw, 59px); height: clamp(35px, 6.2vw, 59px); padding: 4px; color: #fff; border: 3px solid #b7dc43; border-radius: 50%; background: #082d54; font-size: clamp(4.5px, .72vw, 7px); font-weight: 950; line-height: 1.05; text-align: center; }
+.spread-word-mark span { display: block; }
+.spread-word-mark small { display: block; margin-top: 2px; color: #b7dc43; font-size: .78em; font-weight: 900; line-height: 1.05; }
+.thank-you-copy { display: grid; grid-column: 2; grid-row: 1; align-content: center; gap: 1px; }
 .thank-you-copy b { color: #082d54; font-size: clamp(6px, 1.1vw, 10px); font-weight: 950; letter-spacing: .01em; }
-.thank-you-copy strong { color: #082d54; font-family: Georgia, serif; font-size: clamp(13px, 2.3vw, 22px); font-style: italic; font-weight: 500; letter-spacing: -.07em; line-height: .95; }
-.thank-you-copy span { margin-top: 2px; color: #082d54; font-size: clamp(5.2px, .8vw, 7.7px); font-weight: 750; }
-.address-pill { display: flex; align-items: center; grid-column: 2 / span 2; gap: 4px; width: max-content; max-width: 100%; margin-top: 4px; padding: 3px 9px; overflow: hidden; color: #fff; border-radius: 999px; background: #082d54; font-size: clamp(5.6px, .93vw, 9px); font-weight: 700; line-height: 1.1; text-overflow: ellipsis; white-space: nowrap; }
-.address-pill svg { flex: none; width: 11px; height: 11px; fill: #fff; }
-.flyer-qr { display: grid; place-items: center; width: 45px; height: 45px; padding: 3px; background: #fff; }
-.equal-housing { display: grid; justify-items: center; gap: 1px; color: #fff; font-size: 4px; font-weight: 900; line-height: 1.02; text-align: center; }
+.thank-you-copy strong { color: #719b22; font-family: Georgia, serif; font-size: clamp(13px, 2.3vw, 22px); font-style: italic; font-weight: 500; letter-spacing: -.07em; line-height: .95; }
+.address-pill { display: flex; align-items: center; grid-column: 2; grid-row: 2; gap: 4px; width: max-content; max-width: 100%; margin-top: 4px; padding: 3px 9px; overflow: hidden; color: #082d54; border-radius: 999px; background: #b7dc43; font-size: clamp(5.6px, .93vw, 9px); font-weight: 800; line-height: 1.1; text-overflow: ellipsis; white-space: nowrap; }
+.address-pill svg { flex: none; width: 11px; height: 11px; fill: #082d54; }
+.equal-housing { display: grid; grid-column: 3; grid-row: 1 / span 2; justify-items: center; gap: 1px; color: #082d54; font-size: 4px; font-weight: 900; line-height: 1.02; text-align: center; }
 .equal-housing svg { width: 26px; height: 26px; stroke-width: 3; }
 .equal-housing span { white-space: nowrap; }
+.flyer-contact-line { grid-column: 1 / -1; grid-row: 3; width: 100%; margin: 4px 0 0; padding-top: 3px; border-top: 2px solid #082d54; color: #082d54; font-size: clamp(4.8px, .75vw, 7px); font-weight: 800; text-align: center; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 @media (max-width: 700px) {

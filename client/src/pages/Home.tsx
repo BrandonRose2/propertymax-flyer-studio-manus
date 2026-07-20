@@ -1,10 +1,10 @@
 /**
- * Colonial Estates reference-template reminder: keep the page as a light manager utility.
- * The controls choose property data and a hero image; the 8.5 × 11 flyer is the primary artifact.
+ * Public Property Marketing Asset Hub reminder: this is the Print Property Flyer module only.
+ * Keep the controls compact and make the 8.5 × 11 referral flyer the primary artifact.
  */
 import { useMemo, useRef, useState } from "react";
 import { toPng } from "html-to-image";
-import { Check, ChevronDown, Download, ImagePlus, Printer, QrCode } from "lucide-react";
+import { Check, ChevronDown, Download, ImagePlus, Printer } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,7 +25,6 @@ export default function Home() {
   const [selectedPropertyId, setSelectedPropertyId] = useState(pilotFlyerProperties[0]?.id ?? "");
   const [selectedPhotoId, setSelectedPhotoId] = useState(pilotFlyerProperties[0]?.photos[0]?.id ?? "");
   const [reward, setReward] = useState("$200");
-  const [qrDestination, setQrDestination] = useState(pilotFlyerProperties[0]?.qrDestination ?? "");
   const [pickerOpen, setPickerOpen] = useState(false);
   const [localPhotos, setLocalPhotos] = useState<Record<string, FlyerPhoto[]>>({});
   const [isExporting, setIsExporting] = useState(false);
@@ -50,7 +49,6 @@ export default function Home() {
     if (!next) return;
     setSelectedPropertyId(propertyId);
     setSelectedPhotoId(next.photos[0]?.id ?? "");
-    setQrDestination(next.qrDestination);
     setPickerOpen(false);
   };
 
@@ -106,14 +104,13 @@ export default function Home() {
         <header className="tool-header no-print">
           <div className="tool-header__rule" aria-hidden="true" />
           <div>
-            <p>PROPERTYMAX MARKETING TOOLS</p>
             <h1>Print Property Flyer</h1>
           </div>
         </header>
 
         <section className="flyer-controls no-print" aria-labelledby="controls-heading">
           <p id="controls-heading" className="tool-instructions">
-            Choose a building and a flyer photo. Property details fill automatically, while the referral reward and QR destination remain editable.
+            Resident referral flyer — <strong>&ldquo;Earn $200 on your tenant ledger.&rdquo;</strong> The property name and contact info are filled in automatically. Choose the photo and referral amount, then click Print Flyer for a ready-to-hand-out 8.5 × 11 page, or Download PNG for email and digital distribution.
           </p>
           <div className="control-grid">
             <div className="control-field property-control">
@@ -131,23 +128,18 @@ export default function Home() {
             <div className="control-field reward-control">
               <Label htmlFor="reward">Referral amount</Label>
               <Input id="reward" value={reward} onChange={(event) => setReward(event.target.value)} />
-              <span>Default is $200.</span>
-            </div>
-            <div className="control-field qr-control">
-              <Label htmlFor="qr-destination"><QrCode size={13} /> QR destination</Label>
-              <Input id="qr-destination" value={qrDestination} onChange={(event) => setQrDestination(event.target.value)} />
-              <span>Opens when the flyer code is scanned.</span>
+              <span>Updates the flyer instantly — default is $200.</span>
             </div>
           </div>
 
           <div className="photo-picker-control">
             <div className="photo-picker-heading">
               <div>
-                <Label>Flyer Photo</Label>
-                <p>{selectedPhoto.label} selected for {selectedProperty.name}.</p>
+                <Label>Flyer photo</Label>
+                <p>Select from {selectedProperty.name}&rsquo;s approved images.</p>
               </div>
               <Button type="button" variant="outline" className="photo-picker-toggle" onClick={() => setPickerOpen((open) => !open)} aria-expanded={pickerOpen}>
-                <ImagePlus size={15} /> {pickerOpen ? "Hide photos" : "Choose flyer photo"} <ChevronDown size={14} className={pickerOpen ? "chevron-open" : ""} />
+                <ImagePlus size={15} /> Flyer Photo: {selectedPhoto.label} <ChevronDown size={14} className={pickerOpen ? "chevron-open" : ""} />
               </Button>
             </div>
             {pickerOpen && (
@@ -177,19 +169,18 @@ export default function Home() {
           <div className="output-row">
             <Button type="button" className="print-flyer-button" onClick={handlePrint}><Printer size={15} /> Print Flyer</Button>
             <Button type="button" variant="outline" className="download-flyer-button" onClick={handleDownload} disabled={isExporting}><Download size={15} /> {isExporting ? "Preparing…" : "Download PNG"}</Button>
-            <p>Print opens a single 8.5 × 11 flyer. Choose <strong>Save as PDF</strong> in your browser print dialog for a PDF copy.</p>
+            <p>Print gives one 8.5×11 page (or <strong>Save as PDF</strong>). PNG is high-res for email and digital sharing.</p>
           </div>
         </section>
 
         <section className="flyer-preview-section" aria-labelledby="preview-heading">
-          <p id="preview-heading" className="preview-label">LIVE FLYER PREVIEW</p>
+          <p id="preview-heading" className="preview-label">FLYER PREVIEW</p>
           <div className="flyer-preview-frame">
             <SimpleFlyerPreview
               ref={flyerRef}
               property={selectedProperty}
               imageUrl={selectedPhoto.url}
               reward={reward || "$0"}
-              qrDestination={qrDestination}
             />
           </div>
         </section>
