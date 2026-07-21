@@ -18,6 +18,7 @@
 - The deployed implementation calls the browser-native `window.print()` function. Its print stylesheet sets `@page` to US Letter with zero margins, hides the controls, and sizes the flyer itself to `8.5in × 11in`; this verifies the intended single-artboard output configuration.
 - Desktop and 375 px mobile previews preserved the full flyer artboard without clipping. The compact header/hero/reward plaque, left-side instructions, right-side offer panel, and bottom referral/footer treatment remain legible at the narrow viewport.
 - A production `pnpm build` completed successfully after the visual verification pass.
+- The refinement pass restored the translucent lower-left community banner, replaced the generic footer icon with an Equal Housing Opportunity pictogram, enlarged the instruction and offer-panel typography, and relaxed the letter spacing in both reward amounts. Desktop and 375 px mobile previews showed no clipping, and the subsequent production build completed successfully.
 
 ## Remaining Checks
 

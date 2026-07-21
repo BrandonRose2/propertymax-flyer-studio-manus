@@ -33,3 +33,7 @@
 - [x] Rebuild the flyer header, reward badge, hero treatment, instructions, offer panel, footer badges, and typography to match the supplied template exactly.
 - [x] Verify the rebuilt artboard against the supplied template at desktop and mobile preview sizes, then re-test print and PNG export.
 - [x] Test the Print-Ready Flyer controls and outputs in the user’s open Comet browser, including property change, photo selection, live reward update, print, and PNG download.
+- [x] Restore the translucent visual treatment for the community banner over the hero image.
+- [x] Restore the original Equal Housing Opportunity symbol treatment in the flyer footer.
+- [x] Increase the middle-section instruction and offer typography to the reference flyer’s readable scale.
+- [x] Loosen the letter spacing of the reward amount in both flyer prize callouts.

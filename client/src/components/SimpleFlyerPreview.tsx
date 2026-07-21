@@ -87,8 +87,12 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
           </div>
           <div className="address-pill"><MapPin aria-hidden="true" /> {property.address}</div>
           <div className="equal-housing" aria-label="Equal housing opportunity">
-            <Home aria-hidden="true" />
-            <span>EQUAL HOUSING<br />OPPORTUNITY</span>
+            <span className="equal-housing__mark" aria-hidden="true">
+              <i className="equal-housing__roof" />
+              <i className="equal-housing__home" />
+              <i className="equal-housing__equals" />
+            </span>
+            <span className="equal-housing__copy">EQUAL HOUSING<br />OPPORTUNITY</span>
           </div>
           <p className="flyer-contact-line">Questions? Contact the Leasing Office for details. &nbsp;•&nbsp; {contactLine}</p>
         </footer>

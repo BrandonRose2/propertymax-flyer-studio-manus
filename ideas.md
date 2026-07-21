@@ -28,6 +28,10 @@ The manager uses one property selector to choose their building. The property ch
 
 Use a refined serif headline for `Print Property Flyer` and an uncomplicated sans-serif for controls and instructions. Within the flyer, use a condensed all-caps sans for wordmarks and instructional headings, an italic/script-like serif for the two emotional lines, and a strong sans-serif for the reward figures. The page is intentionally quiet: warm ivory page ground, white control panel, dark ink text, medium forest-green output buttons, and a disciplined navy/lime print palette on the generated flyer. Generous whitespace and fine borders should keep the page calm and legible.
 
+## User-Directed Refinements
+
+The lower-left community ribbon must retain a **translucent navy overlay** treatment so that the hero photograph is faintly visible through the banner, rather than reading as a fully opaque solid block. The Equal Housing Opportunity mark in the lower-right footer must keep the reference-style equal-housing pictogram treatment; do not substitute it with a generic home icon. The instruction column and referral offer panel must use a larger, more immediately readable type scale in the printed artboard, with priority given to the three step labels/copy, offer heading, ledger line, and explanatory copy.
+
 ## Brand Essence
 
 **A straightforward PropertyMax utility that turns a manager’s current referral offer into one ready-to-use property flyer.**
