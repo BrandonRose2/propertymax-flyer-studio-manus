@@ -32,6 +32,8 @@ Use a refined serif headline for `Print Property Flyer` and an uncomplicated san
 
 The lower-left community ribbon must retain a **translucent navy overlay** treatment so that the hero photograph is faintly visible through the banner, rather than reading as a fully opaque solid block. The Equal Housing Opportunity mark in the lower-right footer must keep the reference-style equal-housing pictogram treatment; do not substitute it with a generic home icon. The instruction column and referral offer panel must use a larger, more immediately readable type scale in the printed artboard, with priority given to the three step labels/copy, offer heading, ledger line, and explanatory copy.
 
+The upper navy/lime reward plaque must fully contain the editable reward on all preview sizes; its dollar amount may not touch or overrun the plaque edge. The community ribbon’s translucency must be **unmistakable at a glance**: the underlying hero photo should visibly show through its navy field, particularly along the lower-left area, while the white and lime ribbon copy remains readable.
+
 ## Brand Essence
 
 **A straightforward PropertyMax utility that turns a manager’s current referral offer into one ready-to-use property flyer.**

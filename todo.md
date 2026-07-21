@@ -37,3 +37,5 @@
 - [x] Restore the original Equal Housing Opportunity symbol treatment in the flyer footer.
 - [x] Increase the middle-section instruction and offer typography to the reference flyer’s readable scale.
 - [x] Loosen the letter spacing of the reward amount in both flyer prize callouts.
+- [x] Contain the upper reward amount fully within its navy/lime banner at all preview sizes.
+- [x] Increase the community ribbon’s visible image-through-overlay transparency to match the supplied reference.

@@ -19,6 +19,7 @@
 - Desktop and 375 px mobile previews preserved the full flyer artboard without clipping. The compact header/hero/reward plaque, left-side instructions, right-side offer panel, and bottom referral/footer treatment remain legible at the narrow viewport.
 - A production `pnpm build` completed successfully after the visual verification pass.
 - The refinement pass restored the translucent lower-left community banner, replaced the generic footer icon with an Equal Housing Opportunity pictogram, enlarged the instruction and offer-panel typography, and relaxed the letter spacing in both reward amounts. Desktop and 375 px mobile previews showed no clipping, and the subsequent production build completed successfully.
+- The upper reward plaque was widened and its number scale rebalanced so `$200` remains fully inside the navy/lime shape. The community ribbon now uses a substantially lower-opacity navy overlay, with the hero imagery visibly present through the ribbon at both desktop and 375 px mobile widths. The final production build completed successfully.
 
 ## Remaining Checks
 
