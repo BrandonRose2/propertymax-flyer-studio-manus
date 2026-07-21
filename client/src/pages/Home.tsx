@@ -1,10 +1,12 @@
 /**
  * Public Property Marketing Asset Hub reminder: this is the Print Property Flyer module only.
  * Keep the controls compact and make the 8.5 × 11 referral flyer the primary artifact.
+ * ZIP imports stay session-only and use the quiet navy/lime control language rather than competing with the flyer.
  */
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { toPng } from "html-to-image";
-import { Check, ChevronDown, Download, ImagePlus, Printer } from "lucide-react";
+import JSZip from "jszip";
+import { Archive, Check, ChevronDown, Download, ImagePlus, Printer, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,15 +21,50 @@ import {
 import { SimpleFlyerPreview } from "@/components/SimpleFlyerPreview";
 import { pilotFlyerProperties, type FlyerPhoto } from "@/data/pilotFlyerProperties";
 
+const SUPPORTED_ZIP_IMAGE = /\.(jpe?g|png|webp|gif|avif)$/i;
+const MAX_ZIP_IMAGE_COUNT = 150;
+const MAX_ZIP_FILE_BYTES = 150 * 1024 * 1024;
+const MAX_ZIP_EXTRACTED_BYTES = 200 * 1024 * 1024;
+
+const photoLabel = (fileName: string) => fileName
+  .split("/")
+  .pop()
+  ?.replace(/\.[^/.]+$/, "")
+  .replace(/[-_]+/g, " ")
+  .trim() || "Imported photo";
+
+const imageType = (fileName: string) => {
+  const extension = fileName.split(".").pop()?.toLowerCase();
+  return ({ jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp", gif: "image/gif", avif: "image/avif" } as Record<string, string>)[extension ?? ""] ?? "image/jpeg";
+};
+
+const normalizedFolderName = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+const propertyIdForArchivePath = (path: string, fallbackPropertyId: string) => {
+  const folderNames = path.split("/").slice(0, -1).map(normalizedFolderName);
+  return pilotFlyerProperties.find((property) => {
+    const propertyNames = [property.id, property.name].map(normalizedFolderName);
+    return folderNames.some((folderName) => propertyNames.includes(folderName));
+  })?.id ?? fallbackPropertyId;
+};
+
 export default function Home() {
   const flyerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const zipInputRef = useRef<HTMLInputElement>(null);
   const [selectedPropertyId, setSelectedPropertyId] = useState(pilotFlyerProperties[0]?.id ?? "");
   const [selectedPhotoId, setSelectedPhotoId] = useState(pilotFlyerProperties[0]?.photos[0]?.id ?? "");
   const [reward, setReward] = useState("$200");
   const [pickerOpen, setPickerOpen] = useState(false);
   const [localPhotos, setLocalPhotos] = useState<Record<string, FlyerPhoto[]>>({});
   const [isExporting, setIsExporting] = useState(false);
+  const [isImportingZip, setIsImportingZip] = useState(false);
+  const [isZipDropActive, setIsZipDropActive] = useState(false);
+  const selectedPropertyIdRef = useRef(selectedPropertyId);
+
+  useEffect(() => {
+    selectedPropertyIdRef.current = selectedPropertyId;
+  }, [selectedPropertyId]);
 
   const selectedProperty = useMemo(
     () => pilotFlyerProperties.find((property) => property.id === selectedPropertyId) ?? pilotFlyerProperties[0],
@@ -52,23 +89,134 @@ export default function Home() {
     setPickerOpen(false);
   };
 
+  const appendLocalPhotos = (propertyId: string, photos: FlyerPhoto[]) => {
+    if (!photos.length) return;
+    setLocalPhotos((current) => ({
+      ...current,
+      [propertyId]: [...(current[propertyId] ?? []), ...photos],
+    }));
+    if (selectedPropertyIdRef.current === propertyId) {
+      setSelectedPhotoId(photos[0].id);
+      setPickerOpen(true);
+    }
+  };
+
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!selectedProperty) return;
     const files = Array.from(event.target.files ?? []);
     if (!files.length) return;
-    const addedPhotos = files.map((file, index) => ({
+    const addedPhotos = files.filter((file) => file.type.startsWith("image/")).map((file, index) => ({
       id: `local-${Date.now()}-${index}`,
-      label: file.name.replace(/\.[^/.]+$/, ""),
+      label: photoLabel(file.name),
       url: URL.createObjectURL(file),
     }));
-    setLocalPhotos((current) => ({
-      ...current,
-      [selectedProperty.id]: [...(current[selectedProperty.id] ?? []), ...addedPhotos],
-    }));
-    setSelectedPhotoId(addedPhotos[0].id);
-    setPickerOpen(true);
+    if (!addedPhotos.length) {
+      toast.error("Choose one or more image files to add to the picker.");
+      return;
+    }
+    appendLocalPhotos(selectedProperty.id, addedPhotos);
     event.target.value = "";
     toast.success(`${addedPhotos.length} property photo${addedPhotos.length > 1 ? "s" : ""} added.`);
+  };
+
+  const importZipArchive = async (zipFile: File) => {
+    const fallbackPropertyId = selectedProperty?.id;
+    if (!fallbackPropertyId) return;
+    if (!zipFile.name.toLowerCase().endsWith(".zip")) {
+      toast.error("Choose a .zip archive containing property photos.");
+      return;
+    }
+    if (zipFile.size > MAX_ZIP_FILE_BYTES) {
+      toast.error("This ZIP is larger than 150 MB. Please split it into smaller archives.");
+      return;
+    }
+
+    const createdUrls: string[] = [];
+    setIsImportingZip(true);
+    try {
+      const archive = await JSZip.loadAsync(zipFile);
+      const imageEntries = Object.values(archive.files).filter(
+        (entry) => !entry.dir && !entry.name.startsWith("__MACOSX/") && SUPPORTED_ZIP_IMAGE.test(entry.name),
+      );
+      if (!imageEntries.length) {
+        toast.error("No supported photos were found in that ZIP.");
+        return;
+      }
+      if (imageEntries.length > MAX_ZIP_IMAGE_COUNT) {
+        toast.error(`This ZIP contains more than ${MAX_ZIP_IMAGE_COUNT} photos. Please split it into smaller archives.`);
+        return;
+      }
+
+      const photosByProperty: Record<string, FlyerPhoto[]> = {};
+      let extractedBytes = 0;
+      for (let index = 0; index < imageEntries.length; index += 1) {
+        const entry = imageEntries[index];
+        if (!entry) continue;
+        const blob = await entry.async("blob");
+        extractedBytes += blob.size;
+        if (extractedBytes > MAX_ZIP_EXTRACTED_BYTES) {
+          throw new Error("ZIP_SIZE_LIMIT");
+        }
+        const fileName = entry.name.split("/").pop() ?? `imported-photo-${index + 1}.jpg`;
+        const file = new File([blob], fileName, { type: blob.type || imageType(fileName) });
+        const propertyId = propertyIdForArchivePath(entry.name, fallbackPropertyId);
+        const url = URL.createObjectURL(file);
+        createdUrls.push(url);
+        const addedPhoto: FlyerPhoto = {
+          id: `zip-${Date.now()}-${index}`,
+          label: photoLabel(entry.name),
+          url,
+        };
+        (photosByProperty[propertyId] ??= []).push(addedPhoto);
+      }
+
+      setLocalPhotos((current) => Object.entries(photosByProperty).reduce<Record<string, FlyerPhoto[]>>(
+        (next, [propertyId, photos]) => ({
+          ...next,
+          [propertyId]: [...(next[propertyId] ?? []), ...photos],
+        }),
+        { ...current },
+      ));
+      const activePhotos = photosByProperty[selectedPropertyIdRef.current] ?? photosByProperty[fallbackPropertyId];
+      if (activePhotos?.[0]) {
+        setSelectedPhotoId(activePhotos[0].id);
+        setPickerOpen(true);
+      }
+      const imageCount = imageEntries.length;
+      const destinationNames = Object.keys(photosByProperty).map(
+        (propertyId) => pilotFlyerProperties.find((property) => property.id === propertyId)?.name ?? "the selected property",
+      );
+      const destinationLabel = destinationNames.length === 1
+        ? `${destinationNames[0]}'s picker`
+        : `${destinationNames.length} property pickers`;
+      toast.success(`${imageCount} photo${imageCount === 1 ? "" : "s"} added to ${destinationLabel}.`);
+    } catch (error) {
+      createdUrls.forEach((url) => URL.revokeObjectURL(url));
+      if (error instanceof Error && error.message === "ZIP_SIZE_LIMIT") {
+        toast.error("The extracted photos exceed 200 MB. Please split the ZIP into smaller archives.");
+      } else {
+        toast.error("The ZIP could not be unpacked. Please use a valid archive of image files.");
+      }
+    } finally {
+      setIsImportingZip(false);
+    }
+  };
+
+  const handleZipInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (file) void importZipArchive(file);
+  };
+
+  const handleZipDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsZipDropActive(false);
+    const file = Array.from(event.dataTransfer.files).find((candidate) => candidate.name.toLowerCase().endsWith(".zip"));
+    if (!file) {
+      toast.error("Drop a .zip archive of property photos here.");
+      return;
+    }
+    void importZipArchive(file);
   };
 
   const handlePrint = () => window.print();
@@ -142,6 +290,35 @@ export default function Home() {
                 <ImagePlus size={15} /> Flyer Photo: {selectedPhoto.label} <ChevronDown size={14} className={pickerOpen ? "chevron-open" : ""} />
               </Button>
             </div>
+            <div
+              className={`zip-drop-zone ${isZipDropActive ? "is-dragging" : ""} ${isImportingZip ? "is-importing" : ""}`}
+              onDragEnter={(event) => { event.preventDefault(); setIsZipDropActive(true); }}
+              onDragOver={(event) => { event.preventDefault(); setIsZipDropActive(true); }}
+              onDragLeave={(event) => { event.preventDefault(); setIsZipDropActive(false); }}
+              onDrop={handleZipDrop}
+              aria-busy={isImportingZip}
+            >
+              <Archive className="zip-drop-zone__icon" aria-hidden="true" />
+              <div className="zip-drop-zone__copy">
+                <strong>{isImportingZip ? "Unpacking your photo ZIP…" : "Drop a ZIP of property photos here"}</strong>
+                <span>{isImportingZip ? "Supported images are being added to the picker." : "Nested folders are supported. Property-named folders route automatically; all other photos go to the selected building for this browser session."}</span>
+              </div>
+              <label
+                className="zip-drop-zone__button"
+                role="button"
+                tabIndex={isImportingZip ? -1 : 0}
+                aria-disabled={isImportingZip}
+                onKeyDown={(event) => {
+                  if (!isImportingZip && (event.key === "Enter" || event.key === " ")) {
+                    event.preventDefault();
+                    zipInputRef.current?.click();
+                  }
+                }}
+              >
+                <Upload size={14} /> {isImportingZip ? "Importing…" : "Choose ZIP"}
+                <input ref={zipInputRef} className="visually-hidden" type="file" accept=".zip,application/zip,application/x-zip-compressed" disabled={isImportingZip} onChange={handleZipInput} />
+              </label>
+            </div>
             {pickerOpen && (
               <div className="photo-picker-grid" aria-label={`${selectedProperty.name} flyer photo picker`}>
                 {availablePhotos.map((photo) => (
@@ -159,7 +336,7 @@ export default function Home() {
                 ))}
                 <button type="button" className="photo-choice photo-choice--upload" onClick={() => fileInputRef.current?.click()}>
                   <ImagePlus size={22} />
-                  <span>Add property photo</span>
+                  <span>Add individual photo</span>
                 </button>
               </div>
             )}

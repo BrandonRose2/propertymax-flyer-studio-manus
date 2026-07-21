@@ -39,3 +39,6 @@
 - [x] Loosen the letter spacing of the reward amount in both flyer prize callouts.
 - [x] Contain the upper reward amount fully within its navy/lime banner at all preview sizes.
 - [x] Increase the community ribbon’s visible image-through-overlay transparency to match the supplied reference.
+- [x] Add a ZIP drag-and-drop target that extracts supported property photos into the active property picker.
+- [x] Preserve individual-file upload and clearly communicate session-only imported-photo behavior.
+- [x] Test ZIP imports with valid photos, unsupported files, empty ZIPs, and mobile controls.

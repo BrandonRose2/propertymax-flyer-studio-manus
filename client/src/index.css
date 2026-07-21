@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Gates on Manhattan reference: white print paper with a dense, high-contrast navy/lime flyer; controls remain quiet. */
+/* Gates on Manhattan reference: white print paper with a dense, high-contrast navy/lime flyer; ZIP controls remain quiet, crisp, and secondary to the artboard. */
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -83,6 +83,15 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .photo-picker-toggle:hover { color: #fff; background: #082d54; }
 .photo-picker-toggle svg:last-child { transition: transform 160ms cubic-bezier(.23, 1, .32, 1); }
 .photo-picker-toggle .chevron-open { transform: rotate(180deg); }
+.zip-drop-zone { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 10px; margin-top: 12px; padding: 10px 11px; border: 1px dashed #9eb74a; border-radius: 3px; background: linear-gradient(105deg, rgba(184, 221, 66, .13), rgba(255, 255, 255, .88)); color: #173456; transition: border-color 160ms cubic-bezier(.23, 1, .32, 1), background 160ms cubic-bezier(.23, 1, .32, 1), transform 160ms cubic-bezier(.23, 1, .32, 1); }
+.zip-drop-zone.is-dragging { border-color: #082d54; background: linear-gradient(105deg, rgba(184, 221, 66, .28), rgba(235, 244, 210, .94)); transform: translateY(-1px); }
+.zip-drop-zone.is-importing { cursor: wait; border-style: solid; background: #f1f7de; }
+.zip-drop-zone__icon { width: 23px; height: 23px; color: #6f9920; }
+.zip-drop-zone__copy { display: grid; min-width: 0; gap: 2px; }
+.zip-drop-zone__copy strong { color: #173456; font-size: 11px; font-weight: 800; line-height: 1.15; }
+.zip-drop-zone__copy span { color: #65746d; font-size: 9px; line-height: 1.25; }
+.zip-drop-zone__button { height: 31px; color: #082d54; border-color: #718b46; border-radius: 2px; background: rgba(255,255,255,.72); font-size: 10px; font-weight: 800; }
+.zip-drop-zone__button:hover:not(:disabled) { color: #fff; border-color: #082d54; background: #082d54; }
 .photo-picker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(116px, 1fr)); gap: 10px; margin-top: 13px; transform-origin: top center; animation: picker-in 180ms cubic-bezier(.23, 1, .32, 1) both; }
 .photo-choice { position: relative; display: grid; min-height: 92px; padding: 0; overflow: hidden; color: #fff; border: 1px solid #ccd1c4; border-radius: 3px; background: #ecefe7; text-align: left; }
 .photo-choice img { width: 100%; height: 92px; object-fit: cover; }
@@ -179,6 +188,8 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
   .flyer-controls { padding: 16px; }
   .control-grid { grid-template-columns: 1fr; gap: 13px; }
   .photo-picker-heading { align-items: flex-start; flex-direction: column; }
+  .zip-drop-zone { grid-template-columns: 24px minmax(0, 1fr); align-items: start; }
+  .zip-drop-zone__button { grid-column: 2; justify-self: start; }
   .output-row { align-items: flex-start; }
   .output-row p { width: 100%; margin: 1px 0 0; }
   .referral-flyer { width: min(100%, 470px); }

@@ -20,6 +20,8 @@
 - A production `pnpm build` completed successfully after the visual verification pass.
 - The refinement pass restored the translucent lower-left community banner, replaced the generic footer icon with an Equal Housing Opportunity pictogram, enlarged the instruction and offer-panel typography, and relaxed the letter spacing in both reward amounts. Desktop and 375 px mobile previews showed no clipping, and the subsequent production build completed successfully.
 - The upper reward plaque was widened and its number scale rebalanced so `$200` remains fully inside the navy/lime shape. The community ribbon now uses a substantially lower-opacity navy overlay, with the hero imagery visibly present through the ribbon at both desktop and 375 px mobile widths. The final production build completed successfully.
+- ZIP importer acceptance test: a nested archive containing two supported PNGs and one text file was accepted. Both image files were added to Arbor Crest’s picker, the first import was selected automatically, and a second imported image was manually selected successfully. A ZIP containing only a text file showed the non-destructive “No supported photos were found in that ZIP.” error while preserving the picker contents. A property-named nested archive (`Opa Locka/lobby.png`) was accepted while Arbor Crest was active; after switching to Opa Locka, its picker displayed the imported `lobby` image alongside its existing exterior photo, confirming folder-based routing.
+- The routed-import confirmation was refined and re-tested: uploading the nested Opa Locka ZIP displayed `1 photo added to Opa Locka's picker.` and immediately selected the newly imported `lobby` photo.
 
 ## Remaining Checks
 
