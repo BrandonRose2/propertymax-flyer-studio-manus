@@ -26,3 +26,5 @@
 ## Remaining Checks
 
 - No blocking test steps remain. A final human visual check of the native print-dialog paper preview is optional because browser print dialogs are not available to the automated session once opened.
+- Persistent photo-library interface check: the local full-stack flyer page renders the ZIP drop zone and explains that saved images remain available after future visits. In the current unauthenticated browser session, the app presents a clear “Sign in to save photos” action before accepting persistent uploads; saved-photo listing remains property-scoped and available to the flyer picker.
+- Persistent photo service contract check: the schema migration created the property-photo metadata table; the upload router writes file bytes through managed object storage and records a property-scoped storage key, URL, and metadata; the client routes both single-image and ZIP candidates through the shared save mutation. The server utility and router test suite completed with 6 passing tests after the full-stack service restart.

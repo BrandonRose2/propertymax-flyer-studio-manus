@@ -2,7 +2,7 @@
 
 ## Ground-Truth Reference
 
-The user-supplied **Gates on Manhattan referral flyer** image is the sole visual source of truth for the print artboard. The standalone page remains a lightweight manager utility, but the flyer itself must replicate the supplied reference—not the prior Colonial Estates or public-hub interpretation. Its primary job is to let a manager choose a building, set a referral amount, choose an approved property image, and print or download that one flyer.
+The user-supplied **Pelican Bay referral flyer** image is the sole visual source of truth for the print artboard. The standalone page remains a lightweight manager utility, but the flyer itself must replicate this supplied reference—not the prior Gates on Manhattan, Colonial Estates, or public-hub interpretation. Its primary job is to let a manager choose a building, set a referral amount, choose an approved property image, and print or download that one flyer.
 
 ## Reference-Led Design Rules
 
@@ -10,15 +10,15 @@ The page uses a soft ivory background, a narrow content column, a modest serif p
 
 The selected flyer is the visual focus beneath the controls. It appears as a tall 8.5 × 11 printed piece with a restrained paper shadow, not inside an application dashboard shell. A concise uppercase `FLYER PREVIEW` label introduces the artboard. There is no sidebar, no dashboard navigation, no portfolio browsing interface, no regional-manager information, and no template library.
 
-## Gates on Manhattan Flyer Blueprint
+## Pelican Bay Flyer Blueprint
 
-The artboard has a crisp white paper ground, a slim lime keyline, and a deep navy/lime/white palette. The upper-left header is a compact white property-wordmark band with a small circular architectural mark, an all-caps condensed property name, a tiny lime `APARTMENT HOMES` line, and an angled pale gray/lime architectural-stripe treatment. A tall navy reward plaque with a lime outline overlaps the upper-right hero area. It reads `EARN`, the editable reward, a dotted divider, and `ON YOUR TENANT LEDGER!`; its lower edge is subtly angled.
+The artboard has a crisp white paper ground and a deep navy/lime/white palette. Across the upper-left roughly two-thirds is a large white property-wordmark band with a circular architectural mark, broad condensed property name, tiny lime `APARTMENT HOMES` line, and a long lime horizontal keyline. The wordmark band overlays the top of the full-bleed hero image; it has an angled right edge. A very large tilted navy reward plaque with a thick lime outline overlaps the upper-right hero. It reads `EARN`, the editable reward, a dotted divider, and `ON YOUR TENANT LEDGER!`; its geometry is intentionally angular, with a diagonal left edge and a subtly angled lower edge.
 
-The hero image is a full-bleed property photograph below the wordmark. A short navy community ribbon sits at the **lower-left** of the hero—not centered or right-aligned—with the white/lime `GOOD NEIGHBORS. GREAT COMMUNITY.` message and the cursive `Stronger Together!` line.
+The hero is a full-width property photograph and occupies approximately the top 43 percent of the printed page. A broad, dark navy community ribbon overlays the **lower-right** of the hero, with `GOOD NEIGHBORS. GREAT COMMUNITY.` in white/lime and a cursive `Stronger Together!` line. The reference positions this ribbon at the image's right side; it is not left-aligned.
 
-Below the image, the body is a two-column white composition. The left column has a navy condensed `IT'S EASY!` title, a lime underline, and three compact steps divided by dotted navy rules. Each step pairs a navy numbered circle, a small green/navy icon, a green all-caps title, and concise navy copy. The right column is a large navy rounded offer panel with a thick lime outline: a green check, white italic `It Pays to Share!`, the editable reward in oversized white type, lime ledger text, and compact white explanatory copy. A tiny italic disclaimer sits directly below the offer panel.
+Below the hero, the body is a spacious two-column white composition. The left column begins with a large navy condensed `IT'S EASY!` title and lime underline. Three generously separated steps follow, each with a navy numbered circle, a green/navy icon, a lime all-caps title, and larger, clearly readable navy explanatory copy; fine dotted rules divide the steps. The right column is a large navy rounded offer panel with a thick lime outline: a lime check, white script `It Pays to Share!`, the editable reward in very large white type, lime `ON YOUR TENANT LEDGER`, and white two-line explanatory copy. A small italic disclaimer aligns directly below the panel.
 
-The lower footer combines a large navy circle with a lime outline and `SPREAD THE WORD. / ENJOY THE REWARDS!`, a centered thank-you message, a green script-style `Build a Better Community!` line with a white heart, a lime address pill, an Equal Housing Opportunity mark on the right, and a centered contact line resting on a thin navy rule. The visual hierarchy, placements, geometry, scale relationships, and lime/navy balance must follow this reference closely; only property data, the selected image, and the referral amount vary.
+The lower footer is generous and horizontal: a large circular navy/lime `SPREAD THE WORD. / ENJOY THE REWARDS!` seal at left, centered thank-you copy, a large lime script `Build a Better Community!` line and heart, a lime rounded address pill, a reference-style Equal Housing Opportunity pictogram at lower right, and a bottom-centered contact line bracketed by navy rules. The visual hierarchy, page proportions, element scale, right-hand hero ribbon placement, and sharply tilted upper reward plaque must follow this reference closely; only property data, the selected image, and the referral amount vary.
 
 ## Product Behavior
 
@@ -30,9 +30,9 @@ Use a refined serif headline for `Print Property Flyer` and an uncomplicated san
 
 ## User-Directed Refinements
 
-The lower-left community ribbon must retain a **translucent navy overlay** treatment so that the hero photograph is faintly visible through the banner, rather than reading as a fully opaque solid block. The Equal Housing Opportunity mark in the lower-right footer must keep the reference-style equal-housing pictogram treatment; do not substitute it with a generic home icon. The instruction column and referral offer panel must use a larger, more immediately readable type scale in the printed artboard, with priority given to the three step labels/copy, offer heading, ledger line, and explanatory copy.
+The lower-right community ribbon follows the Pelican Bay reference and must retain a **translucent navy overlay** treatment so that the hero photograph is visibly present through the banner, rather than reading as a fully opaque solid block. The Equal Housing Opportunity mark in the lower-right footer must keep the reference-style equal-housing pictogram treatment; do not substitute it with a generic home icon. The instruction column and referral offer panel must use a larger, immediately readable type scale in the printed artboard, with priority given to the three step labels/copy, offer heading, ledger line, and explanatory copy.
 
-The upper navy/lime reward plaque must fully contain the editable reward on all preview sizes; its dollar amount may not touch or overrun the plaque edge. The community ribbon’s translucency must be **unmistakable at a glance**: the underlying hero photo should visibly show through its navy field, particularly along the lower-left area, while the white and lime ribbon copy remains readable.
+The upper tilted navy/lime reward plaque must fully contain the editable reward on all preview sizes; its dollar amount may not touch or overrun the plaque edge. The community ribbon’s translucency must be **unmistakable at a glance**: the underlying hero photo should visibly show through its navy field, particularly along the lower-right area, while the white and lime ribbon copy remains readable.
 
 ## Brand Essence
 

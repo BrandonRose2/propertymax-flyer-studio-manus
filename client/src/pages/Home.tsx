@@ -1,12 +1,11 @@
 /**
  * Public Property Marketing Asset Hub reminder: this is the Print Property Flyer module only.
- * Keep the controls compact and make the 8.5 × 11 referral flyer the primary artifact.
- * ZIP imports stay session-only and use the quiet navy/lime control language rather than competing with the flyer.
+ * Uploaded property photos are persisted in the site-wide property library.
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import JSZip from "jszip";
-import { Archive, Check, ChevronDown, Download, ImagePlus, Printer, Upload } from "lucide-react";
+import { Archive, Check, ChevronDown, Download, ImagePlus, LogIn, Printer, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,37 +17,100 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { SimpleFlyerPreview } from "@/components/SimpleFlyerPreview";
+import { startLogin } from "@/const";
 import { pilotFlyerProperties, type FlyerPhoto } from "@/data/pilotFlyerProperties";
+import { trpc } from "@/lib/trpc";
+import type { PropertyPhotoId } from "@shared/propertyPhotoConfig";
 
 const SUPPORTED_ZIP_IMAGE = /\.(jpe?g|png|webp|gif|avif)$/i;
+const SUPPORTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif"] as const;
 const MAX_ZIP_IMAGE_COUNT = 150;
 const MAX_ZIP_FILE_BYTES = 150 * 1024 * 1024;
 const MAX_ZIP_EXTRACTED_BYTES = 200 * 1024 * 1024;
+const MAX_PERSISTED_IMAGE_BYTES = 10 * 1024 * 1024;
+const MAX_PERSISTED_BATCH_BYTES = 20 * 1024 * 1024;
+
+type PersistedImageType = (typeof SUPPORTED_IMAGE_TYPES)[number];
+type UploadSource = "individual" | "zip";
+type UploadCandidate = {
+  propertyId: PropertyPhotoId;
+  file: File;
+  source: UploadSource;
+  label: string;
+};
 
 const photoLabel = (fileName: string) => fileName
-  .split("/")
+  .split(/[\\/]/)
   .pop()
   ?.replace(/\.[^/.]+$/, "")
   .replace(/[-_]+/g, " ")
+  .replace(/\s+/g, " ")
   .trim() || "Imported photo";
 
-const imageType = (fileName: string) => {
+const imageType = (fileName: string): PersistedImageType => {
   const extension = fileName.split(".").pop()?.toLowerCase();
-  return ({ jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp", gif: "image/gif", avif: "image/avif" } as Record<string, string>)[extension ?? ""] ?? "image/jpeg";
+  return ({
+    jpg: "image/jpeg",
+    jpeg: "image/jpeg",
+    png: "image/png",
+    webp: "image/webp",
+    gif: "image/gif",
+    avif: "image/avif",
+  } as Record<string, PersistedImageType>)[extension ?? ""] ?? "image/jpeg";
 };
+
+const inferredImageType = (file: File): PersistedImageType =>
+  SUPPORTED_IMAGE_TYPES.includes(file.type as PersistedImageType)
+    ? file.type as PersistedImageType
+    : imageType(file.name);
 
 const normalizedFolderName = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-const propertyIdForArchivePath = (path: string, fallbackPropertyId: string) => {
+const propertyIdForArchivePath = (path: string, fallbackPropertyId: PropertyPhotoId): PropertyPhotoId => {
   const folderNames = path.split("/").slice(0, -1).map(normalizedFolderName);
-  return pilotFlyerProperties.find((property) => {
+  return (pilotFlyerProperties.find((property) => {
     const propertyNames = [property.id, property.name].map(normalizedFolderName);
     return folderNames.some((folderName) => propertyNames.includes(folderName));
-  })?.id ?? fallbackPropertyId;
+  })?.id ?? fallbackPropertyId) as PropertyPhotoId;
 };
 
+const fileToBase64 = (file: File) => new Promise<string>((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onerror = () => reject(new Error("FILE_READ_FAILED"));
+  reader.onload = () => {
+    const result = typeof reader.result === "string" ? reader.result : "";
+    const separatorIndex = result.indexOf(",");
+    if (separatorIndex < 0) {
+      reject(new Error("FILE_READ_FAILED"));
+      return;
+    }
+    resolve(result.slice(separatorIndex + 1));
+  };
+  reader.readAsDataURL(file);
+});
+
+function splitUploadBatches(candidates: UploadCandidate[]) {
+  const batches: UploadCandidate[][] = [];
+  let currentBatch: UploadCandidate[] = [];
+  let currentBatchBytes = 0;
+
+  for (const candidate of candidates) {
+    if (currentBatch.length && currentBatchBytes + candidate.file.size > MAX_PERSISTED_BATCH_BYTES) {
+      batches.push(currentBatch);
+      currentBatch = [];
+      currentBatchBytes = 0;
+    }
+    currentBatch.push(candidate);
+    currentBatchBytes += candidate.file.size;
+  }
+  if (currentBatch.length) batches.push(currentBatch);
+  return batches;
+}
+
 export default function Home() {
+  const { isAuthenticated, loading: isAuthLoading } = useAuth();
   const flyerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const zipInputRef = useRef<HTMLInputElement>(null);
@@ -56,11 +118,17 @@ export default function Home() {
   const [selectedPhotoId, setSelectedPhotoId] = useState(pilotFlyerProperties[0]?.photos[0]?.id ?? "");
   const [reward, setReward] = useState("$200");
   const [pickerOpen, setPickerOpen] = useState(false);
-  const [localPhotos, setLocalPhotos] = useState<Record<string, FlyerPhoto[]>>({});
   const [isExporting, setIsExporting] = useState(false);
   const [isImportingZip, setIsImportingZip] = useState(false);
   const [isZipDropActive, setIsZipDropActive] = useState(false);
   const selectedPropertyIdRef = useRef(selectedPropertyId);
+
+  const photoLibraryUtils = trpc.useUtils();
+  const savedPhotosQuery = trpc.photoLibrary.list.useQuery(
+    { propertyId: selectedPropertyId as PropertyPhotoId },
+    { enabled: Boolean(selectedPropertyId), staleTime: 30_000 },
+  );
+  const savePhotosMutation = trpc.photoLibrary.saveMany.useMutation();
 
   useEffect(() => {
     selectedPropertyIdRef.current = selectedPropertyId;
@@ -71,9 +139,18 @@ export default function Home() {
     [selectedPropertyId],
   );
 
+  const savedPhotos = useMemo<FlyerPhoto[]>(
+    () => (savedPhotosQuery.data ?? []).map((photo) => ({
+      id: `saved-${photo.id}`,
+      label: photo.label,
+      url: photo.url,
+    })),
+    [savedPhotosQuery.data],
+  );
+
   const availablePhotos = useMemo(
-    () => [...(selectedProperty?.photos ?? []), ...(localPhotos[selectedProperty?.id ?? ""] ?? [])],
-    [localPhotos, selectedProperty],
+    () => [...(selectedProperty?.photos ?? []), ...savedPhotos],
+    [savedPhotos, selectedProperty],
   );
 
   const selectedPhoto = useMemo(
@@ -81,47 +158,100 @@ export default function Home() {
     [availablePhotos, selectedPhotoId],
   );
 
+  const isSavingPhotos = isImportingZip || savePhotosMutation.isPending;
+
   const selectProperty = (propertyId: string) => {
     const next = pilotFlyerProperties.find((property) => property.id === propertyId);
     if (!next) return;
     setSelectedPropertyId(propertyId);
-    setSelectedPhotoId(next.photos[0]?.id ?? "");
+    setSelectedPhotoId("");
     setPickerOpen(false);
   };
 
-  const appendLocalPhotos = (propertyId: string, photos: FlyerPhoto[]) => {
-    if (!photos.length) return;
-    setLocalPhotos((current) => ({
-      ...current,
-      [propertyId]: [...(current[propertyId] ?? []), ...photos],
-    }));
-    if (selectedPropertyIdRef.current === propertyId) {
-      setSelectedPhotoId(photos[0].id);
-      setPickerOpen(true);
+  const requireSignInForSave = () => {
+    if (isAuthenticated) return true;
+    if (isAuthLoading) {
+      toast.message("Checking your account. Please try the upload again in a moment.");
+      return false;
+    }
+    toast.message("Sign in to save property photos for future visits.");
+    startLogin();
+    return false;
+  };
+
+  const persistCandidates = async (candidates: UploadCandidate[]) => {
+    if (!candidates.length || !requireSignInForSave()) return [];
+
+    const tooLargeCount = candidates.filter((candidate) => candidate.file.size > MAX_PERSISTED_IMAGE_BYTES).length;
+    const eligibleCandidates = candidates.filter((candidate) => candidate.file.size > 0 && candidate.file.size <= MAX_PERSISTED_IMAGE_BYTES);
+    if (!eligibleCandidates.length) {
+      toast.error("Each photo must be 10 MB or smaller before it can be saved.");
+      return [];
+    }
+
+    const savedRecords: Array<{ id: number; propertyId: string }> = [];
+    try {
+      for (const batch of splitUploadBatches(eligibleCandidates)) {
+        const payload = await Promise.all(batch.map(async (candidate) => ({
+          propertyId: candidate.propertyId,
+          label: candidate.label,
+          originalFileName: candidate.file.name,
+          mimeType: inferredImageType(candidate.file),
+          source: candidate.source,
+          dataBase64: await fileToBase64(candidate.file),
+        })));
+        const saved = await savePhotosMutation.mutateAsync({ photos: payload });
+        savedRecords.push(...saved.map((photo) => ({ id: photo.id, propertyId: photo.propertyId })));
+      }
+
+      const destinationIds = Array.from(new Set(savedRecords.map((record) => record.propertyId as PropertyPhotoId)));
+      await Promise.all(destinationIds.map((propertyId) => photoLibraryUtils.photoLibrary.list.invalidate({ propertyId })));
+
+      const activeSavedPhoto = savedRecords.find((record) => record.propertyId === selectedPropertyIdRef.current);
+      if (activeSavedPhoto) {
+        setSelectedPhotoId(`saved-${activeSavedPhoto.id}`);
+        setPickerOpen(true);
+      }
+
+      const destinationNames = destinationIds.map((propertyId) =>
+        pilotFlyerProperties.find((property) => property.id === propertyId)?.name ?? "the selected property",
+      );
+      const destinationLabel = destinationNames.length === 1
+        ? `${destinationNames[0]}'s saved library`
+        : `${destinationNames.length} property libraries`;
+      const skippedNote = tooLargeCount ? ` ${tooLargeCount} oversized photo${tooLargeCount === 1 ? " was" : "s were"} skipped.` : "";
+      toast.success(`${savedRecords.length} photo${savedRecords.length === 1 ? "" : "s"} saved to ${destinationLabel}.${skippedNote}`);
+      return savedRecords;
+    } catch {
+      toast.error("The photos could not be saved. Please try a smaller batch or sign in again.");
+      return [];
     }
   };
 
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!selectedProperty) return;
+    const propertyId = selectedProperty?.id as PropertyPhotoId | undefined;
     const files = Array.from(event.target.files ?? []);
-    if (!files.length) return;
-    const addedPhotos = files.filter((file) => file.type.startsWith("image/")).map((file, index) => ({
-      id: `local-${Date.now()}-${index}`,
-      label: photoLabel(file.name),
-      url: URL.createObjectURL(file),
-    }));
-    if (!addedPhotos.length) {
-      toast.error("Choose one or more image files to add to the picker.");
+    event.target.value = "";
+    if (!propertyId || !files.length) return;
+
+    const candidates = files
+      .filter((file) => SUPPORTED_IMAGE_TYPES.includes(file.type as PersistedImageType) || SUPPORTED_ZIP_IMAGE.test(file.name))
+      .map((file) => ({
+        propertyId,
+        file,
+        source: "individual" as const,
+        label: photoLabel(file.name),
+      }));
+    if (!candidates.length) {
+      toast.error("Choose JPG, PNG, WebP, GIF, or AVIF photos to save.");
       return;
     }
-    appendLocalPhotos(selectedProperty.id, addedPhotos);
-    event.target.value = "";
-    toast.success(`${addedPhotos.length} property photo${addedPhotos.length > 1 ? "s" : ""} added.`);
+    void persistCandidates(candidates);
   };
 
   const importZipArchive = async (zipFile: File) => {
-    const fallbackPropertyId = selectedProperty?.id;
-    if (!fallbackPropertyId) return;
+    const fallbackPropertyId = selectedProperty?.id as PropertyPhotoId | undefined;
+    if (!fallbackPropertyId || !requireSignInForSave()) return;
     if (!zipFile.name.toLowerCase().endsWith(".zip")) {
       toast.error("Choose a .zip archive containing property photos.");
       return;
@@ -131,7 +261,6 @@ export default function Home() {
       return;
     }
 
-    const createdUrls: string[] = [];
     setIsImportingZip(true);
     try {
       const archive = await JSZip.loadAsync(zipFile);
@@ -147,51 +276,26 @@ export default function Home() {
         return;
       }
 
-      const photosByProperty: Record<string, FlyerPhoto[]> = {};
       let extractedBytes = 0;
+      const candidates: UploadCandidate[] = [];
       for (let index = 0; index < imageEntries.length; index += 1) {
         const entry = imageEntries[index];
         if (!entry) continue;
         const blob = await entry.async("blob");
         extractedBytes += blob.size;
-        if (extractedBytes > MAX_ZIP_EXTRACTED_BYTES) {
-          throw new Error("ZIP_SIZE_LIMIT");
-        }
+        if (extractedBytes > MAX_ZIP_EXTRACTED_BYTES) throw new Error("ZIP_SIZE_LIMIT");
+
         const fileName = entry.name.split("/").pop() ?? `imported-photo-${index + 1}.jpg`;
         const file = new File([blob], fileName, { type: blob.type || imageType(fileName) });
-        const propertyId = propertyIdForArchivePath(entry.name, fallbackPropertyId);
-        const url = URL.createObjectURL(file);
-        createdUrls.push(url);
-        const addedPhoto: FlyerPhoto = {
-          id: `zip-${Date.now()}-${index}`,
+        candidates.push({
+          propertyId: propertyIdForArchivePath(entry.name, fallbackPropertyId),
+          file,
+          source: "zip",
           label: photoLabel(entry.name),
-          url,
-        };
-        (photosByProperty[propertyId] ??= []).push(addedPhoto);
+        });
       }
-
-      setLocalPhotos((current) => Object.entries(photosByProperty).reduce<Record<string, FlyerPhoto[]>>(
-        (next, [propertyId, photos]) => ({
-          ...next,
-          [propertyId]: [...(next[propertyId] ?? []), ...photos],
-        }),
-        { ...current },
-      ));
-      const activePhotos = photosByProperty[selectedPropertyIdRef.current] ?? photosByProperty[fallbackPropertyId];
-      if (activePhotos?.[0]) {
-        setSelectedPhotoId(activePhotos[0].id);
-        setPickerOpen(true);
-      }
-      const imageCount = imageEntries.length;
-      const destinationNames = Object.keys(photosByProperty).map(
-        (propertyId) => pilotFlyerProperties.find((property) => property.id === propertyId)?.name ?? "the selected property",
-      );
-      const destinationLabel = destinationNames.length === 1
-        ? `${destinationNames[0]}'s picker`
-        : `${destinationNames.length} property pickers`;
-      toast.success(`${imageCount} photo${imageCount === 1 ? "" : "s"} added to ${destinationLabel}.`);
+      await persistCandidates(candidates);
     } catch (error) {
-      createdUrls.forEach((url) => URL.revokeObjectURL(url));
       if (error instanceof Error && error.message === "ZIP_SIZE_LIMIT") {
         toast.error("The extracted photos exceed 200 MB. Please split the ZIP into smaller archives.");
       } else {
@@ -251,9 +355,7 @@ export default function Home() {
       <div className="flyer-shell">
         <header className="tool-header no-print">
           <div className="tool-header__rule" aria-hidden="true" />
-          <div>
-            <h1>Print Property Flyer</h1>
-          </div>
+          <div><h1>Print Property Flyer</h1></div>
         </header>
 
         <section className="flyer-controls no-print" aria-labelledby="controls-heading">
@@ -284,41 +386,52 @@ export default function Home() {
             <div className="photo-picker-heading">
               <div>
                 <Label>Flyer photo</Label>
-                <p>Select from {selectedProperty.name}&rsquo;s approved images.</p>
+                <p>
+                  Select from {selectedProperty.name}&rsquo;s approved images.
+                  {savedPhotosQuery.isLoading ? " Loading saved photos…" : " Uploaded photos are saved to this property library."}
+                </p>
               </div>
-              <Button type="button" variant="outline" className="photo-picker-toggle" onClick={() => setPickerOpen((open) => !open)} aria-expanded={pickerOpen}>
-                <ImagePlus size={15} /> Flyer Photo: {selectedPhoto.label} <ChevronDown size={14} className={pickerOpen ? "chevron-open" : ""} />
-              </Button>
+              <div className="flex items-center gap-2">
+                {!isAuthLoading && !isAuthenticated && (
+                  <Button type="button" variant="outline" className="photo-login-button" onClick={startLogin}>
+                    <LogIn size={14} /> Sign in to save photos
+                  </Button>
+                )}
+                <Button type="button" variant="outline" className="photo-picker-toggle" onClick={() => setPickerOpen((open) => !open)} aria-expanded={pickerOpen}>
+                  <ImagePlus size={15} /> Flyer Photo: {selectedPhoto.label} <ChevronDown size={14} className={pickerOpen ? "chevron-open" : ""} />
+                </Button>
+              </div>
             </div>
             <div
-              className={`zip-drop-zone ${isZipDropActive ? "is-dragging" : ""} ${isImportingZip ? "is-importing" : ""}`}
+              className={`zip-drop-zone ${isZipDropActive ? "is-dragging" : ""} ${isSavingPhotos ? "is-importing" : ""}`}
               onDragEnter={(event) => { event.preventDefault(); setIsZipDropActive(true); }}
               onDragOver={(event) => { event.preventDefault(); setIsZipDropActive(true); }}
               onDragLeave={(event) => { event.preventDefault(); setIsZipDropActive(false); }}
               onDrop={handleZipDrop}
-              aria-busy={isImportingZip}
+              aria-busy={isSavingPhotos}
             >
               <Archive className="zip-drop-zone__icon" aria-hidden="true" />
               <div className="zip-drop-zone__copy">
-                <strong>{isImportingZip ? "Unpacking your photo ZIP…" : "Drop a ZIP of property photos here"}</strong>
-                <span>{isImportingZip ? "Supported images are being added to the picker." : "Nested folders are supported. Property-named folders route automatically; all other photos go to the selected building for this browser session."}</span>
+                <strong>{isSavingPhotos ? "Saving your property photos…" : "Drop a ZIP of property photos here"}</strong>
+                <span>{isSavingPhotos ? "Supported images are being stored in their property libraries." : "Nested folders are supported. Property-named folders route automatically; every saved image remains available after future visits."}</span>
               </div>
               <label
                 className="zip-drop-zone__button"
                 role="button"
-                tabIndex={isImportingZip ? -1 : 0}
-                aria-disabled={isImportingZip}
+                tabIndex={isSavingPhotos ? -1 : 0}
+                aria-disabled={isSavingPhotos}
                 onKeyDown={(event) => {
-                  if (!isImportingZip && (event.key === "Enter" || event.key === " ")) {
+                  if (!isSavingPhotos && (event.key === "Enter" || event.key === " ")) {
                     event.preventDefault();
-                    zipInputRef.current?.click();
+                    if (requireSignInForSave()) zipInputRef.current?.click();
                   }
                 }}
               >
-                <Upload size={14} /> {isImportingZip ? "Importing…" : "Choose ZIP"}
-                <input ref={zipInputRef} className="visually-hidden" type="file" accept=".zip,application/zip,application/x-zip-compressed" disabled={isImportingZip} onChange={handleZipInput} />
+                <Upload size={14} /> {isSavingPhotos ? "Saving…" : "Choose ZIP"}
+                <input ref={zipInputRef} className="visually-hidden" type="file" accept=".zip,application/zip,application/x-zip-compressed" disabled={isSavingPhotos} onChange={handleZipInput} />
               </label>
             </div>
+            {savedPhotosQuery.isError && <p className="tool-instructions">Saved photos could not be loaded right now. Please refresh and try again.</p>}
             {pickerOpen && (
               <div className="photo-picker-grid" aria-label={`${selectedProperty.name} flyer photo picker`}>
                 {availablePhotos.map((photo) => (
@@ -334,13 +447,15 @@ export default function Home() {
                     {photo.id === selectedPhoto.id && <i><Check size={13} /></i>}
                   </button>
                 ))}
-                <button type="button" className="photo-choice photo-choice--upload" onClick={() => fileInputRef.current?.click()}>
+                <button type="button" className="photo-choice photo-choice--upload" disabled={isSavingPhotos} onClick={() => {
+                  if (requireSignInForSave()) fileInputRef.current?.click();
+                }}>
                   <ImagePlus size={22} />
-                  <span>Add individual photo</span>
+                  <span>Add &amp; save photo</span>
                 </button>
               </div>
             )}
-            <input ref={fileInputRef} className="visually-hidden" type="file" accept="image/*" multiple onChange={handlePhotoUpload} />
+            <input ref={fileInputRef} className="visually-hidden" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif" multiple onChange={handlePhotoUpload} />
           </div>
 
           <div className="output-row">
@@ -353,12 +468,7 @@ export default function Home() {
         <section className="flyer-preview-section" aria-labelledby="preview-heading">
           <p id="preview-heading" className="preview-label">FLYER PREVIEW</p>
           <div className="flyer-preview-frame">
-            <SimpleFlyerPreview
-              ref={flyerRef}
-              property={selectedProperty}
-              imageUrl={selectedPhoto.url}
-              reward={reward || "$0"}
-            />
+            <SimpleFlyerPreview ref={flyerRef} property={selectedProperty} imageUrl={selectedPhoto.url} reward={reward || "$0"} />
           </div>
         </section>
       </div>

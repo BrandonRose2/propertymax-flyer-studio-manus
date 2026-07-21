@@ -1,9 +1,9 @@
 /**
- * Gates on Manhattan flyer reference: a dense, navy-and-lime letter-size referral artboard.
- * Only approved property data, selected hero photo, and reward amount are dynamic in the flyer itself.
+ * Pelican Bay reference flyer: the photograph, property identifiers, and reward
+ * remain dynamic while the printed letter-size composition stays consistent.
  */
-import { forwardRef } from "react";
-import { Banknote, Building2, Check, Home, MapPin, UsersRound } from "lucide-react";
+import React, { forwardRef } from "react";
+import { Banknote, Check, Home, MapPin, UsersRound } from "lucide-react";
 import type { PilotFlyerProperty } from "@/data/pilotFlyerProperties";
 
 type SimpleFlyerPreviewProps = {
@@ -20,19 +20,20 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
       <article ref={ref} className="referral-flyer" aria-label={`${property.name} referral flyer`}>
         <header className="referral-flyer__top">
           <div className="property-wordmark">
-            <span className="property-wordmark__crest" aria-hidden="true"><Building2 /></span>
-            <span>
+            <span className="property-wordmark__crest" aria-hidden="true"><i /></span>
+            <span className="property-wordmark__type">
               <strong>{property.name}</strong>
               <small>APARTMENT HOMES</small>
             </span>
           </div>
-          <div className="wordmark-architecture" aria-hidden="true"><i /><i /><i /></div>
-          <div className="header-lime-rule" aria-hidden="true" />
-          <div className="earn-badge">
-            <span>EARN</span>
-            <strong>{reward}</strong>
-            <i aria-hidden="true" />
-            <b>ON YOUR<br />TENANT LEDGER!</b>
+
+          <div className="earn-badge" aria-label={`Earn ${reward} on your tenant ledger`}>
+            <div className="earn-badge__inner">
+              <span>EARN</span>
+              <strong>{reward}</strong>
+              <i aria-hidden="true" />
+              <b>ON YOUR<br />TENANT LEDGER!</b>
+            </div>
           </div>
         </header>
 
@@ -40,8 +41,11 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
           <img src={imageUrl} alt={`${property.name} selected exterior`} crossOrigin="anonymous" />
           <div className="hero-vignette" aria-hidden="true" />
           <div className="community-ribbon">
-            <UsersRound aria-hidden="true" />
-            <span><b>GOOD NEIGHBORS.</b> <em>GREAT COMMUNITY.</em><small>Stronger Together!</small></span>
+            <span className="community-ribbon__headline">
+              <b>GOOD NEIGHBORS.</b>
+              <em>GREAT COMMUNITY.</em>
+            </span>
+            <small>Stronger Together!</small>
           </div>
         </section>
 
@@ -49,19 +53,19 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
           <div className="referral-steps">
             <h2>IT&apos;S EASY!</h2>
             <div className="referral-step">
-              <span>1</span>
+              <span className="referral-step__number">1</span>
               <UsersRound className="referral-step__icon referral-step__icon--refer" aria-hidden="true" />
-              <p><b>REFER</b>Tell your friends, family, or co-workers about living at {property.name}.</p>
+              <p><b>REFER</b>Tell friends, family, or co-workers about living at {property.name}.</p>
             </div>
             <div className="referral-step">
-              <span>2</span>
+              <span className="referral-step__number">2</span>
               <Home className="referral-step__icon referral-step__icon--move" aria-hidden="true" />
               <p><b>THEY MOVE IN</b>Your referral applies and becomes a new resident.</p>
             </div>
             <div className="referral-step">
-              <span>3</span>
+              <span className="referral-step__number">3</span>
               <Banknote className="referral-step__icon referral-step__icon--paid" aria-hidden="true" />
-              <p><b>YOU GET PAID!</b>Once your referral pays full rent on time at least twice, we&apos;ll add {reward} to your tenant ledger.</p>
+              <p><b>YOU GET PAID!</b>After your referral pays full rent on time at least twice, we&apos;ll add {reward} to your tenant ledger.</p>
             </div>
           </div>
 
@@ -72,27 +76,29 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
               <b>ON YOUR TENANT LEDGER</b>
               <p>for every person<br />you refer who moves in!</p>
             </div>
-            <p className="flyer-disclaimer">* Credit will be added to your account after your referral has paid full rent on time at least twice. See office for complete details.</p>
+            <p className="flyer-disclaimer">* Credit will be added after your referral has paid full rent on time at least twice. See office for complete details.</p>
           </div>
         </section>
 
         <footer className="referral-flyer__bottom">
-          <div className="spread-word-mark" aria-hidden="true">
-            <span>SPREAD THE WORD.</span>
-            <small>ENJOY THE REWARDS!</small>
-          </div>
-          <div className="thank-you-copy">
-            <b>THANK YOU FOR HELPING US</b>
-            <strong>Build a Better Community! <em>♡</em></strong>
-          </div>
-          <div className="address-pill"><MapPin aria-hidden="true" /> {property.address}</div>
-          <div className="equal-housing" aria-label="Equal housing opportunity">
-            <span className="equal-housing__mark" aria-hidden="true">
-              <i className="equal-housing__roof" />
-              <i className="equal-housing__home" />
-              <i className="equal-housing__equals" />
-            </span>
-            <span className="equal-housing__copy">EQUAL HOUSING<br />OPPORTUNITY</span>
+          <div className="flyer-footer__main">
+            <div className="spread-word-mark" aria-hidden="true">
+              <span>SPREAD<br />THE WORD.</span>
+              <small>ENJOY THE<br />REWARDS!</small>
+            </div>
+            <div className="thank-you-copy">
+              <b>THANK YOU FOR HELPING US</b>
+              <strong>Build a Better Community! <em>♡</em></strong>
+              <div className="address-pill"><MapPin aria-hidden="true" /> {property.address}</div>
+            </div>
+            <div className="equal-housing" aria-label="Equal housing opportunity">
+              <span className="equal-housing__mark" aria-hidden="true">
+                <i className="equal-housing__roof" />
+                <i className="equal-housing__home" />
+                <i className="equal-housing__equals" />
+              </span>
+              <span className="equal-housing__copy">EQUAL HOUSING<br />OPPORTUNITY</span>
+            </div>
           </div>
           <p className="flyer-contact-line">Questions? Contact the Leasing Office for details. &nbsp;•&nbsp; {contactLine}</p>
         </footer>
