@@ -43,14 +43,18 @@
 - [x] Preserve individual-file upload and clearly communicate session-only imported-photo behavior.
 - [x] Test ZIP imports with valid photos, unsupported files, empty ZIPs, and mobile controls.
 - [x] Add persistent server-backed storage for photos uploaded to each property.
-- [ ] Persist both individual uploads and ZIP-extracted images with their property association.
-- [ ] Reload saved property photos on future visits and allow them to drive the flyer preview.
+- [x] Persist both individual uploads and ZIP-extracted images with their property association.
+- [x] Reload saved property photos on future visits and allow them to drive the flyer preview.
 - [ ] Verify persistence through refresh, property switching, and a new browser session.
-- [ ] Verify in an authenticated browser session that an individual image persists after refresh and can be selected to update the flyer preview.
-- [ ] Verify in an authenticated browser session that a ZIP import persists after refresh, including property-folder routing to the correct library.
-- [ ] Record acceptance evidence that reloaded saved photos appear after property switching and a new visit.
+- [x] Verify in an authenticated browser session that an individual image persists after refresh and can be selected to update the flyer preview.
+- [x] Verify in an authenticated browser session that a ZIP import persists after refresh, including property-folder routing to the correct library.
+- [x] Record acceptance evidence that reloaded saved photos appear after property switching and a new visit.
 - [x] Treat the supplied Pelican Bay referral flyer as the new ground-truth visual template for the printed artboard.
 - [x] Rebuild the flyer header, hero, angled reward plaque, community ribbon, two-column body, and footer to match the Pelican Bay template.
 - [x] Replace the generic header crest with a reference-style circular architectural wordmark mark.
 - [x] Run and record a final Pelican Bay fidelity pass covering desktop, mobile, print, and PNG output.
-- [ ] Re-verify saved property photos, desktop/mobile layout, print output, and PNG export after the Pelican Bay artboard rebuild.
+- [x] Re-verify saved property photos, desktop/mobile layout, print output, and PNG export after the Pelican Bay artboard rebuild.
+- [x] Keep individual-image and ZIP file inputs accessible to browser automation without changing their visible picker controls.
+- [x] After refresh, select a reloaded saved individual photo and record that the flyer-photo trigger and preview update from the persisted record.
+- [x] Capture explicit rendered-artboard evidence that the reloaded saved photo changes the flyer preview image after selection.
+- [x] Expose the selected flyer hero image label through accessible text so persisted-photo preview selection can be conclusively verified.

@@ -9,11 +9,12 @@ import type { PilotFlyerProperty } from "@/data/pilotFlyerProperties";
 type SimpleFlyerPreviewProps = {
   property: PilotFlyerProperty;
   imageUrl: string;
+  imageLabel: string;
   reward: string;
 };
 
 export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewProps>(
-  function SimpleFlyerPreview({ property, imageUrl, reward }, ref) {
+  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward }, ref) {
     const contactLine = `${property.officePhone} • Ext. ${property.extension}`;
 
     return (
@@ -38,7 +39,7 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
         </header>
 
         <section className="referral-flyer__hero">
-          <img src={imageUrl} alt={`${property.name} selected exterior`} crossOrigin="anonymous" />
+          <img src={imageUrl} alt={`${property.name} flyer hero: ${imageLabel}`} crossOrigin="anonymous" />
           <div className="hero-vignette" aria-hidden="true" />
           <div className="community-ribbon">
             <span className="community-ribbon__headline">

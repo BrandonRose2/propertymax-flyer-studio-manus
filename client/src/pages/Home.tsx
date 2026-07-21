@@ -428,7 +428,15 @@ export default function Home() {
                 }}
               >
                 <Upload size={14} /> {isSavingPhotos ? "Saving…" : "Choose ZIP"}
-                <input ref={zipInputRef} className="visually-hidden" type="file" accept=".zip,application/zip,application/x-zip-compressed" disabled={isSavingPhotos} onChange={handleZipInput} />
+                <input
+                  ref={zipInputRef}
+                  className="file-input-overlay"
+                  type="file"
+                  accept=".zip,application/zip,application/x-zip-compressed"
+                  aria-label="Choose ZIP of property photos"
+                  disabled={isSavingPhotos}
+                  onChange={handleZipInput}
+                />
               </label>
             </div>
             {savedPhotosQuery.isError && <p className="tool-instructions">Saved photos could not be loaded right now. Please refresh and try again.</p>}
@@ -447,15 +455,22 @@ export default function Home() {
                     {photo.id === selectedPhoto.id && <i><Check size={13} /></i>}
                   </button>
                 ))}
-                <button type="button" className="photo-choice photo-choice--upload" disabled={isSavingPhotos} onClick={() => {
-                  if (requireSignInForSave()) fileInputRef.current?.click();
-                }}>
+                <label className="photo-choice photo-choice--upload" aria-busy={isSavingPhotos}>
                   <ImagePlus size={22} />
                   <span>Add &amp; save photo</span>
-                </button>
+                  <input
+                    ref={fileInputRef}
+                    className="file-input-overlay"
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                    aria-label="Add and save property photos"
+                    multiple
+                    disabled={isSavingPhotos}
+                    onChange={handlePhotoUpload}
+                  />
+                </label>
               </div>
             )}
-            <input ref={fileInputRef} className="visually-hidden" type="file" accept="image/jpeg,image/png,image/webp,image/gif,image/avif" multiple onChange={handlePhotoUpload} />
           </div>
 
           <div className="output-row">
@@ -468,7 +483,13 @@ export default function Home() {
         <section className="flyer-preview-section" aria-labelledby="preview-heading">
           <p id="preview-heading" className="preview-label">FLYER PREVIEW</p>
           <div className="flyer-preview-frame">
-            <SimpleFlyerPreview ref={flyerRef} property={selectedProperty} imageUrl={selectedPhoto.url} reward={reward || "$0"} />
+            <SimpleFlyerPreview
+              ref={flyerRef}
+              property={selectedProperty}
+              imageUrl={selectedPhoto.url}
+              imageLabel={selectedPhoto.label}
+              reward={reward || "$0"}
+            />
           </div>
         </section>
       </div>

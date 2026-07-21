@@ -14,6 +14,7 @@ describe("Pelican Bay flyer template", () => {
     const markup = renderToStaticMarkup(createElement(SimpleFlyerPreview, {
       property,
       imageUrl: "https://example.com/property.jpg",
+      imageLabel: "saved validation photo",
       reward: "$275",
     }));
 
@@ -26,6 +27,7 @@ describe("Pelican Bay flyer template", () => {
     expect(markup).toContain("community-ribbon");
     expect(markup).toContain("spread-word-mark");
     expect(markup).toContain("equal-housing__mark");
+    expect(markup).toContain(`${property.name} flyer hero: saved validation photo`);
   });
 
   it("retains the letter-size print isolation and high-resolution PNG output contracts", () => {
