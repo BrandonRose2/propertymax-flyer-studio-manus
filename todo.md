@@ -29,3 +29,7 @@
 - [ ] Inspect the shared reference task’s Print-Ready Flyers section and record its exact control and preview behavior.
 - [ ] Match the standalone module to the shared reference while retaining the six-property pilot data.
 - [ ] Inspect the public Property Marketing Asset Hub flyer section and replace the inaccessible shared-task reference with its observed workflow and styling details.
+- [x] Treat the user-supplied Gates on Manhattan flyer image as the sole ground-truth print-artboard specification.
+- [x] Rebuild the flyer header, reward badge, hero treatment, instructions, offer panel, footer badges, and typography to match the supplied template exactly.
+- [x] Verify the rebuilt artboard against the supplied template at desktop and mobile preview sizes, then re-test print and PNG export.
+- [x] Test the Print-Ready Flyer controls and outputs in the user’s open Comet browser, including property change, photo selection, live reward update, print, and PNG download.

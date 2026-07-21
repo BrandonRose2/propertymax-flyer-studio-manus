@@ -1,9 +1,9 @@
 /**
- * Public Property Marketing Asset Hub reference reminder: navy/lime print artifact, not a dashboard card.
+ * Gates on Manhattan flyer reference: a dense, navy-and-lime letter-size referral artboard.
  * Only approved property data, selected hero photo, and reward amount are dynamic in the flyer itself.
  */
 import { forwardRef } from "react";
-import { Banknote, Home, MapPin, UsersRound } from "lucide-react";
+import { Banknote, Building2, Check, Home, MapPin, UsersRound } from "lucide-react";
 import type { PilotFlyerProperty } from "@/data/pilotFlyerProperties";
 
 type SimpleFlyerPreviewProps = {
@@ -20,18 +20,14 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
       <article ref={ref} className="referral-flyer" aria-label={`${property.name} referral flyer`}>
         <header className="referral-flyer__top">
           <div className="property-wordmark">
-            <span className="property-wordmark__lantern" aria-hidden="true">
-              <svg viewBox="0 0 64 64" fill="none">
-                <path d="M24 52h16M28 52V24h8v28M23 24h18M26 18h12M30 12h4M32 12v6M25 24l3-6h8l3 6M28 31h8M28 40h8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M18 53c7-5 21-5 28 0M15 57c9-6 25-6 34 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-            </span>
+            <span className="property-wordmark__crest" aria-hidden="true"><Building2 /></span>
             <span>
               <strong>{property.name}</strong>
               <small>APARTMENT HOMES</small>
             </span>
           </div>
-          <div className="top-curve" aria-hidden="true" />
+          <div className="wordmark-architecture" aria-hidden="true"><i /><i /><i /></div>
+          <div className="header-lime-rule" aria-hidden="true" />
           <div className="earn-badge">
             <span>EARN</span>
             <strong>{reward}</strong>
@@ -54,24 +50,24 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
             <h2>IT&apos;S EASY!</h2>
             <div className="referral-step">
               <span>1</span>
-              <UsersRound aria-hidden="true" />
+              <UsersRound className="referral-step__icon referral-step__icon--refer" aria-hidden="true" />
               <p><b>REFER</b>Tell your friends, family, or co-workers about living at {property.name}.</p>
             </div>
             <div className="referral-step">
               <span>2</span>
-              <Home aria-hidden="true" />
+              <Home className="referral-step__icon referral-step__icon--move" aria-hidden="true" />
               <p><b>THEY MOVE IN</b>Your referral applies and becomes a new resident.</p>
             </div>
             <div className="referral-step">
               <span>3</span>
-              <Banknote aria-hidden="true" />
+              <Banknote className="referral-step__icon referral-step__icon--paid" aria-hidden="true" />
               <p><b>YOU GET PAID!</b>Once your referral pays full rent on time at least twice, we&apos;ll add {reward} to your tenant ledger.</p>
             </div>
           </div>
 
           <div className="share-offer-wrap">
             <div className="share-offer">
-              <span>It Pays to Share!</span>
+              <span className="share-offer__headline"><Check aria-hidden="true" /> <i>It Pays to Share!</i></span>
               <strong>{reward}</strong>
               <b>ON YOUR TENANT LEDGER</b>
               <p>for every person<br />you refer who moves in!</p>
@@ -87,7 +83,7 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
           </div>
           <div className="thank-you-copy">
             <b>THANK YOU FOR HELPING US</b>
-            <strong>Build a Better Community!</strong>
+            <strong>Build a Better Community! <em>♡</em></strong>
           </div>
           <div className="address-pill"><MapPin aria-hidden="true" /> {property.address}</div>
           <div className="equal-housing" aria-label="Equal housing opportunity">

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Colonial Estates template reminder: white print paper, deep navy, and lime only; controls remain quiet. */
+/* Gates on Manhattan reference: white print paper with a dense, high-contrast navy/lime flyer; controls remain quiet. */
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -107,59 +107,68 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .flyer-preview-frame { display: grid; place-items: center; padding: 8px 0 0; }
 .referral-flyer { width: min(100%, 612px); aspect-ratio: 8.5 / 11; display: flex; flex-direction: column; overflow: hidden; color: #082d54; background: #fff; box-shadow: 0 16px 32px rgba(33, 48, 52, .24), 0 1px 0 rgba(255,255,255,.9) inset; font-family: "DM Sans", Arial, sans-serif; }
 
-.referral-flyer__top { position: relative; z-index: 2; height: 11%; overflow: visible; border-top: 7px solid #b7dc43; background: #fff; }
-.property-wordmark { position: absolute; z-index: 2; top: 22%; left: 7%; display: flex; align-items: center; gap: 7px; color: #082d54; }
-.property-wordmark__lantern { width: 31px; height: 31px; color: #082d54; }
-.property-wordmark__lantern svg { width: 100%; height: 100%; }
-.property-wordmark strong { display: block; max-width: none; color: #082d54; font-family: Georgia, serif; font-size: clamp(16px, 1.8vw, 22px); font-weight: 700; letter-spacing: -.055em; line-height: .9; text-transform: uppercase; white-space: nowrap; }
-.property-wordmark small { display: block; margin-top: 3px; color: #759a23; font-size: 5px; font-weight: 800; letter-spacing: .2em; text-align: center; }
-.top-curve { position: absolute; z-index: 1; right: 0; bottom: 0; left: 0; height: 5px; background: #b7dc43; }
-.earn-badge { position: absolute; z-index: 3; top: -2%; right: 5.2%; display: grid; justify-items: center; width: 28%; min-height: 215%; padding: 9% 5% 9%; color: #fff; border: 5px solid #b7dc43; background: #082d54; clip-path: polygon(4% 0, 100% 0, 100% 96%, 88% 100%, 0 94%, 0 5%); text-align: center; }
-.earn-badge span { font-size: clamp(13px, 2.2vw, 21px); font-weight: 900; letter-spacing: .035em; line-height: 1; }
-.earn-badge strong { color: #fff; font-size: clamp(35px, 6.4vw, 61px); font-weight: 950; letter-spacing: -.1em; line-height: .83; text-shadow: 2px 2px 0 #082d54; }
-.earn-badge i { width: 80%; border-top: 4px dotted #fff; }
-.earn-badge b { color: #b7dc43; font-size: clamp(7px, 1.15vw, 11px); font-weight: 900; letter-spacing: .03em; line-height: 1.05; }
+.referral-flyer__top { position: relative; z-index: 2; flex: 0 0 9%; height: auto; overflow: visible; border-top: 6px solid #b8dd42; background: #fff; }
+.property-wordmark { position: absolute; z-index: 3; top: 19%; left: 4.2%; display: flex; align-items: center; gap: 7px; color: #082d54; }
+.property-wordmark__crest { display: grid; place-items: center; width: clamp(21px, 3vw, 29px); height: clamp(21px, 3vw, 29px); color: #082d54; border: 1px solid currentColor; border-radius: 50%; background: #fff; }
+.property-wordmark__crest svg { width: 65%; height: 65%; stroke-width: 2.1; }
+.property-wordmark strong { display: block; max-width: min(45vw, 270px); overflow: hidden; color: #082d54; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(12px, 1.55vw, 17.5px); font-weight: 700; letter-spacing: .005em; line-height: .94; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+.property-wordmark small { display: block; margin-top: 2px; color: #8eb82c; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(4.3px, .53vw, 6px); font-weight: 700; letter-spacing: .23em; line-height: 1; text-align: center; }
+.wordmark-architecture { position: absolute; z-index: 1; top: 0; right: 14%; left: 43%; height: 100%; overflow: hidden; opacity: .74; pointer-events: none; }
+.wordmark-architecture i { position: absolute; bottom: -59%; display: block; width: 26%; height: 190%; background: linear-gradient(90deg, rgba(198, 208, 190, .1) 0 25%, rgba(159, 174, 149, .72) 26% 42%, rgba(239, 244, 224, .95) 43% 65%, rgba(126, 147, 122, .68) 66% 100%); transform: skewX(-27deg); }
+.wordmark-architecture i:nth-child(1) { left: 4%; }
+.wordmark-architecture i:nth-child(2) { left: 34%; opacity: .84; }
+.wordmark-architecture i:nth-child(3) { left: 65%; opacity: .64; }
+.header-lime-rule { position: absolute; z-index: 2; bottom: 0; left: 0; width: 52%; height: 5px; background: #b8dd42; }
+.earn-badge { position: absolute; z-index: 4; top: -1%; right: 1.4%; display: grid; justify-items: center; width: 29.5%; min-height: 195%; padding: 8% 4% 10%; color: #fff; border: 5px solid #b8dd42; background: #082d54; clip-path: polygon(0 0, 100% 0, 100% 96%, 93% 100%, 0 92%); text-align: center; }
+.earn-badge span { font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(13px, 2.15vw, 21px); font-weight: 700; letter-spacing: .025em; line-height: 1; }
+.earn-badge strong { color: #fff; font-family: "DM Sans", Arial, sans-serif; font-size: clamp(36px, 6.3vw, 61px); font-weight: 900; letter-spacing: -.11em; line-height: .8; text-shadow: 2px 2px 0 #082d54; }
+.earn-badge i { width: 80%; margin: 2% 0; border-top: 4px dotted #fff; }
+.earn-badge b { color: #b8dd42; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(7px, 1.1vw, 10.5px); font-weight: 700; letter-spacing: .025em; line-height: 1.03; }
 
-.referral-flyer__hero { position: relative; height: 39%; overflow: visible; background: #2e5a74; }
+.referral-flyer__hero { position: relative; flex: 0 0 33%; height: auto; overflow: hidden; background: #2e5a74; }
 .referral-flyer__hero > img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.hero-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3, 28, 50, .05) 0%, rgba(3, 28, 50, .3) 100%); }
-.community-ribbon { position: absolute; z-index: 3; right: 2%; bottom: 2%; left: auto; display: flex; align-items: center; gap: 5px; width: 47%; min-height: 13%; padding: 2.3% 4%; color: #fff; background: #082d54; clip-path: polygon(3% 24%, 10% 8%, 91% 0, 98% 21%, 100% 55%, 93% 83%, 8% 100%, 0 76%); transform: rotate(-.6deg); }
-.community-ribbon svg { width: 18px; height: 18px; fill: #fff; }
-.community-ribbon span { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px; font-size: clamp(6px, 1.05vw, 10px); line-height: 1; }
-.community-ribbon b { font-weight: 950; }
-.community-ribbon em { color: #b5d93e; font-style: normal; font-weight: 900; }
-.community-ribbon small { width: 100%; margin-top: 1px; color: #fff; font-family: Georgia, serif; font-size: clamp(6px, .9vw, 8px); font-style: italic; text-align: right; }
+.hero-vignette { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3, 28, 50, .02) 0%, rgba(3, 28, 50, .18) 100%); }
+.community-ribbon { position: absolute; z-index: 3; bottom: 0; left: 0; display: flex; align-items: center; gap: 5px; width: 37%; min-height: 17%; padding: 2.5% 5% 2.4% 4%; color: #fff; background: #082d54; clip-path: polygon(0 0, 92% 0, 100% 46%, 92% 100%, 0 100%); }
+.community-ribbon svg { flex: none; width: clamp(12px, 1.65vw, 16px); height: clamp(12px, 1.65vw, 16px); fill: #fff; }
+.community-ribbon span { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(5.5px, .91vw, 8.7px); line-height: 1; }
+.community-ribbon b { font-weight: 700; }
+.community-ribbon em { color: #b8dd42; font-style: normal; font-weight: 700; }
+.community-ribbon small { width: 100%; margin-top: 1px; color: #fff; font-family: "Caveat", cursive; font-size: clamp(6.2px, .97vw, 9px); font-weight: 600; line-height: .85; text-align: right; }
 
-.referral-flyer__body { height: 31%; display: grid; grid-template-columns: .97fr 1.03fr; gap: 5.3%; padding: 6.6% 7% 2.7%; background: #fff; }
-.referral-steps h2 { margin: 0 0 8px; color: #082d54; font-family: Georgia, serif; font-size: clamp(21px, 3.3vw, 32px); font-weight: 900; letter-spacing: -.075em; line-height: .9; }
-.referral-step { display: grid; grid-template-columns: 21px 28px 1fr; column-gap: 5px; align-items: center; padding: 5px 0; border-bottom: 1px dashed #9ba5a4; }
-.referral-step > span { display: grid; place-items: center; width: 20px; height: 20px; color: #fff; border-radius: 50%; background: #082d54; font-size: 10px; font-weight: 900; }
-.referral-step > svg { width: 26px; height: 26px; color: #082d54; stroke-width: 2.7; }
-.referral-step:nth-of-type(3) > svg { color: #96bd26; }
-.referral-step:nth-of-type(4) > svg { color: #719b22; fill: #b4d43e; }
-.referral-step p { margin: 0; color: #273c50; font-size: clamp(6.4px, 1.05vw, 9.7px); font-weight: 600; line-height: 1.08; }
-.referral-step b { display: block; margin-bottom: 2px; color: #79a11b; font-size: clamp(7px, 1.1vw, 10px); font-weight: 950; }
-.share-offer-wrap { display: grid; align-content: center; gap: 5px; min-width: 0; }
-.share-offer { display: grid; justify-items: center; padding: 8% 5% 7%; color: #fff; border: 3px solid #b4d73b; border-radius: 18px; background: #082d54; box-shadow: 0 0 0 3px #fff inset; text-align: center; }
-.share-offer > span { color: #fff; font-family: Georgia, serif; font-size: clamp(13px, 2.3vw, 22px); font-style: italic; line-height: 1; }
-.share-offer strong { margin: 3% 0 2%; color: #c4e84a; font-size: clamp(39px, 6.3vw, 60px); font-weight: 950; letter-spacing: -.09em; line-height: .8; text-shadow: 2px 2px 0 #000; }
-.share-offer b { color: #b5d942; font-size: clamp(7px, 1.25vw, 12px); font-weight: 900; letter-spacing: .02em; line-height: 1; }
-.share-offer p { margin: 5px 0 0; color: #fff; font-size: clamp(7px, 1.13vw, 10px); font-weight: 700; line-height: 1.05; }
-.flyer-disclaimer { margin: 0; color: #273b51; font-size: clamp(4.9px, .75vw, 7px); font-style: italic; font-weight: 600; line-height: 1.12; text-align: center; }
+.referral-flyer__body { flex: 0 0 38%; height: auto; display: grid; grid-template-columns: .9fr 1.1fr; gap: 5%; padding: 3% 6% 1.8%; background: #fff; }
+.referral-steps h2 { margin: 0 0 6px; padding-bottom: 3px; color: #082d54; border-bottom: 3px solid #b8dd42; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(22px, 3.3vw, 32px); font-weight: 700; letter-spacing: -.025em; line-height: .85; }
+.referral-step { display: grid; grid-template-columns: clamp(19px, 2.55vw, 25px) clamp(23px, 3.45vw, 33px) minmax(0, 1fr); column-gap: 5px; align-items: center; padding: 5px 0; border-bottom: 1px dashed #8292a2; }
+.referral-step > span { display: grid; place-items: center; width: clamp(18px, 2.45vw, 24px); height: clamp(18px, 2.45vw, 24px); color: #fff; border-radius: 50%; background: #082d54; font-size: clamp(8px, 1.25vw, 12px); font-weight: 900; }
+.referral-step__icon { width: clamp(22px, 3.15vw, 30px); height: clamp(22px, 3.15vw, 30px); stroke-width: 2.6; }
+.referral-step__icon--refer { color: #182e50; }
+.referral-step__icon--move { color: #8dbc2c; fill: rgba(184, 221, 66, .18); }
+.referral-step__icon--paid { color: #91bc28; fill: rgba(184, 221, 66, .2); }
+.referral-step p { margin: 0; color: #203a57; font-size: clamp(5.7px, .92vw, 8.7px); font-weight: 600; line-height: 1.07; }
+.referral-step b { display: block; margin-bottom: 1px; color: #78a321; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(6.7px, 1.02vw, 9.8px); font-weight: 700; letter-spacing: .01em; }
+.share-offer-wrap { display: grid; align-content: start; gap: 5px; min-width: 0; }
+.share-offer { display: grid; justify-items: center; min-height: 64%; padding: 6% 5% 7%; color: #fff; border: 4px solid #b8dd42; border-radius: 19px; background: #082d54; box-shadow: 0 0 0 3px #fff inset; text-align: center; }
+.share-offer__headline { display: flex; align-items: center; justify-content: center; gap: 4px; color: #fff; font-family: "Lora", Georgia, serif; font-size: clamp(12px, 2.08vw, 20px); font-style: italic; line-height: 1; }
+.share-offer__headline svg { width: 1em; height: 1em; color: #b8dd42; stroke-width: 3; }
+.share-offer__headline i { font-style: inherit; }
+.share-offer strong { margin: 4% 0 3%; color: #fff; font-family: "DM Sans", Arial, sans-serif; font-size: clamp(40px, 6.35vw, 61px); font-weight: 900; letter-spacing: -.11em; line-height: .8; text-shadow: 2px 2px 0 #000; }
+.share-offer b { color: #b8dd42; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(7px, 1.25vw, 12px); font-weight: 700; letter-spacing: .025em; line-height: 1; }
+.share-offer p { margin: 5px 0 0; color: #fff; font-size: clamp(6.4px, 1.03vw, 9.7px); font-weight: 700; line-height: 1.05; }
+.flyer-disclaimer { margin: 0; color: #273b51; font-size: clamp(4.5px, .69vw, 6.5px); font-style: italic; font-weight: 600; line-height: 1.1; text-align: center; }
 
-.referral-flyer__bottom { position: relative; height: 19%; display: grid; grid-template-columns: 14% 1fr 14%; grid-template-rows: 1fr auto auto; column-gap: 7px; align-items: center; padding: 4% 7% 4.5%; color: #082d54; background: #fff; }
-.spread-word-mark { display: grid; place-content: center; grid-column: 1; grid-row: 1 / span 2; width: clamp(35px, 6.2vw, 59px); height: clamp(35px, 6.2vw, 59px); padding: 4px; color: #fff; border: 3px solid #b7dc43; border-radius: 50%; background: #082d54; font-size: clamp(4.5px, .72vw, 7px); font-weight: 950; line-height: 1.05; text-align: center; }
+.referral-flyer__bottom { position: relative; flex: 0 0 20%; height: auto; color: #082d54; background: #fff; }
+.spread-word-mark { position: absolute; top: 15%; left: 4.6%; display: grid; width: 16%; aspect-ratio: 1; place-content: center; padding: 5px; color: #fff; border: 3px solid #b8dd42; border-radius: 50%; background: #082d54; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(4.2px, .66vw, 6.5px); font-weight: 700; line-height: 1.02; text-align: center; }
 .spread-word-mark span { display: block; }
-.spread-word-mark small { display: block; margin-top: 2px; color: #b7dc43; font-size: .78em; font-weight: 900; line-height: 1.05; }
-.thank-you-copy { display: grid; grid-column: 2; grid-row: 1; align-content: center; gap: 1px; }
-.thank-you-copy b { color: #082d54; font-size: clamp(6px, 1.1vw, 10px); font-weight: 950; letter-spacing: .01em; }
-.thank-you-copy strong { color: #719b22; font-family: Georgia, serif; font-size: clamp(13px, 2.3vw, 22px); font-style: italic; font-weight: 500; letter-spacing: -.07em; line-height: .95; }
-.address-pill { display: flex; align-items: center; grid-column: 2; grid-row: 2; gap: 4px; width: max-content; max-width: 100%; margin-top: 4px; padding: 3px 9px; overflow: hidden; color: #082d54; border-radius: 999px; background: #b7dc43; font-size: clamp(5.6px, .93vw, 9px); font-weight: 800; line-height: 1.1; text-overflow: ellipsis; white-space: nowrap; }
+.spread-word-mark small { display: block; margin-top: 2px; color: #b8dd42; font-size: .78em; font-weight: 700; line-height: 1.02; }
+.thank-you-copy { position: absolute; top: 17%; left: 24%; width: 61%; display: grid; align-content: center; gap: 0; }
+.thank-you-copy b { color: #082d54; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(6.2px, 1vw, 9.5px); font-weight: 700; letter-spacing: .01em; }
+.thank-you-copy strong { color: #76a221; font-family: "Caveat", cursive; font-size: clamp(16px, 2.7vw, 26px); font-weight: 700; letter-spacing: -.045em; line-height: .78; }
+.thank-you-copy em { color: #082d54; font-family: "DM Sans", Arial, sans-serif; font-size: .78em; font-style: normal; vertical-align: 9%; }
+.address-pill { position: absolute; top: 57%; left: 24%; display: flex; align-items: center; gap: 4px; width: max-content; max-width: 61%; padding: 3px 9px; overflow: hidden; color: #082d54; border-radius: 999px; background: #b8dd42; font-size: clamp(4.7px, .82vw, 7.9px); font-weight: 800; line-height: 1.1; text-overflow: ellipsis; white-space: nowrap; }
 .address-pill svg { flex: none; width: 11px; height: 11px; fill: #082d54; }
-.equal-housing { display: grid; grid-column: 3; grid-row: 1 / span 2; justify-items: center; gap: 1px; color: #082d54; font-size: 4px; font-weight: 900; line-height: 1.02; text-align: center; }
-.equal-housing svg { width: 26px; height: 26px; stroke-width: 3; }
+.equal-housing { position: absolute; top: 33%; right: 4.5%; display: grid; width: 12%; justify-items: center; gap: 1px; color: #082d54; font-size: clamp(3.5px, .5vw, 4.8px); font-weight: 900; line-height: 1.02; text-align: center; }
+.equal-housing svg { width: clamp(22px, 3.65vw, 34px); height: clamp(22px, 3.65vw, 34px); stroke-width: 2.7; }
 .equal-housing span { white-space: nowrap; }
-.flyer-contact-line { grid-column: 1 / -1; grid-row: 3; width: 100%; margin: 4px 0 0; padding-top: 3px; border-top: 2px solid #082d54; color: #082d54; font-size: clamp(4.8px, .75vw, 7px); font-weight: 800; text-align: center; }
+.flyer-contact-line { position: absolute; right: 4.5%; bottom: 6%; left: 4.5%; width: auto; margin: 0; padding-top: 3px; border-top: 2px solid #082d54; color: #082d54; font-size: clamp(4.6px, .7vw, 6.7px); font-weight: 800; line-height: 1.05; text-align: center; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 @media (max-width: 700px) {
