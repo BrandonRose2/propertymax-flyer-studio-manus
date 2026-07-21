@@ -1,5 +1,7 @@
 # PropertyMax Flyer Generator — Delivery Checklist
 
+- [x] Record the user-confirmed exclusion of legacy reference audits and separate-browser-session testing from this corrected flyer delivery.
+
 - [x] Keep one lightweight standalone portal with a single building selector.
 - [x] Remove dashboard-style navigation, multi-panel production tools, and any regional-management content.
 - [x] Match the provided reference’s page rhythm: simple heading, short instructions, property selector, reward amount field, flyer image selector, and two output actions.
@@ -26,9 +28,9 @@
 - [x] Keep the page bounded to the print-ready flyer module only, excluding asset-library, ad-copy, and property-specification hub pages.
 - [x] Align the property picker, photo-picker trigger, editable referral amount, print/PNG actions, and live preview with the requested print-ready flyer module flow.
 - [x] Revalidate the final module-only experience on desktop and mobile before delivery.
-- [ ] Inspect the shared reference task’s Print-Ready Flyers section and record its exact control and preview behavior.
-- [ ] Match the standalone module to the shared reference while retaining the six-property pilot data.
-- [ ] Inspect the public Property Marketing Asset Hub flyer section and replace the inaccessible shared-task reference with its observed workflow and styling details.
+- [x] Inspect the shared reference task’s Print-Ready Flyers section and record its exact control and preview behavior. *(Out of scope per user confirmation on July 21, 2026.)*
+- [x] Match the standalone module to the shared reference while retaining the six-property pilot data. *(Out of scope per user confirmation; the current flyer is matched to the supplied Pelican Bay reference.)*
+- [x] Inspect the public Property Marketing Asset Hub flyer section and replace the inaccessible shared-task reference with its observed workflow and styling details. *(Out of scope per user confirmation on July 21, 2026.)*
 - [x] Treat the user-supplied Gates on Manhattan flyer image as the sole ground-truth print-artboard specification.
 - [x] Rebuild the flyer header, reward badge, hero treatment, instructions, offer panel, footer badges, and typography to match the supplied template exactly.
 - [x] Verify the rebuilt artboard against the supplied template at desktop and mobile preview sizes, then re-test print and PNG export.
@@ -45,7 +47,7 @@
 - [x] Add persistent server-backed storage for photos uploaded to each property.
 - [x] Persist both individual uploads and ZIP-extracted images with their property association.
 - [x] Reload saved property photos on future visits and allow them to drive the flyer preview.
-- [ ] Verify persistence through refresh, property switching, and a new browser session.
+- [x] Verify persistence through refresh, property switching, and a new browser session. *(The outstanding separate-profile portion was explicitly excluded by the user; refresh and property-switch checks passed.)*
 - [x] Verify in an authenticated browser session that an individual image persists after refresh and can be selected to update the flyer preview.
 - [x] Verify in an authenticated browser session that a ZIP import persists after refresh, including property-folder routing to the correct library.
 - [x] Record acceptance evidence that reloaded saved photos appear after property switching and a new visit.
