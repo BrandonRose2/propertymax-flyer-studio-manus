@@ -40,4 +40,23 @@ describe("Pelican Bay flyer template", () => {
     expect(homePage).toContain("window.print()");
     expect(homePage).toContain("pixelRatio: 4");
   });
+
+  it("keeps the corrected offer card in an explicit non-clipping grid with its complete reward content", () => {
+    const property = pilotFlyerProperties[0];
+    if (!property) throw new Error("A pilot property is required for the flyer template test.");
+
+    const markup = renderToStaticMarkup(createElement(SimpleFlyerPreview, {
+      property,
+      imageUrl: "https://example.com/property.jpg",
+      imageLabel: "saved validation photo",
+      reward: "$275",
+    }));
+    const stylesheet = readFileSync(path.resolve(import.meta.dirname, "../client/src/index.css"), "utf8");
+
+    expect(stylesheet).toContain("grid-template-rows: minmax(0, 70%) auto");
+    expect(stylesheet).toContain(".share-offer { display: grid; min-height: 0; height: 100%;");
+    expect(markup).toContain("It Pays to Share!");
+    expect(markup).toContain("ON YOUR TENANT LEDGER");
+    expect((markup.match(/<strong>\$275<\/strong>/g) ?? [])).toHaveLength(2);
+  });
 });

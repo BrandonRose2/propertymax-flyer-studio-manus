@@ -23,9 +23,9 @@
 - [x] Validate the six-property pilot before preparing any additional portfolio properties.
 - [x] Verify the first six properties’ address and contact fields against the supplied Notion template before using them in the flyer.
 - [x] Verify the six pilot manager phone numbers and extensions against the supplied Company Contacts Notion page before using them in the flyer.
-- [ ] Keep the page bounded to the print-ready flyer module only, excluding asset-library, ad-copy, and property-specification hub pages.
-- [ ] Align the property picker, photo-picker trigger, editable referral amount, print/PNG actions, and live preview with the requested print-ready flyer module flow.
-- [ ] Revalidate the final module-only experience on desktop and mobile before delivery.
+- [x] Keep the page bounded to the print-ready flyer module only, excluding asset-library, ad-copy, and property-specification hub pages.
+- [x] Align the property picker, photo-picker trigger, editable referral amount, print/PNG actions, and live preview with the requested print-ready flyer module flow.
+- [x] Revalidate the final module-only experience on desktop and mobile before delivery.
 - [ ] Inspect the shared reference task’s Print-Ready Flyers section and record its exact control and preview behavior.
 - [ ] Match the standalone module to the shared reference while retaining the six-property pilot data.
 - [ ] Inspect the public Property Marketing Asset Hub flyer section and replace the inaccessible shared-task reference with its observed workflow and styling details.
@@ -58,3 +58,7 @@
 - [x] After refresh, select a reloaded saved individual photo and record that the flyer-photo trigger and preview update from the persisted record.
 - [x] Capture explicit rendered-artboard evidence that the reloaded saved photo changes the flyer preview image after selection.
 - [x] Expose the selected flyer hero image label through accessible text so persisted-photo preview selection can be conclusively verified.
+- [x] Rebuild the flyer’s macro geometry to match the supplied Pelican Bay reference rather than the earlier generalized composition.
+- [x] Correct the reward badge, smaller hero ribbon, steps/offer split, circular footer mark, and footer spacing to the reference proportions.
+- [x] Recompare the corrected artboard against the supplied side-by-side Pelican Bay reference at desktop and mobile scale.
+- [x] Restore the full reward-card content at the corrected reference height without clipping the amount or supporting copy.

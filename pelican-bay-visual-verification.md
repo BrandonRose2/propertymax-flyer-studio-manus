@@ -49,3 +49,17 @@ The captured rendered HTML then verified the full linkage: the selected tile sou
 ## Final Output Check — July 21, 2026
 
 The final Pelican Bay artboard was reopened in the connected browser after the crest and mobile-scaling changes. The **Download PNG** action completed and returned the control to its ready state, with the success notice **“High-resolution PNG flyer downloaded.”** A subsequent **Print Flyer** action invoked the browser-native print dialog; as expected, that modal blocks further connected-browser inspection. The final print stylesheet and high-resolution output settings are also covered by the automated template regression test.
+
+## Corrected Reference-Fidelity Review — July 21, 2026
+
+After the user identified that the earlier artboard was only generally similar to the right-hand Pelican Bay reference, the page was rebuilt around the reference’s actual space allocation. The white wordmark band was made shallow, the lime-trimmed upper-right award plaque was widened and lengthened only into the upper hero, the photograph was kept full-bleed but visually shallower, and the community message was reduced to a compact translucent lower-right ribbon.
+
+The white lower band now gives the left instruction column and right navy offer card comparable visual weight. The offer column uses an explicit grid allocation so the full dynamic reward, tenant-ledger line, and supporting copy remain visible at the corrected height. The footer restores breathing room around the circular spread-the-word seal, the thank-you/address treatment, and Equal Housing mark.
+
+Desktop inspection confirmed that the reward plaque, hero, compact ribbon, body columns, offer card, and footer now follow the corrected reference hierarchy without overlap or clipping. At a 390 px viewport, the portal controls remain usable and the 8.5 × 11 artboard scales as one intact canvas: no printed columns reflow, no badge or offer content clips, and all footer elements remain inside the page bounds.
+
+## Final Corrected-Reference Revalidation — July 21, 2026
+
+Fresh desktop and 390 px mobile captures were reviewed after the final CSS correction. At desktop scale, the lime-edged reward plaque remains a compact upper-right overlay, the hero stays visually shallower than the white lower band, the translucent message ribbon is confined to the lower-right of the image, and the instruction/offer split matches the side-by-side Pelican Bay hierarchy. The full **$200**, tenant-ledger label, and referral copy are present inside the right-hand navy offer card with no clipped lines or overflow.
+
+At the mobile viewport, the controls stack for usability while the letter-size flyer remains a single scaled canvas. The artboard keeps the same badge overlap, hero/ribbon treatment, three-step column, full offer-card content, circular footer seal, address pill, and housing mark without reflowing the printed composition. Automated regression coverage also passed **9 tests**, including the explicit offer-card grid and dynamic reward-content contract.
