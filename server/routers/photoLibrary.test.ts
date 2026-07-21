@@ -81,4 +81,41 @@ describe("photo library router", () => {
     ]);
     expect(mocks.listPropertyPhotos).toHaveBeenCalledWith("arbor-crest");
   });
+
+  it("keeps each newly added property in its own accepted persistent photo scope", async () => {
+    const addedPropertyIds = [
+      "gates-on-manhattan",
+      "grace-townhomes",
+      "pelican-bay-apartments",
+      "walnut-hill-apartments",
+    ];
+
+    mocks.storagePut.mockImplementation(async (key: string) => ({
+      key,
+      url: `/manus-storage/${key}`,
+    }));
+    mocks.createPropertyPhoto.mockImplementation(async (record) => ({ id: 100, ...record, uploadedAt: new Date() }));
+
+    const caller = photoLibraryRouter.createCaller(context(owner));
+    for (const propertyId of addedPropertyIds) {
+      const [saved] = await caller.saveMany({
+        photos: [{
+          propertyId,
+          label: "Validation exterior",
+          originalFileName: "validation.jpg",
+          mimeType: "image/jpeg",
+          source: "individual",
+          dataBase64: "aGVsbG8=",
+        }],
+      });
+
+      expect(saved).toMatchObject({ propertyId });
+      expect(mocks.storagePut).toHaveBeenCalledWith(
+        expect.stringMatching(new RegExp(`^property-photos/${propertyId}/`)),
+        expect.any(Buffer),
+        "image/jpeg",
+      );
+      expect(mocks.createPropertyPhoto).toHaveBeenCalledWith(expect.objectContaining({ propertyId }));
+    }
+  });
 });

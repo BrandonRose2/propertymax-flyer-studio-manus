@@ -63,3 +63,9 @@ Desktop inspection confirmed that the reward plaque, hero, compact ribbon, body 
 Fresh desktop and 390 px mobile captures were reviewed after the final CSS correction. At desktop scale, the lime-edged reward plaque remains a compact upper-right overlay, the hero stays visually shallower than the white lower band, the translucent message ribbon is confined to the lower-right of the image, and the instruction/offer split matches the side-by-side Pelican Bay hierarchy. The full **$200**, tenant-ledger label, and referral copy are present inside the right-hand navy offer card with no clipped lines or overflow.
 
 At the mobile viewport, the controls stack for usability while the letter-size flyer remains a single scaled canvas. The artboard keeps the same badge overlap, hero/ribbon treatment, three-step column, full offer-card content, circular footer seal, address pill, and housing mark without reflowing the printed composition. Automated regression coverage also passed **9 tests**, including the explicit offer-card grid and dynamic reward-content contract.
+
+## Final Readability Corrections — July 21, 2026
+
+The large offer-card amount now uses an unconstrained visible text box with a slightly smaller maximum scale and an internal inline allowance. The full **$200** remains visible, including its final zero, in the large navy offer card.
+
+The white header plate now fades toward transparency at its lower-right edge, allowing the hero image to show through beneath the angled wordmark treatment while retaining a readable property mark. The footer now includes a dedicated contact band that visibly renders the selected property contact inside the flyer. For Arbor Crest, the flyer shows **(850) 629-0605 • Ext. 261**. The regression suite passed **9 tests** after these changes.

@@ -21,6 +21,7 @@ describe("Pelican Bay flyer template", () => {
     expect(markup).toContain(property.name);
     expect(markup).toContain(property.address);
     expect(markup).toContain(property.officePhone);
+    expect(markup).toContain(`Ext. ${property.extension}`);
     expect(markup).toContain("$275");
     expect((markup.match(/<strong>\$275<\/strong>/g) ?? [])).toHaveLength(2);
     expect(markup).toContain("earn-badge__inner");
@@ -55,8 +56,41 @@ describe("Pelican Bay flyer template", () => {
 
     expect(stylesheet).toContain("grid-template-rows: minmax(0, 70%) auto");
     expect(stylesheet).toContain(".share-offer { display: grid; min-height: 0; height: 100%;");
+    expect(stylesheet).toContain(".share-offer strong { display: block; width: max-content; max-width: none;");
+    expect(stylesheet).toContain("overflow: visible;");
+    expect(stylesheet).toContain(".flyer-contact-line { position: absolute;");
+    expect(stylesheet).toContain("bottom: 15%");
     expect(markup).toContain("It Pays to Share!");
     expect(markup).toContain("ON YOUR TENANT LEDGER");
     expect((markup.match(/<strong>\$275<\/strong>/g) ?? [])).toHaveLength(2);
+  });
+
+  it("includes the four requested properties with isolated starter-photo records and dynamic leasing contacts", () => {
+    const expectedProperties = [
+      ["gates-on-manhattan", "Gates on Manhattan", "1050 Manhattan Blvd, Harvey, LA 70058", "(504) 362-9794", "284"],
+      ["grace-townhomes", "Grace Townhomes", "1212 Grace Circle, Ennis, TX 75119", "(972) 878-2040", "227"],
+      ["pelican-bay-apartments", "Pelican Bay Apartments", "2121 N Lobdell Blvd, Baton Rouge, LA 70806", "(225) 216-3131", "257"],
+      ["walnut-hill-apartments", "Walnut Hill Apartments", "102 Lieutenants Run Drive, Petersburg, VA 23805", "(804) 722-8271", "267"],
+    ] as const;
+
+    for (const [id, name, address, officePhone, extension] of expectedProperties) {
+      const property = pilotFlyerProperties.find((candidate) => candidate.id === id);
+      expect(property).toMatchObject({ id, name, address, officePhone, extension });
+      expect(property?.photos).toHaveLength(1);
+      expect(property?.photos[0]?.url).toMatch(/^\/manus-storage\//);
+
+      if (!property?.photos[0]) throw new Error(`A starter photo is required for ${name}.`);
+      const markup = renderToStaticMarkup(createElement(SimpleFlyerPreview, {
+        property,
+        imageUrl: property.photos[0].url,
+        imageLabel: property.photos[0].label,
+        reward: "$200",
+      }));
+      expect(markup).toContain(name);
+      expect(markup).toContain(address);
+      expect(markup).toContain(officePhone);
+      expect(markup).toContain(`Ext. ${extension}`);
+      expect(markup).toContain(property.photos[0].url);
+    }
   });
 });

@@ -64,3 +64,19 @@
 - [x] Correct the reward badge, smaller hero ribbon, steps/offer split, circular footer mark, and footer spacing to the reference proportions.
 - [x] Recompare the corrected artboard against the supplied side-by-side Pelican Bay reference at desktop and mobile scale.
 - [x] Restore the full reward-card content at the corrected reference height without clipping the amount or supporting copy.
+- [x] Collect verified address, leasing contact, referral amount, website/QR destination, and approved starter photo for Gates on Manhattan.
+- [x] Collect verified address, leasing contact, referral amount, website/QR destination, and approved starter photo for Grace Townhomes.
+- [x] Collect verified address, leasing contact, referral amount, website/QR destination, and approved starter photo for Pelican Bay Apartments.
+- [x] Collect verified address, leasing contact, referral amount, website/QR destination, and approved starter photo for Walnut Hill Apartments.
+- [x] Add the four validated property records to the flyer selector and give each an isolated persistent photo-library scope.
+- [x] Verify the four new properties update flyer fields correctly and retain property-scoped saved photo behavior.
+- [x] Fix the large offer-card $200 typography so the final zero is fully visible at the actual flyer scale.
+- [x] Make the lower-right portion of the white header plate visibly translucent so the hero shows through like the supplied reference.
+- [x] Restore the visible dynamic leasing contact line in the flyer footer, including the selected property’s phone and extension.
+- [x] Complete only the essential final verification and checkpoint for the already-added four-property expansion.
+- [x] Document the intentional portfolio fallback destination, shared $200 default, and starter-photo provenance for the four added properties.
+- [x] Add an automated render check for every new property’s name, address, phone, extension, and starter hero source.
+- [x] Add an automated isolation check confirming every new property ID is accepted as its own photo-library scope.
+- [x] Re-run the essential test/build verification and save the final property-expansion checkpoint.
+- [x] Save the final recoverability checkpoint after the passing 11-test suite and production build.
+- [x] Extend the server photo-library property-ID validation to accept Gates on Manhattan, Grace Townhomes, Pelican Bay Apartments, and Walnut Hill Apartments.

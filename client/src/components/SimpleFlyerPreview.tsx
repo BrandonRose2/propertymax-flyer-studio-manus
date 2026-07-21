@@ -101,7 +101,10 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
               <span className="equal-housing__copy">EQUAL HOUSING<br />OPPORTUNITY</span>
             </div>
           </div>
-          <p className="flyer-contact-line">Questions? Contact the Leasing Office for details. &nbsp;•&nbsp; {contactLine}</p>
+          <p className="flyer-contact-line">
+            <span>Questions? Contact the Leasing Office for details.</span>
+            <strong>{contactLine}</strong>
+          </p>
         </footer>
       </article>
     );
