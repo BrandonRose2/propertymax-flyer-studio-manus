@@ -169,7 +169,7 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 
 .referral-flyer__bottom { position: relative; flex: 0 0 21%; min-height: 0; color: #082d54; background: #fff; }
 .flyer-footer__main { position: absolute; inset: 0 0 29% 0; display: grid; grid-template-columns: 22% minmax(0, 1fr) 14%; align-items: center; padding: 3.8% 5.6% 1.4%; }
-.spread-word-mark { display: grid; width: 84%; aspect-ratio: 1; place-content: center; padding: 6px; color: #fff; border: 3px solid #b8dd42; border-radius: 50%; background: #082d54; box-shadow: 0 0 0 2px #082d54; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(4.8px, .76vw, 7px); font-weight: 700; line-height: 1.02; text-align: center; }
+.spread-word-mark { display: grid; width: 84%; aspect-ratio: 1; place-content: center; padding: 6px; color: #fff; border: 3px solid #b8dd42; border-radius: 50%; background: #082d54; box-shadow: 0 0 0 2px #082d54; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(7px, 1.05vw, 9px); font-weight: 700; line-height: 1.02; text-align: center; }
 .spread-word-mark span { display: block; }
 .spread-word-mark small { display: block; margin-top: 2px; color: #c4e54a; font-size: .9em; font-weight: 700; line-height: 1.02; }
 .thank-you-copy { display: grid; align-content: center; justify-items: start; gap: 1px; padding-left: 0; }

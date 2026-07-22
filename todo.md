@@ -90,3 +90,6 @@
 - [x] Replace the visually distracting diagonal header fade with a clean, stable title-band transition behind the apartment name. *(Superseded by the later request to retain the overall header structure and refine its fade instead.)*
 - [x] Move the apartment wordmark slightly lower within the existing white header plate to improve its visual balance.
 - [x] Extend the header transition fade farther upward and nudge the apartment wordmark down slightly without changing the overall header structure.
+- [x] Place Walnut Hill, Pelican Bay, Grace Townhomes, Gates on Manhattan, Arbor Crest, and Boca Ciega at the top of the Building dropdown in the requested order.
+- [x] Display only the office phone number, without its extension, on every property flyer while retaining the extension in source records.
+- [x] Enlarge the “Spread the Word / Enjoy the Rewards” wording inside the circular flyer badge so it better fills the available space.

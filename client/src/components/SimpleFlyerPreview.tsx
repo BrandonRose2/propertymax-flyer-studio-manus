@@ -15,7 +15,7 @@ type SimpleFlyerPreviewProps = {
 
 export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewProps>(
   function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward }, ref) {
-    const contactLine = `${property.officePhone} • Ext. ${property.extension}`;
+    const contactLine = property.officePhone;
 
     return (
       <article ref={ref} className="referral-flyer" aria-label={`${property.name} referral flyer`}>

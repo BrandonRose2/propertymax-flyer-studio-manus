@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { SimpleFlyerPreview } from "../client/src/components/SimpleFlyerPreview";
-import { pilotFlyerProperties } from "../client/src/data/pilotFlyerProperties";
+import { buildingDropdownProperties, pilotFlyerProperties } from "../client/src/data/pilotFlyerProperties";
 
 describe("Pelican Bay flyer template", () => {
   it("keeps property details and the editable reward in both reference offer treatments", () => {
@@ -21,7 +21,7 @@ describe("Pelican Bay flyer template", () => {
     expect(markup).toContain(property.name);
     expect(markup).toContain(property.address);
     expect(markup).toContain(property.officePhone);
-    expect(markup).toContain(`Ext. ${property.extension}`);
+    expect(markup).not.toContain(`Ext. ${property.extension}`);
     expect(markup).toContain("$275");
     expect((markup.match(/<strong>\$275<\/strong>/g) ?? [])).toHaveLength(2);
     expect(markup).toContain("earn-badge__inner");
@@ -101,6 +101,25 @@ describe("Pelican Bay flyer template", () => {
     expect(stylesheet).toContain(".property-wordmark { position: absolute; z-index: 3; top: 31%;");
   });
 
+  it("uses a larger type scale inside the circular spread-the-word badge", () => {
+    const stylesheet = readFileSync(path.resolve(import.meta.dirname, "../client/src/index.css"), "utf8");
+
+    expect(stylesheet).toContain(".spread-word-mark {");
+    expect(stylesheet).toContain("font-size: clamp(7px, 1.05vw, 9px)");
+  });
+
+  it("places the user-requested buildings first in the Building dropdown", () => {
+    expect(buildingDropdownProperties.slice(0, 6).map((property) => property.id)).toEqual([
+      "walnut-hill-apartments",
+      "pelican-bay-apartments",
+      "grace-townhomes",
+      "gates-on-manhattan",
+      "arbor-crest",
+      "boca-ciega",
+    ]);
+    expect(buildingDropdownProperties).toHaveLength(pilotFlyerProperties.length);
+  });
+
   it("includes the four requested properties with isolated starter-photo records and dynamic leasing contacts", () => {
     const expectedProperties = [
       ["gates-on-manhattan", "Gates on Manhattan", "1050 Manhattan Blvd, Harvey, LA 70058", "(504) 362-9794", "284"],
@@ -125,7 +144,7 @@ describe("Pelican Bay flyer template", () => {
       expect(markup).toContain(name);
       expect(markup).toContain(address);
       expect(markup).toContain(officePhone);
-      expect(markup).toContain(`Ext. ${extension}`);
+      expect(markup).not.toContain(`Ext. ${extension}`);
       expect(markup).toContain(property.photos[0].url);
     }
   });

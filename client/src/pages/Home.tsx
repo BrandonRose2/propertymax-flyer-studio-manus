@@ -20,7 +20,7 @@ import {
 import { useAuth } from "@/_core/hooks/useAuth";
 import { SimpleFlyerPreview } from "@/components/SimpleFlyerPreview";
 import { startLogin } from "@/const";
-import { pilotFlyerProperties, type FlyerPhoto } from "@/data/pilotFlyerProperties";
+import { buildingDropdownProperties, pilotFlyerProperties, type FlyerPhoto } from "@/data/pilotFlyerProperties";
 import { trpc } from "@/lib/trpc";
 import type { PropertyPhotoId } from "@shared/propertyPhotoConfig";
 
@@ -377,7 +377,7 @@ export default function Home() {
               <Select value={selectedPropertyId} onValueChange={selectProperty}>
                 <SelectTrigger id="building"><SelectValue placeholder="Choose a building" /></SelectTrigger>
                 <SelectContent>
-                  {pilotFlyerProperties.map((property) => (
+                  {buildingDropdownProperties.map((property) => (
                     <SelectItem key={property.id} value={property.id}>{property.name}</SelectItem>
                   ))}
                 </SelectContent>
