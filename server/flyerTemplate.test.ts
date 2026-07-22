@@ -88,11 +88,17 @@ describe("Pelican Bay flyer template", () => {
     const stylesheet = readFileSync(path.resolve(import.meta.dirname, "../client/src/index.css"), "utf8");
 
     expect(stylesheet).toContain(".referral-flyer__top::before");
-    expect(stylesheet).toContain("linear-gradient(118deg");
-    expect(stylesheet).toContain("rgba(255, 255, 255, .975) 34%");
-    expect(stylesheet).toContain("rgba(255, 255, 255, .9) 53%");
-    expect(stylesheet).toContain("rgba(255, 255, 255, .62) 75%");
-    expect(stylesheet).toContain("rgba(255, 255, 255, .1) 100%");
+    expect(stylesheet).toContain("width: 74%; height: 168%");
+    expect(stylesheet).toContain("linear-gradient(148deg");
+    expect(stylesheet).toContain("rgba(255, 255, 255, .82) 43%");
+    expect(stylesheet).toContain("rgba(255, 255, 255, .43) 68%");
+    expect(stylesheet).toContain("rgba(255, 255, 255, 0) 100%");
+  });
+
+  it("sets the apartment wordmark slightly lower within the title plate", () => {
+    const stylesheet = readFileSync(path.resolve(import.meta.dirname, "../client/src/index.css"), "utf8");
+
+    expect(stylesheet).toContain(".property-wordmark { position: absolute; z-index: 3; top: 31%;");
   });
 
   it("includes the four requested properties with isolated starter-photo records and dynamic leasing contacts", () => {

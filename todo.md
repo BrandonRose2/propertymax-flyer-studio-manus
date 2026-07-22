@@ -87,3 +87,6 @@
 - [x] Support a read-only property query parameter for deterministic Walnut Hill flyer preview verification.
 - [x] Resolve the deterministic preview query parameter’s TypeScript nullability before visual verification.
 - [x] Extend the upper header-plate fade behind the apartment title so the transition into the hero image is smoother and reaches farther upward.
+- [x] Replace the visually distracting diagonal header fade with a clean, stable title-band transition behind the apartment name. *(Superseded by the later request to retain the overall header structure and refine its fade instead.)*
+- [x] Move the apartment wordmark slightly lower within the existing white header plate to improve its visual balance.
+- [x] Extend the header transition fade farther upward and nudge the apartment wordmark down slightly without changing the overall header structure.
