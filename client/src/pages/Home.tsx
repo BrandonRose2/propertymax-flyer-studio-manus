@@ -32,6 +32,15 @@ const MAX_ZIP_EXTRACTED_BYTES = 200 * 1024 * 1024;
 const MAX_PERSISTED_IMAGE_BYTES = 10 * 1024 * 1024;
 const MAX_PERSISTED_BATCH_BYTES = 20 * 1024 * 1024;
 
+const initialPropertyIdFromLocation = () => {
+  const fallbackPropertyId = pilotFlyerProperties[0]?.id ?? "";
+  if (typeof window === "undefined") return fallbackPropertyId;
+  const requestedPropertyId = new URLSearchParams(window.location.search).get("property");
+  return pilotFlyerProperties.some((property) => property.id === requestedPropertyId)
+    ? requestedPropertyId ?? fallbackPropertyId
+    : fallbackPropertyId;
+};
+
 type PersistedImageType = (typeof SUPPORTED_IMAGE_TYPES)[number];
 type UploadSource = "individual" | "zip";
 type UploadCandidate = {
@@ -114,7 +123,7 @@ export default function Home() {
   const flyerRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const zipInputRef = useRef<HTMLInputElement>(null);
-  const [selectedPropertyId, setSelectedPropertyId] = useState(pilotFlyerProperties[0]?.id ?? "");
+  const [selectedPropertyId, setSelectedPropertyId] = useState(initialPropertyIdFromLocation);
   const [selectedPhotoId, setSelectedPhotoId] = useState(pilotFlyerProperties[0]?.photos[0]?.id ?? "");
   const [reward, setReward] = useState("$200");
   const [pickerOpen, setPickerOpen] = useState(false);

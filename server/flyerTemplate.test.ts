@@ -65,6 +65,25 @@ describe("Pelican Bay flyer template", () => {
     expect((markup.match(/<strong>\$275<\/strong>/g) ?? [])).toHaveLength(2);
   });
 
+  it("keeps the upper reward badge wide enough to show every digit in $200", () => {
+    const property = pilotFlyerProperties.find((candidate) => candidate.id === "walnut-hill-apartments");
+    if (!property?.photos[0]) throw new Error("Walnut Hill requires a starter photo for the badge regression test.");
+
+    const markup = renderToStaticMarkup(createElement(SimpleFlyerPreview, {
+      property,
+      imageUrl: property.photos[0].url,
+      imageLabel: property.photos[0].label,
+      reward: "$200",
+    }));
+    const stylesheet = readFileSync(path.resolve(import.meta.dirname, "../client/src/index.css"), "utf8");
+
+    expect((markup.match(/<strong>\$200<\/strong>/g) ?? [])).toHaveLength(2);
+    expect(stylesheet).toContain("justify-items: stretch");
+    expect(stylesheet).toContain(".earn-badge strong { display: block; width: 100%; max-width: none;");
+    expect(stylesheet).toContain("padding: 0 .09em 0 .02em; overflow: visible;");
+    expect(stylesheet).toContain("font-size: clamp(26px, 6.45vw, 46px)");
+  });
+
   it("includes the four requested properties with isolated starter-photo records and dynamic leasing contacts", () => {
     const expectedProperties = [
       ["gates-on-manhattan", "Gates on Manhattan", "1050 Manhattan Blvd, Harvey, LA 70058", "(504) 362-9794", "284"],

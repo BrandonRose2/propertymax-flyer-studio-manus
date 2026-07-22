@@ -80,3 +80,9 @@
 - [x] Re-run the essential test/build verification and save the final property-expansion checkpoint.
 - [x] Save the final recoverability checkpoint after the passing 11-test suite and production build.
 - [x] Extend the server photo-library property-ID validation to accept Gates on Manhattan, Grace Townhomes, Pelican Bay Apartments, and Walnut Hill Apartments.
+- [x] Fix the upper reward-badge amount so all digits in the dynamic $200 value remain visible without right-edge clipping.
+- [x] Add a Walnut Hill $200 upper-badge regression check and verify the corrected badge at desktop and mobile flyer scale.
+- [x] Verify the corrected upper reward badge on the live Walnut Hill flyer at desktop scale and record that the full $200 is visible.
+- [x] Verify the corrected upper reward badge on a mobile-scaled Walnut Hill flyer and record that the full $200 is visible.
+- [x] Support a read-only property query parameter for deterministic Walnut Hill flyer preview verification.
+- [x] Resolve the deterministic preview query parameter’s TypeScript nullability before visual verification.
