@@ -84,6 +84,17 @@ describe("Pelican Bay flyer template", () => {
     expect(stylesheet).toContain("font-size: clamp(26px, 6.45vw, 46px)");
   });
 
+  it("extends the header-plate fade upward through the apartment wordmark transition", () => {
+    const stylesheet = readFileSync(path.resolve(import.meta.dirname, "../client/src/index.css"), "utf8");
+
+    expect(stylesheet).toContain(".referral-flyer__top::before");
+    expect(stylesheet).toContain("linear-gradient(118deg");
+    expect(stylesheet).toContain("rgba(255, 255, 255, .975) 34%");
+    expect(stylesheet).toContain("rgba(255, 255, 255, .9) 53%");
+    expect(stylesheet).toContain("rgba(255, 255, 255, .62) 75%");
+    expect(stylesheet).toContain("rgba(255, 255, 255, .1) 100%");
+  });
+
   it("includes the four requested properties with isolated starter-photo records and dynamic leasing contacts", () => {
     const expectedProperties = [
       ["gates-on-manhattan", "Gates on Manhattan", "1050 Manhattan Blvd, Harvey, LA 70058", "(504) 362-9794", "284"],

@@ -86,3 +86,4 @@
 - [x] Verify the corrected upper reward badge on a mobile-scaled Walnut Hill flyer and record that the full $200 is visible.
 - [x] Support a read-only property query parameter for deterministic Walnut Hill flyer preview verification.
 - [x] Resolve the deterministic preview query parameter’s TypeScript nullability before visual verification.
+- [x] Extend the upper header-plate fade behind the apartment title so the transition into the hero image is smoother and reaches farther upward.
