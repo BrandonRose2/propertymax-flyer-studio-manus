@@ -5,8 +5,18 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import JSZip from "jszip";
-import { Archive, Check, ChevronDown, Download, ImagePlus, LogIn, Printer, Upload } from "lucide-react";
+import { Archive, Check, ChevronDown, Download, ImagePlus, LogIn, Printer, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -47,6 +57,12 @@ type UploadCandidate = {
   propertyId: PropertyPhotoId;
   file: File;
   source: UploadSource;
+  label: string;
+};
+type SavedFlyerPhoto = FlyerPhoto & { savedPhotoId: number };
+type PendingPhotoRemoval = {
+  photoId: number;
+  propertyId: PropertyPhotoId;
   label: string;
 };
 
@@ -130,6 +146,7 @@ export default function Home() {
   const [isExporting, setIsExporting] = useState(false);
   const [isImportingZip, setIsImportingZip] = useState(false);
   const [isZipDropActive, setIsZipDropActive] = useState(false);
+  const [pendingPhotoRemoval, setPendingPhotoRemoval] = useState<PendingPhotoRemoval | null>(null);
   const selectedPropertyIdRef = useRef(selectedPropertyId);
 
   const photoLibraryUtils = trpc.useUtils();
@@ -138,6 +155,7 @@ export default function Home() {
     { enabled: Boolean(selectedPropertyId), staleTime: 30_000 },
   );
   const savePhotosMutation = trpc.photoLibrary.saveMany.useMutation();
+  const removeSavedPhotoMutation = trpc.photoLibrary.remove.useMutation();
 
   useEffect(() => {
     selectedPropertyIdRef.current = selectedPropertyId;
@@ -148,9 +166,10 @@ export default function Home() {
     [selectedPropertyId],
   );
 
-  const savedPhotos = useMemo<FlyerPhoto[]>(
+  const savedPhotos = useMemo<SavedFlyerPhoto[]>(
     () => (savedPhotosQuery.data ?? []).map((photo) => ({
       id: `saved-${photo.id}`,
+      savedPhotoId: photo.id,
       label: photo.label,
       url: photo.url,
     })),
@@ -166,8 +185,13 @@ export default function Home() {
     () => availablePhotos.find((photo) => photo.id === selectedPhotoId) ?? availablePhotos[0],
     [availablePhotos, selectedPhotoId],
   );
+  const selectedSavedPhoto = useMemo(
+    () => savedPhotos.find((photo) => photo.id === selectedPhotoId),
+    [savedPhotos, selectedPhotoId],
+  );
 
   const isSavingPhotos = isImportingZip || savePhotosMutation.isPending;
+  const isRemovingSavedPhoto = removeSavedPhotoMutation.isPending;
 
   const selectProperty = (propertyId: string) => {
     const next = pilotFlyerProperties.find((property) => property.id === propertyId);
@@ -234,6 +258,43 @@ export default function Home() {
     } catch {
       toast.error("The photos could not be saved. Please try a smaller batch or sign in again.");
       return [];
+    }
+  };
+
+  const requestSavedPhotoRemoval = () => {
+    if (!selectedSavedPhoto || !selectedProperty) {
+      toast.message("Select a saved photo before removing it from this property library.");
+      return;
+    }
+    if (!requireSignInForSave()) return;
+
+    setPendingPhotoRemoval({
+      photoId: selectedSavedPhoto.savedPhotoId,
+      propertyId: selectedProperty.id as PropertyPhotoId,
+      label: selectedSavedPhoto.label,
+    });
+  };
+
+  const confirmSavedPhotoRemoval = async () => {
+    const removal = pendingPhotoRemoval;
+    if (!removal) return;
+
+    try {
+      await removeSavedPhotoMutation.mutateAsync({
+        propertyId: removal.propertyId,
+        photoId: removal.photoId,
+      });
+      await photoLibraryUtils.photoLibrary.list.invalidate({ propertyId: removal.propertyId });
+
+      if (selectedPropertyId === removal.propertyId && selectedPhotoId === `saved-${removal.photoId}`) {
+        const fallbackPhoto = availablePhotos.find((photo) => photo.id !== `saved-${removal.photoId}`);
+        setSelectedPhotoId(fallbackPhoto?.id ?? "");
+      }
+
+      setPendingPhotoRemoval(null);
+      toast.success(`${removal.label} was removed from the saved photo library.`);
+    } catch {
+      toast.error("The saved photo could not be removed. Please try again.");
     }
   };
 
@@ -450,6 +511,7 @@ export default function Home() {
             </div>
             {savedPhotosQuery.isError && <p className="tool-instructions">Saved photos could not be loaded right now. Please refresh and try again.</p>}
             {pickerOpen && (
+              <>
               <div className="photo-picker-grid" aria-label={`${selectedProperty.name} flyer photo picker`}>
                 {availablePhotos.map((photo) => (
                   <button
@@ -479,8 +541,49 @@ export default function Home() {
                   />
                 </label>
               </div>
+              {savedPhotos.length > 0 && (
+                <div className="saved-photo-actions">
+                  <p>{selectedSavedPhoto ? `Selected saved photo: ${selectedSavedPhoto.label}` : "Select a saved photo to remove it from this property library."}</p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="saved-photo-remove"
+                    disabled={!selectedSavedPhoto || isRemovingSavedPhoto}
+                    onClick={requestSavedPhotoRemoval}
+                  >
+                    <Trash2 size={14} /> {isRemovingSavedPhoto ? "Removing…" : "Remove selected saved photo"}
+                  </Button>
+                </div>
+              )}
+              </>
             )}
           </div>
+
+          <AlertDialog
+            open={Boolean(pendingPhotoRemoval)}
+            onOpenChange={(open) => {
+              if (!open && !isRemovingSavedPhoto) setPendingPhotoRemoval(null);
+            }}
+          >
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Remove saved photo?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  Remove “{pendingPhotoRemoval?.label ?? "this photo"}” from this property&rsquo;s saved photo library? It will no longer appear as a flyer-photo option.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={isRemovingSavedPhoto}>Keep photo</AlertDialogCancel>
+                <AlertDialogAction
+                  className="bg-red-700 hover:bg-red-800 focus-visible:ring-red-700"
+                  disabled={isRemovingSavedPhoto}
+                  onClick={() => void confirmSavedPhotoRemoval()}
+                >
+                  {isRemovingSavedPhoto ? "Removing…" : "Remove photo"}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
 
           <div className="output-row">
             <Button type="button" className="print-flyer-button" onClick={handlePrint}><Printer size={15} /> Print Flyer</Button>

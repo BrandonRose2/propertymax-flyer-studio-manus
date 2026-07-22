@@ -5,12 +5,14 @@ const mocks = vi.hoisted(() => ({
   storagePut: vi.fn(),
   createPropertyPhoto: vi.fn(),
   listPropertyPhotos: vi.fn(),
+  removePropertyPhoto: vi.fn(),
 }));
 
 vi.mock("../storage", () => ({ storagePut: mocks.storagePut }));
 vi.mock("../db", () => ({
   createPropertyPhoto: mocks.createPropertyPhoto,
   listPropertyPhotos: mocks.listPropertyPhotos,
+  removePropertyPhoto: mocks.removePropertyPhoto,
 }));
 
 import { photoLibraryRouter } from "./photoLibrary";
@@ -80,6 +82,29 @@ describe("photo library router", () => {
       { id: 25, propertyId: "arbor-crest" },
     ]);
     expect(mocks.listPropertyPhotos).toHaveBeenCalledWith("arbor-crest");
+  });
+
+  it("removes only the authenticated uploader's saved photo from its selected property library", async () => {
+    mocks.removePropertyPhoto.mockResolvedValue({
+      id: 31,
+      propertyId: "arbor-crest",
+      label: "Courtyard",
+      uploadedByOpenId: "property-manager",
+    });
+
+    const caller = photoLibraryRouter.createCaller(context(owner));
+    await expect(caller.remove({ propertyId: "arbor-crest", photoId: 31 })).resolves.toMatchObject({
+      id: 31,
+      propertyId: "arbor-crest",
+    });
+    expect(mocks.removePropertyPhoto).toHaveBeenCalledWith(31, "arbor-crest", "property-manager");
+  });
+
+  it("requires sign-in before a saved photo can be removed", async () => {
+    const caller = photoLibraryRouter.createCaller(context(null));
+    await expect(caller.remove({ propertyId: "arbor-crest", photoId: 31 })).rejects.toMatchObject({
+      code: "UNAUTHORIZED",
+    });
   });
 
   it("keeps each newly added property in its own accepted persistent photo scope", async () => {

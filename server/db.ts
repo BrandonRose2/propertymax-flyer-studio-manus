@@ -1,4 +1,4 @@
-import { asc, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertPropertyPhoto,
@@ -121,5 +121,26 @@ export async function createPropertyPhoto(photo: InsertPropertyPhoto) {
 
   const record = records[0];
   if (!record) throw new Error("Property photo record was not created");
+  return record;
+}
+
+export async function removePropertyPhoto(photoId: number, propertyId: string, uploadedByOpenId: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+
+  const records = await db
+    .select()
+    .from(propertyPhotos)
+    .where(and(
+      eq(propertyPhotos.id, photoId),
+      eq(propertyPhotos.propertyId, propertyId),
+      eq(propertyPhotos.uploadedByOpenId, uploadedByOpenId),
+    ))
+    .limit(1);
+
+  const record = records[0];
+  if (!record) return undefined;
+
+  await db.delete(propertyPhotos).where(eq(propertyPhotos.id, photoId));
   return record;
 }

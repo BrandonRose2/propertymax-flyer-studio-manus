@@ -4,6 +4,7 @@ import { PROPERTY_PHOTO_IDS } from "@shared/propertyPhotoConfig";
 import {
   createPropertyPhoto,
   listPropertyPhotos,
+  removePropertyPhoto,
 } from "../db";
 import {
   buildPropertyPhotoStorageKey,
@@ -33,6 +34,31 @@ export const photoLibraryRouter = router({
   list: publicProcedure
     .input(z.object({ propertyId: propertyIdSchema }))
     .query(async ({ input }) => listPropertyPhotos(input.propertyId)),
+
+  remove: protectedProcedure
+    .input(z.object({
+      propertyId: propertyIdSchema,
+      photoId: z.number().int().positive(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const removed = await removePropertyPhoto(input.photoId, input.propertyId, ctx.user.openId);
+        if (!removed) {
+          throw new TRPCError({
+            code: "NOT_FOUND",
+            message: "That saved photo is no longer available in this property library.",
+          });
+        }
+        return removed;
+      } catch (error) {
+        if (error instanceof TRPCError) throw error;
+        console.error("[PhotoLibrary] Failed to remove property photo", error);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "The saved photo could not be removed. Please try again.",
+        });
+      }
+    }),
 
   saveMany: protectedProcedure.input(uploadInput).mutation(async ({ ctx, input }) => {
     const decodedPhotos = input.photos.map((photo) => {
