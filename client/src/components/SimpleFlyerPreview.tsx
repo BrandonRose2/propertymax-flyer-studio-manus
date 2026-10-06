@@ -35,7 +35,7 @@ type SimpleFlyerPreviewProps = {
   textScales?: FlyerTextScales;
   /** Optional logo shown in the bottom-left corner of the photo; null hides it. */
   cornerLogoUrl?: string | null;
-  /** Two or three photo URLs turn the hero into a collage; otherwise imageUrl is used. */
+  /** Two photo URLs turn the hero into a side-by-side collage; otherwise imageUrl is used. */
   collageUrls?: string[];
 };
 
@@ -81,8 +81,8 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
         <section className="referral-flyer__hero">
           {collageUrls.length > 1
             ? (
-              <div className={`hero-collage hero-collage--${Math.min(collageUrls.length, 3)}`}>
-                {collageUrls.slice(0, 3).map((url, index) => (
+              <div className="hero-collage hero-collage--2">
+                {collageUrls.slice(0, 2).map((url, index) => (
                   <img key={`${url}-${index}`} src={url} alt={`${property.name} photo ${index + 1}`} crossOrigin="anonymous" />
                 ))}
               </div>

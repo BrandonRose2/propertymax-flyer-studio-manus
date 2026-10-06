@@ -48,6 +48,8 @@ const MAX_PERSISTED_BATCH_BYTES = 20 * 1024 * 1024;
 const TEXT_SIZE_STORAGE_KEY = "flyer-text-sizes";
 const TEXT_SIZE_CONTROLS = [...FLYER_TEXT_GROUPS, { id: "logo", label: "Header logo size" }, { id: "cornerLogo", label: "Photo corner logo size" }] as const;
 const NO_CORNER_LOGO_ID = "none";
+// Three photos put one under the reward badge, so collages stop at two.
+const MAX_COLLAGE_PHOTOS = 2;
 /** Prefer the glowing metallic concept for photos; fall back to any ApartmentCorp concept, then the built-in logo. */
 const defaultCornerLogoId = (options: { id: string; label: string }[]) =>
   (options.find((logo) => /^apartmentcorp logo 2\b/i.test(logo.label))
@@ -345,8 +347,8 @@ export default function Home() {
     if (!useCollage) return;
     setCollagePhotoIds((current) => {
       if (current.includes(photoId)) return current.filter((id) => id !== photoId);
-      if (current.length >= 3) {
-        toast.message("A collage holds up to 3 photos. Tap a numbered photo to remove it first.");
+      if (current.length >= MAX_COLLAGE_PHOTOS) {
+        toast.message(`A collage holds up to ${MAX_COLLAGE_PHOTOS} photos. Tap a numbered photo to remove it first.`);
         return current;
       }
       return [...current, photoId];
@@ -751,7 +753,7 @@ export default function Home() {
                 </p>
                 <label className="collage-toggle" htmlFor="use-collage">
                   <Checkbox id="use-collage" checked={useCollage} onCheckedChange={(checked) => toggleCollage(checked === true)} />
-                  Make a collage (pick up to 3 photos{useCollage ? ` · ${collagePhotos.length}/3 chosen` : ""})
+                  Make a collage (pick 2 photos{useCollage ? ` · ${collagePhotos.length}/${MAX_COLLAGE_PHOTOS} chosen` : ""})
                 </label>
               </div>
               <div className="flex items-center gap-2">
