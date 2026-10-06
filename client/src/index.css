@@ -184,7 +184,7 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .thank-you-copy em { color: #082d54; font-family: "DM Sans", Arial, sans-serif; font-size: .73em; font-style: normal; vertical-align: 10%; }
 .address-pill { display: flex; align-items: center; gap: 4px; max-width: 100%; margin-top: 4px; padding: 4px 9px; overflow: hidden; color: #082d54; border-radius: 999px; background: #b8dd42; font-size: calc(clamp(5.4px, .88vw, 8.4px) * var(--fs-footer, 1)); font-weight: 800; line-height: 1.1; text-overflow: ellipsis; white-space: nowrap; }
 .address-pill svg { flex: none; width: 11px; height: 11px; fill: #082d54; }
-.equal-housing { display: grid; align-self: center; justify-items: center; gap: 3px; color: #082d54; font-size: calc(clamp(3.6px, .56vw, 5.3px) * var(--fs-footer, 1)); font-weight: 900; line-height: 1.02; text-align: center; }
+.equal-housing { display: grid; align-self: end; justify-self: end; justify-items: center; transform: translateY(8%); gap: 3px; color: #082d54; font-size: calc(clamp(3.6px, .56vw, 5.3px) * var(--fs-footer, 1)); font-weight: 900; line-height: 1.02; text-align: center; }
 .equal-housing__mark { position: relative; display: block; width: clamp(29px, 4.2vw, 39px); height: clamp(27px, 4vw, 37px); color: currentColor; }
 .equal-housing__roof { position: absolute; top: 4%; left: 18%; width: 64%; height: 64%; border-top: 3px solid currentColor; border-left: 3px solid currentColor; transform: rotate(45deg); }
 .equal-housing__home { position: absolute; z-index: 1; right: 12%; bottom: 3%; left: 12%; height: 52%; border: 3px solid currentColor; background: #fff; }
