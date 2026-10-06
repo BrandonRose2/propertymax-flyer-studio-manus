@@ -159,6 +159,8 @@ export default function Home() {
   const zipInputRef = useRef<HTMLInputElement>(null);
   const [selectedPropertyId, setSelectedPropertyId] = useState(initialPropertyIdFromLocation);
   const [selectedPhotoId, setSelectedPhotoId] = useState(pilotFlyerProperties[0]?.photos[0]?.id ?? "");
+  const [useCollage, setUseCollage] = useState(false);
+  const [collagePhotoIds, setCollagePhotoIds] = useState<string[]>([]);
   const [rewardType, setRewardType] = useState<RewardType>("ledger");
   const [ledgerReward, setLedgerReward] = useState("$200");
   const [otherReward, setOtherReward] = useState("Free TV");
@@ -332,6 +334,29 @@ export default function Home() {
     () => availablePhotos.find((photo) => photo.id === selectedPhotoId) ?? availablePhotos[0],
     [availablePhotos, selectedPhotoId],
   );
+  const collagePhotos = useMemo(
+    () => collagePhotoIds
+      .map((id) => availablePhotos.find((photo) => photo.id === id))
+      .filter((photo): photo is FlyerPhoto => Boolean(photo)),
+    [availablePhotos, collagePhotoIds],
+  );
+  const choosePhoto = (photoId: string) => {
+    setSelectedPhotoId(photoId);
+    if (!useCollage) return;
+    setCollagePhotoIds((current) => {
+      if (current.includes(photoId)) return current.filter((id) => id !== photoId);
+      if (current.length >= 3) {
+        toast.message("A collage holds up to 3 photos. Tap a numbered photo to remove it first.");
+        return current;
+      }
+      return [...current, photoId];
+    });
+  };
+  const toggleCollage = (enabled: boolean) => {
+    setUseCollage(enabled);
+    setCollagePhotoIds(enabled && selectedPhoto ? [selectedPhoto.id] : []);
+    if (enabled) setPickerOpen(true);
+  };
   const selectedSavedPhoto = useMemo(
     () => savedPhotos.find((photo) => photo.id === selectedPhotoId),
     [savedPhotos, selectedPhotoId],
@@ -345,6 +370,7 @@ export default function Home() {
     if (!next) return;
     setSelectedPropertyId(propertyId);
     setSelectedPhotoId("");
+    setCollagePhotoIds([]);
     setPickerOpen(false);
   };
 
@@ -723,6 +749,10 @@ export default function Home() {
                   Select from {selectedProperty.name}&rsquo;s approved images.
                   {savedPhotosQuery.isLoading ? " Loading saved photos…" : " Uploaded photos are saved to this property library."}
                 </p>
+                <label className="collage-toggle" htmlFor="use-collage">
+                  <Checkbox id="use-collage" checked={useCollage} onCheckedChange={(checked) => toggleCollage(checked === true)} />
+                  Make a collage (pick up to 3 photos{useCollage ? ` · ${collagePhotos.length}/3 chosen` : ""})
+                </label>
               </div>
               <div className="flex items-center gap-2">
                 {!isAuthLoading && !isAuthenticated && (
@@ -780,13 +810,15 @@ export default function Home() {
                   <button
                     key={photo.id}
                     type="button"
-                    className={`photo-choice ${photo.id === selectedPhoto.id ? "is-selected" : ""}`}
-                    onClick={() => setSelectedPhotoId(photo.id)}
-                    aria-pressed={photo.id === selectedPhoto.id}
+                    className={`photo-choice ${(useCollage ? collagePhotoIds.includes(photo.id) : photo.id === selectedPhoto.id) ? "is-selected" : ""}`}
+                    onClick={() => choosePhoto(photo.id)}
+                    aria-pressed={useCollage ? collagePhotoIds.includes(photo.id) : photo.id === selectedPhoto.id}
                   >
                     <img src={photo.url} alt={`${photo.label} for ${selectedProperty.name}`} />
                     <span>{photo.label}</span>
-                    {photo.id === selectedPhoto.id && <i><Check size={13} /></i>}
+                    {useCollage
+                      ? collagePhotoIds.includes(photo.id) && <b className="collage-order">{collagePhotoIds.indexOf(photo.id) + 1}</b>
+                      : photo.id === selectedPhoto.id && <i><Check size={13} /></i>}
                   </button>
                 ))}
                 <label className="photo-choice photo-choice--upload" aria-busy={isSavingPhotos}>
@@ -863,6 +895,7 @@ export default function Home() {
               property={selectedProperty}
               imageUrl={selectedPhoto.url}
               imageLabel={selectedPhoto.label}
+              collageUrls={useCollage ? collagePhotos.map((photo) => photo.url) : []}
               reward={reward || (rewardType === "ledger" ? "$0" : "Reward")}
               rewardType={rewardType}
               rewardScale={rewardScalePct / 100}

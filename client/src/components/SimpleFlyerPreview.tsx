@@ -35,10 +35,12 @@ type SimpleFlyerPreviewProps = {
   textScales?: FlyerTextScales;
   /** Optional logo shown in the bottom-left corner of the photo; null hides it. */
   cornerLogoUrl?: string | null;
+  /** Two or three photo URLs turn the hero into a collage; otherwise imageUrl is used. */
+  collageUrls?: string[];
 };
 
 export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewProps>(
-  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = "/apartmentcorp-logo.png", textScales = {}, cornerLogoUrl = null }, ref) {
+  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = "/apartmentcorp-logo.png", textScales = {}, cornerLogoUrl = null, collageUrls = [] }, ref) {
     const contactLine = property.officePhone;
     const isLedger = rewardType === "ledger";
     const flyerStyle = {
@@ -77,7 +79,15 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
         </header>
 
         <section className="referral-flyer__hero">
-          <img src={imageUrl} alt={`${property.name} flyer hero: ${imageLabel}`} crossOrigin="anonymous" />
+          {collageUrls.length > 1
+            ? (
+              <div className={`hero-collage hero-collage--${Math.min(collageUrls.length, 3)}`}>
+                {collageUrls.slice(0, 3).map((url, index) => (
+                  <img key={`${url}-${index}`} src={url} alt={`${property.name} photo ${index + 1}`} crossOrigin="anonymous" />
+                ))}
+              </div>
+            )
+            : <img src={imageUrl} alt={`${property.name} flyer hero: ${imageLabel}`} crossOrigin="anonymous" />}
           <div className="hero-vignette" aria-hidden="true" />
           {cornerLogoUrl && <img className="hero-corner-logo" src={cornerLogoUrl} alt="ApartmentCorp" crossOrigin="anonymous" />}
           <div className="community-ribbon">
