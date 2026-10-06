@@ -28,7 +28,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { SimpleFlyerPreview } from "@/components/SimpleFlyerPreview";
+import { SimpleFlyerPreview, type RewardType } from "@/components/SimpleFlyerPreview";
+import { Slider } from "@/components/ui/slider";
 import { startLogin } from "@/const";
 import { buildingDropdownProperties, pilotFlyerProperties, type FlyerPhoto } from "@/data/pilotFlyerProperties";
 import { trpc } from "@/lib/trpc";
@@ -141,7 +142,17 @@ export default function Home() {
   const zipInputRef = useRef<HTMLInputElement>(null);
   const [selectedPropertyId, setSelectedPropertyId] = useState(initialPropertyIdFromLocation);
   const [selectedPhotoId, setSelectedPhotoId] = useState(pilotFlyerProperties[0]?.photos[0]?.id ?? "");
-  const [reward, setReward] = useState("$200");
+  const [rewardType, setRewardType] = useState<RewardType>("ledger");
+  const [ledgerReward, setLedgerReward] = useState("$200");
+  const [otherReward, setOtherReward] = useState("Free TV");
+  const [rewardScalePct, setRewardScalePct] = useState(100);
+  const reward = rewardType === "ledger" ? ledgerReward : otherReward;
+  const setReward = rewardType === "ledger" ? setLedgerReward : setOtherReward;
+  const changeRewardType = (next: RewardType) => {
+    setRewardType(next);
+    // Words take more room than a dollar amount, so start them a bit smaller.
+    setRewardScalePct(next === "ledger" ? 100 : 70);
+  };
   const [pickerOpen, setPickerOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [isImportingZip, setIsImportingZip] = useState(false);
@@ -430,7 +441,7 @@ export default function Home() {
 
         <section className="flyer-controls no-print" aria-labelledby="controls-heading">
           <p id="controls-heading" className="tool-instructions">
-            Resident referral flyer — <strong>&ldquo;Earn $200 on your tenant ledger.&rdquo;</strong> The property name and contact info are filled in automatically. Choose the photo and referral amount, then click Print Flyer for a ready-to-hand-out 8.5 × 11 page, or Download PNG for email and digital distribution.
+            Resident referral flyer — <strong>&ldquo;Earn $200 on your tenant ledger&rdquo;</strong> or any other reward, like a free TV. The property name and contact info are filled in automatically. Choose the photo and reward, adjust the reward text size if needed, then click Print Flyer for a ready-to-hand-out 8.5 × 11 page, or Download PNG for email and digital distribution.
           </p>
           <div className="control-grid">
             <div className="control-field property-control">
@@ -445,10 +456,45 @@ export default function Home() {
               </Select>
               <span>{selectedProperty.address}</span>
             </div>
+          </div>
+          <div className="reward-grid">
+            <div className="control-field reward-type-control">
+              <Label htmlFor="reward-type">Reward type</Label>
+              <Select value={rewardType} onValueChange={(value) => changeRewardType(value as RewardType)}>
+                <SelectTrigger id="reward-type"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ledger">Ledger credit ($)</SelectItem>
+                  <SelectItem value="other">Other reward</SelectItem>
+                </SelectContent>
+              </Select>
+              <span>{rewardType === "ledger" ? "Credited to the tenant ledger." : "Any prize, e.g. Free TV."}</span>
+            </div>
             <div className="control-field reward-control">
-              <Label htmlFor="reward">Referral amount</Label>
-              <Input id="reward" value={reward} onChange={(event) => setReward(event.target.value)} />
-              <span>Updates the flyer instantly — default is $200.</span>
+              <Label htmlFor="reward">{rewardType === "ledger" ? "Referral amount" : "Reward"}</Label>
+              <Input
+                id="reward"
+                value={reward}
+                maxLength={40}
+                placeholder={rewardType === "ledger" ? "$200" : "Free TV"}
+                onChange={(event) => setReward(event.target.value)}
+              />
+              <span>Updates the flyer instantly.</span>
+            </div>
+            <div className="control-field reward-size-control">
+              <Label htmlFor="reward-size">Reward text size</Label>
+              <div className="reward-size-control__row">
+                <Slider
+                  id="reward-size"
+                  min={40}
+                  max={150}
+                  step={5}
+                  value={[rewardScalePct]}
+                  onValueChange={([value]) => setRewardScalePct(value ?? 100)}
+                  aria-label="Reward text size"
+                />
+                <output htmlFor="reward-size">{rewardScalePct}%</output>
+              </div>
+              <span>Shrink long rewards so they fit the badge.</span>
             </div>
           </div>
 
@@ -600,7 +646,9 @@ export default function Home() {
               property={selectedProperty}
               imageUrl={selectedPhoto.url}
               imageLabel={selectedPhoto.label}
-              reward={reward || "$0"}
+              reward={reward || (rewardType === "ledger" ? "$0" : "Reward")}
+              rewardType={rewardType}
+              rewardScale={rewardScalePct / 100}
             />
           </div>
         </section>

@@ -81,7 +81,7 @@ describe("Pelican Bay flyer template", () => {
     expect(stylesheet).toContain("justify-items: stretch");
     expect(stylesheet).toContain(".earn-badge strong { display: block; width: 100%; max-width: none;");
     expect(stylesheet).toContain("padding: 0 .09em 0 .02em; overflow: visible;");
-    expect(stylesheet).toContain("font-size: clamp(26px, 6.45vw, 46px)");
+    expect(stylesheet).toContain("font-size: calc(clamp(26px, 6.45vw, 46px) * var(--reward-scale, 1))");
   });
 
   it("extends the header-plate fade upward through the apartment wordmark transition", () => {
@@ -147,5 +147,40 @@ describe("Pelican Bay flyer template", () => {
       expect(markup).not.toContain(`Ext. ${extension}`);
       expect(markup).toContain(property.photos[0].url);
     }
+  });
+});
+
+describe("custom rewards", () => {
+  const property = pilotFlyerProperties[0]!;
+  const render = (props: Record<string, unknown>) =>
+    renderToStaticMarkup(createElement(SimpleFlyerPreview, {
+      property,
+      imageUrl: "https://example.com/property.jpg",
+      imageLabel: "photo",
+      reward: "$200",
+      ...props,
+    }));
+
+  it("shows a non-cash reward without tenant-ledger wording", () => {
+    const markup = render({ reward: "Free TV", rewardType: "other" });
+    expect((markup.match(/<strong>Free TV<\/strong>/g) ?? [])).toHaveLength(2);
+    expect(markup).toContain("FOR EVERY<br/>REFERRAL!");
+    expect(markup).toContain("REFERRAL REWARD");
+    expect(markup).toContain("you&#x27;ll receive: Free TV");
+    expect(markup).not.toContain("TENANT LEDGER");
+    expect(markup).toContain("has-text-reward");
+  });
+
+  it("keeps the ledger wording for cash credits", () => {
+    const markup = render({ rewardType: "ledger" });
+    expect(markup).toContain("ON YOUR TENANT LEDGER");
+    expect(markup).not.toContain("has-text-reward");
+  });
+
+  it("scales the reward text through a CSS variable", () => {
+    expect(render({ rewardScale: 0.7 })).toContain("--reward-scale:0.7");
+    const stylesheet = readFileSync(path.resolve(import.meta.dirname, "../client/src/index.css"), "utf8");
+    expect(stylesheet).toContain("calc(clamp(26px, 6.45vw, 46px) * var(--reward-scale, 1))");
+    expect(stylesheet).toContain("calc(clamp(36px, 5.8vw, 55px) * var(--reward-scale, 1))");
   });
 });

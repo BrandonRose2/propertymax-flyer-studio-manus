@@ -68,7 +68,8 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 
 .flyer-controls { padding: 18px 20px 17px; background: rgba(255, 255, 253, .87); border: 1px solid #dcdcd2; border-radius: 4px; box-shadow: 0 7px 26px rgba(28, 45, 52, .055); }
 .tool-instructions { max-width: 830px; margin: 0 0 16px; color: #5f6966; font-size: 12px; line-height: 1.5; }
-.control-grid { display: grid; grid-template-columns: minmax(240px, 1.35fr) minmax(130px, .62fr); gap: 12px; align-items: end; }
+.control-grid { display: grid; grid-template-columns: minmax(240px, 1fr); gap: 12px; align-items: end; }
+.reward-grid { display: grid; grid-template-columns: minmax(130px, .7fr) minmax(160px, 1fr) minmax(180px, 1fr); gap: 12px; align-items: end; margin-top: 12px; }
 .control-field { display: grid; gap: 6px; }
 .control-field > label { display: flex; align-items: center; gap: 5px; color: #34434d; font-size: 11px; font-weight: 800; }
 .control-field [data-slot="select-trigger"], .control-field input { height: 38px; color: #182d48; background: #fff; border-color: #cdd0ca; border-radius: 3px; box-shadow: none; font-size: 12px; }
@@ -137,7 +138,7 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .earn-badge { position: absolute; z-index: 5; top: -1%; right: 2.2%; width: 29.2%; height: 202%; padding: 1.1%; color: #fff; background: #b8dd42; clip-path: polygon(14% 0, 100% 0, 100% 91.5%, 89% 100%, 0 85%, 0 18%); }
 .earn-badge__inner { display: grid; width: 100%; height: 100%; align-content: center; justify-items: stretch; padding: 9% 4% 10% 8%; overflow: visible; background: #082d54; clip-path: polygon(15% 3%, 97% 3%, 97% 89%, 86% 96%, 4% 83%, 4% 21%); text-align: center; }
 .earn-badge span { font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(11px, 1.88vw, 18.5px); font-weight: 700; letter-spacing: .04em; line-height: 1; }
-.earn-badge strong { display: block; width: 100%; max-width: none; padding: 0 .09em 0 .02em; overflow: visible; color: #fff; font-family: "DM Sans", Arial, sans-serif; font-size: clamp(26px, 6.45vw, 46px); font-weight: 900; font-variant-numeric: tabular-nums; letter-spacing: -.062em; line-height: .9; text-align: center; text-shadow: 2px 2px 0 #082d54; white-space: nowrap; }
+.earn-badge strong { display: block; width: 100%; max-width: none; padding: 0 .09em 0 .02em; overflow: visible; color: #fff; font-family: "DM Sans", Arial, sans-serif; font-size: calc(clamp(26px, 6.45vw, 46px) * var(--reward-scale, 1)); font-weight: 900; font-variant-numeric: tabular-nums; letter-spacing: -.062em; line-height: .9; text-align: center; text-shadow: 2px 2px 0 #082d54; white-space: nowrap; }
 .earn-badge i { width: 82%; margin: 5% 0; border-top: 3px dotted #fff; }
 .earn-badge b { color: #b8dd42; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(6px, 1.08vw, 10.5px); font-weight: 700; letter-spacing: .03em; line-height: 1.03; }
 
@@ -166,7 +167,7 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .share-offer__headline { display: flex; align-items: center; justify-content: center; gap: 4px; color: #fff; font-family: "Lora", Georgia, serif; font-size: clamp(14px, 2.12vw, 20px); font-style: italic; line-height: .96; }
 .share-offer__headline svg { width: 1em; height: 1em; color: #b8dd42; stroke-width: 3; }
 .share-offer__headline i { font-style: inherit; }
-.share-offer strong { display: block; width: max-content; max-width: none; margin: 4% 0 2%; padding: 0 .08em; overflow: visible; color: #fff; font-family: "DM Sans", Arial, sans-serif; font-size: clamp(36px, 5.8vw, 55px); font-weight: 900; font-variant-numeric: tabular-nums; letter-spacing: -.055em; line-height: .88; text-shadow: 2px 2px 0 #000; white-space: nowrap; }
+.share-offer strong { display: block; width: max-content; max-width: none; margin: 4% 0 2%; padding: 0 .08em; overflow: visible; color: #fff; font-family: "DM Sans", Arial, sans-serif; font-size: calc(clamp(36px, 5.8vw, 55px) * var(--reward-scale, 1)); font-weight: 900; font-variant-numeric: tabular-nums; letter-spacing: -.055em; line-height: .88; text-shadow: 2px 2px 0 #000; white-space: nowrap; }
 .share-offer b { color: #b8dd42; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(7.7px, 1.18vw, 11.5px); font-weight: 700; letter-spacing: .035em; line-height: 1; }
 .share-offer p { margin: 5px 0 0; color: #fff; font-size: clamp(7.6px, 1.08vw, 10.5px); font-weight: 700; line-height: 1.1; }
 .flyer-disclaimer { margin: 0; color: #273b51; font-size: clamp(4.6px, .66vw, 6.4px); font-style: italic; font-weight: 600; line-height: 1.1; text-align: center; }
@@ -193,10 +194,17 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .flyer-contact-line strong { color: #082d54; font-size: 1.14em; font-weight: 950; letter-spacing: .012em; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
+/* Non-cash rewards (e.g. "Free TV"): allow the reward to wrap onto two lines inside the badge and card. */
+.has-text-reward .earn-badge strong { white-space: normal; overflow-wrap: anywhere; letter-spacing: -.03em; line-height: .92; font-variant-numeric: normal; }
+.has-text-reward .share-offer strong { width: auto; max-width: 100%; white-space: normal; overflow-wrap: anywhere; letter-spacing: -.03em; line-height: .92; font-variant-numeric: normal; }
+.reward-size-control { display: grid; gap: 8px; }
+.reward-size-control__row { display: flex; align-items: center; gap: 10px; }
+.reward-size-control__row output { min-width: 3.2em; font-size: 12px; font-weight: 700; text-align: right; }
+
 @media (max-width: 700px) {
   .flyer-page { padding: 28px 15px 52px; }
   .flyer-controls { padding: 16px; }
-  .control-grid { grid-template-columns: 1fr; gap: 13px; }
+  .control-grid, .reward-grid { grid-template-columns: 1fr; gap: 13px; }
   .photo-picker-heading { align-items: flex-start; flex-direction: column; }
   .zip-drop-zone { grid-template-columns: 24px minmax(0, 1fr); align-items: start; }
   .zip-drop-zone__button { grid-column: 2; justify-self: start; }

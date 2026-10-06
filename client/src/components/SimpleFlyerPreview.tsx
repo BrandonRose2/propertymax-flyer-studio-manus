@@ -6,19 +6,32 @@ import React, { forwardRef } from "react";
 import { Banknote, Check, Home, MapPin, UsersRound } from "lucide-react";
 import type { PilotFlyerProperty } from "@/data/pilotFlyerProperties";
 
+export type RewardType = "ledger" | "other";
+
 type SimpleFlyerPreviewProps = {
   property: PilotFlyerProperty;
   imageUrl: string;
   imageLabel: string;
   reward: string;
+  /** "ledger" = cash credit on the tenant ledger (e.g. $200); "other" = any prize (e.g. Free TV). */
+  rewardType?: RewardType;
+  /** Multiplier for the big reward text, e.g. 0.8 = 80%. */
+  rewardScale?: number;
 };
 
 export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewProps>(
-  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward }, ref) {
+  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1 }, ref) {
     const contactLine = property.officePhone;
+    const isLedger = rewardType === "ledger";
+    const flyerStyle = { "--reward-scale": String(rewardScale) } as React.CSSProperties;
 
     return (
-      <article ref={ref} className="referral-flyer" aria-label={`${property.name} referral flyer`}>
+      <article
+        ref={ref}
+        className={`referral-flyer ${isLedger ? "" : "has-text-reward"}`}
+        style={flyerStyle}
+        aria-label={`${property.name} referral flyer`}
+      >
         <header className="referral-flyer__top">
           <div className="property-wordmark">
             <span className="property-wordmark__crest" aria-hidden="true"><i /></span>
@@ -28,12 +41,12 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
             </span>
           </div>
 
-          <div className="earn-badge" aria-label={`Earn ${reward} on your tenant ledger`}>
+          <div className="earn-badge" aria-label={isLedger ? `Earn ${reward} on your tenant ledger` : `Earn ${reward} for every referral`}>
             <div className="earn-badge__inner">
               <span>EARN</span>
               <strong>{reward}</strong>
               <i aria-hidden="true" />
-              <b>ON YOUR<br />TENANT LEDGER!</b>
+              {isLedger ? <b>ON YOUR<br />TENANT LEDGER!</b> : <b>FOR EVERY<br />REFERRAL!</b>}
             </div>
           </div>
         </header>
@@ -66,7 +79,9 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
             <div className="referral-step">
               <span className="referral-step__number">3</span>
               <Banknote className="referral-step__icon referral-step__icon--paid" aria-hidden="true" />
-              <p><b>YOU GET PAID!</b>After your referral pays full rent on time at least twice, we&apos;ll add {reward} to your tenant ledger.</p>
+              {isLedger
+                ? <p><b>YOU GET PAID!</b>After your referral pays full rent on time at least twice, we&apos;ll add {reward} to your tenant ledger.</p>
+                : <p><b>YOU GET REWARDED!</b>After your referral pays full rent on time at least twice, you&apos;ll receive: {reward}.</p>}
             </div>
           </div>
 
@@ -74,10 +89,14 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
             <div className="share-offer">
               <span className="share-offer__headline"><Check aria-hidden="true" /> <i>It Pays to Share!</i></span>
               <strong>{reward}</strong>
-              <b>ON YOUR TENANT LEDGER</b>
+              <b>{isLedger ? "ON YOUR TENANT LEDGER" : "REFERRAL REWARD"}</b>
               <p>for every person<br />you refer who moves in!</p>
             </div>
-            <p className="flyer-disclaimer">* Credit will be added after your referral has paid full rent on time at least twice. See office for complete details.</p>
+            <p className="flyer-disclaimer">
+              {isLedger
+                ? "* Credit will be added after your referral has paid full rent on time at least twice. See office for complete details."
+                : "* Reward will be given after your referral has paid full rent on time at least twice. See office for complete details."}
+            </p>
           </div>
         </section>
 
