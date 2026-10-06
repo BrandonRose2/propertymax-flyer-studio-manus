@@ -105,7 +105,7 @@ describe("Pelican Bay flyer template", () => {
     const stylesheet = readFileSync(path.resolve(import.meta.dirname, "../client/src/index.css"), "utf8");
 
     expect(stylesheet).toContain(".spread-word-mark {");
-    expect(stylesheet).toContain("font-size: clamp(7px, 1.05vw, 9px)");
+    expect(stylesheet).toContain("font-size: calc(clamp(7px, 1.05vw, 9px) * var(--fs-footer, 1))");
   });
 
   it("places the user-requested buildings first in the Building dropdown", () => {

@@ -8,6 +8,18 @@ import type { PilotFlyerProperty } from "@/data/pilotFlyerProperties";
 
 export type RewardType = "ledger" | "other";
 
+/** Adjustable text groups on the flyer; each value is a multiplier (1 = default size). */
+export const FLYER_TEXT_GROUPS = [
+  { id: "name", label: "Property name" },
+  { id: "badge", label: "Earn badge words" },
+  { id: "ribbon", label: "Good Neighbors banner" },
+  { id: "steps", label: "It's Easy steps" },
+  { id: "share", label: "It Pays to Share box" },
+  { id: "footer", label: "Footer & contact line" },
+] as const;
+export type FlyerTextGroup = (typeof FLYER_TEXT_GROUPS)[number]["id"];
+export type FlyerTextScales = Partial<Record<FlyerTextGroup | "logo", number>>;
+
 type SimpleFlyerPreviewProps = {
   property: PilotFlyerProperty;
   imageUrl: string;
@@ -19,13 +31,19 @@ type SimpleFlyerPreviewProps = {
   rewardScale?: number;
   /** Header logo image; null shows the original property crest. */
   logoUrl?: string | null;
+  /** Per-group text size multipliers plus "logo" for the header logo. */
+  textScales?: FlyerTextScales;
 };
 
 export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewProps>(
-  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = "/apartmentcorp-logo.png" }, ref) {
+  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = "/apartmentcorp-logo.png", textScales = {} }, ref) {
     const contactLine = property.officePhone;
     const isLedger = rewardType === "ledger";
-    const flyerStyle = { "--reward-scale": String(rewardScale) } as React.CSSProperties;
+    const flyerStyle = {
+      "--reward-scale": String(rewardScale),
+      ...Object.fromEntries(FLYER_TEXT_GROUPS.map(({ id }) => [`--fs-${id}`, String(textScales[id] ?? 1)])),
+      "--logo-scale": String(textScales.logo ?? 1),
+    } as React.CSSProperties;
 
     return (
       <article

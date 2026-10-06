@@ -28,7 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { SimpleFlyerPreview, type RewardType } from "@/components/SimpleFlyerPreview";
+import { SimpleFlyerPreview, type RewardType, FLYER_TEXT_GROUPS, type FlyerTextScales } from "@/components/SimpleFlyerPreview";
 import { Slider } from "@/components/ui/slider";
 import { startLogin } from "@/const";
 import { buildingDropdownProperties, pilotFlyerProperties, PLACEHOLDER_FLYER_PHOTO, type FlyerPhoto } from "@/data/pilotFlyerProperties";
@@ -44,6 +44,8 @@ const MAX_PERSISTED_IMAGE_BYTES = 10 * 1024 * 1024;
 const MAX_PERSISTED_BATCH_BYTES = 20 * 1024 * 1024;
 
 const LOGO_STORAGE_KEY = "flyer-header-logo";
+const TEXT_SIZE_STORAGE_KEY = "flyer-text-sizes";
+const TEXT_SIZE_CONTROLS = [...FLYER_TEXT_GROUPS, { id: "logo", label: "Header logo size" }] as const;
 const DEFAULT_LOGO_ID = "apartmentcorp";
 type LogoOption = { id: string; label: string; url: string | null; savedLogoId?: number };
 const BUILT_IN_LOGOS: LogoOption[] = [
@@ -161,6 +163,17 @@ export default function Home() {
     // Words take more room than a dollar amount, so start them a bit smaller.
     setRewardScalePct(next === "ledger" ? 100 : 70);
   };
+  const [textSizes, setTextSizes] = useState<Record<string, number>>(() => {
+    try { return JSON.parse(window.localStorage.getItem(TEXT_SIZE_STORAGE_KEY) ?? "{}") as Record<string, number>; } catch { return {}; }
+  });
+  const updateTextSizes = (next: Record<string, number>) => {
+    setTextSizes(next);
+    try { window.localStorage.setItem(TEXT_SIZE_STORAGE_KEY, JSON.stringify(next)); } catch { /* per-browser convenience only */ }
+  };
+  const textScales = useMemo<FlyerTextScales>(
+    () => Object.fromEntries(Object.entries(textSizes).map(([key, pct]) => [key, pct / 100])),
+    [textSizes],
+  );
   const [pickerOpen, setPickerOpen] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [isImportingZip, setIsImportingZip] = useState(false);
@@ -583,6 +596,34 @@ export default function Home() {
               <span>Shrink long rewards so they fit the badge.</span>
             </div>
           </div>
+          <details className="text-size-panel">
+            <summary>Text sizes</summary>
+            <div className="text-size-grid">
+              {TEXT_SIZE_CONTROLS.map(({ id, label }) => {
+                const value = textSizes[id] ?? 100;
+                return (
+                  <div key={id} className="control-field">
+                    <Label htmlFor={`text-size-${id}`}>{label}</Label>
+                    <div className="reward-size-control__row">
+                      <Slider
+                        id={`text-size-${id}`}
+                        min={50}
+                        max={200}
+                        step={5}
+                        value={[value]}
+                        onValueChange={([next]) => updateTextSizes({ ...textSizes, [id]: next ?? 100 })}
+                        aria-label={`${label} size`}
+                      />
+                      <output htmlFor={`text-size-${id}`}>{value}%</output>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <Button type="button" variant="outline" className="text-size-panel__reset h-8 text-xs" onClick={() => updateTextSizes({})}>
+              Reset text sizes
+            </Button>
+          </details>
 
           <div className="photo-picker-control">
             <div className="photo-picker-heading">
@@ -736,6 +777,7 @@ export default function Home() {
               rewardType={rewardType}
               rewardScale={rewardScalePct / 100}
               logoUrl={selectedLogo.url}
+              textScales={textScales}
             />
           </div>
         </section>
