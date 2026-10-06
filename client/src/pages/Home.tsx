@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -45,7 +46,13 @@ const MAX_PERSISTED_IMAGE_BYTES = 10 * 1024 * 1024;
 const MAX_PERSISTED_BATCH_BYTES = 20 * 1024 * 1024;
 
 const TEXT_SIZE_STORAGE_KEY = "flyer-text-sizes";
-const TEXT_SIZE_CONTROLS = [...FLYER_TEXT_GROUPS, { id: "logo", label: "Header logo size" }] as const;
+const TEXT_SIZE_CONTROLS = [...FLYER_TEXT_GROUPS, { id: "logo", label: "Header logo size" }, { id: "cornerLogo", label: "Photo corner logo size" }] as const;
+const NO_CORNER_LOGO_ID = "none";
+/** Prefer the glowing metallic concept for photos; fall back to any ApartmentCorp concept, then the built-in logo. */
+const defaultCornerLogoId = (options: { id: string; label: string }[]) =>
+  (options.find((logo) => /^apartmentcorp logo 2\b/i.test(logo.label))
+    ?? options.find((logo) => /^apartmentcorp logo\b/i.test(logo.label))
+    ?? options.find((logo) => logo.id === DEFAULT_LOGO_ID))?.id ?? NO_CORNER_LOGO_ID;
 const DEFAULT_LOGO_ID = "apartmentcorp";
 type LogoOption = { id: string; label: string; url: string | null; savedLogoId?: number };
 const BUILT_IN_LOGOS: LogoOption[] = [
@@ -200,6 +207,11 @@ export default function Home() {
       .sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base", numeric: true })),
   ], [logosQuery.data]);
   const selectedLogo = logoOptions.find((logo) => logo.id === selectedLogoId) ?? logoOptions[0]!;
+  const cornerLogoOptions = useMemo(() => logoOptions.filter((logo) => logo.url), [logoOptions]);
+  const [cornerLogoId, setCornerLogoId] = useState<string | null>(null);
+  const [showCornerLogo, setShowCornerLogo] = useState(true);
+  const effectiveCornerLogoId = cornerLogoId ?? (logosQuery.data ? defaultCornerLogoId(cornerLogoOptions) : NO_CORNER_LOGO_ID);
+  const cornerLogo = showCornerLogo ? cornerLogoOptions.find((logo) => logo.id === effectiveCornerLogoId) : undefined;
   const chooseLogo = (logoId: string) => setSelectedLogoId(logoId);
 
 
@@ -614,6 +626,25 @@ export default function Home() {
               </div>
               <span>Drop logo images or a ZIP of logos here, or click the button. PNG with a transparent background looks best. Logos are shared across all flyers.</span>
             </div>
+            <div className="control-field logo-control">
+              <label className="corner-logo-toggle" htmlFor="show-corner-logo">
+                <Checkbox id="show-corner-logo" checked={showCornerLogo} onCheckedChange={(checked) => setShowCornerLogo(checked === true)} />
+                Show a logo in the photo corner
+              </label>
+              {showCornerLogo && (
+                <div className="logo-control__row">
+                  <Select value={effectiveCornerLogoId} onValueChange={setCornerLogoId}>
+                    <SelectTrigger id="corner-logo" aria-label="Photo corner logo"><SelectValue /></SelectTrigger>
+                    <SelectContent>
+                      {cornerLogoOptions.map((logo) => (
+                        <SelectItem key={logo.id} value={logo.id}>{logo.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+              <span>Bottom-left of the photo, across from the Good Neighbors banner. Resize it under Text sizes.</span>
+            </div>
           </div>
           <div className="reward-grid">
             <div className="control-field reward-type-control">
@@ -836,6 +867,7 @@ export default function Home() {
               rewardType={rewardType}
               rewardScale={rewardScalePct / 100}
               logoUrl={selectedLogo.url}
+              cornerLogoUrl={cornerLogo?.url ?? null}
               textScales={textScales}
             />
           </div>

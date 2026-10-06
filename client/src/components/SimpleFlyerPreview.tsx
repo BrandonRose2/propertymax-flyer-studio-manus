@@ -18,7 +18,7 @@ export const FLYER_TEXT_GROUPS = [
   { id: "footer", label: "Footer & contact line" },
 ] as const;
 export type FlyerTextGroup = (typeof FLYER_TEXT_GROUPS)[number]["id"];
-export type FlyerTextScales = Partial<Record<FlyerTextGroup | "logo", number>>;
+export type FlyerTextScales = Partial<Record<FlyerTextGroup | "logo" | "cornerLogo", number>>;
 
 type SimpleFlyerPreviewProps = {
   property: PilotFlyerProperty;
@@ -33,16 +33,19 @@ type SimpleFlyerPreviewProps = {
   logoUrl?: string | null;
   /** Per-group text size multipliers plus "logo" for the header logo. */
   textScales?: FlyerTextScales;
+  /** Optional logo shown in the bottom-left corner of the photo; null hides it. */
+  cornerLogoUrl?: string | null;
 };
 
 export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewProps>(
-  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = "/apartmentcorp-logo.png", textScales = {} }, ref) {
+  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = "/apartmentcorp-logo.png", textScales = {}, cornerLogoUrl = null }, ref) {
     const contactLine = property.officePhone;
     const isLedger = rewardType === "ledger";
     const flyerStyle = {
       "--reward-scale": String(rewardScale),
       ...Object.fromEntries(FLYER_TEXT_GROUPS.map(({ id }) => [`--fs-${id}`, String(textScales[id] ?? 1)])),
       "--logo-scale": String(textScales.logo ?? 1),
+      "--corner-logo-scale": String(textScales.cornerLogo ?? 1),
     } as React.CSSProperties;
 
     return (
@@ -76,6 +79,7 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
         <section className="referral-flyer__hero">
           <img src={imageUrl} alt={`${property.name} flyer hero: ${imageLabel}`} crossOrigin="anonymous" />
           <div className="hero-vignette" aria-hidden="true" />
+          {cornerLogoUrl && <img className="hero-corner-logo" src={cornerLogoUrl} alt="ApartmentCorp" crossOrigin="anonymous" />}
           <div className="community-ribbon">
             <span className="community-ribbon__headline">
               <b>GOOD NEIGHBORS.</b>
