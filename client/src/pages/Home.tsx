@@ -43,6 +43,14 @@ const MAX_ZIP_EXTRACTED_BYTES = 200 * 1024 * 1024;
 const MAX_PERSISTED_IMAGE_BYTES = 10 * 1024 * 1024;
 const MAX_PERSISTED_BATCH_BYTES = 20 * 1024 * 1024;
 
+const LOGO_STORAGE_KEY = "flyer-header-logo";
+const DEFAULT_LOGO_ID = "apartmentcorp";
+type LogoOption = { id: string; label: string; url: string | null; savedLogoId?: number };
+const BUILT_IN_LOGOS: LogoOption[] = [
+  { id: DEFAULT_LOGO_ID, label: "ApartmentCorp", url: "/apartmentcorp-logo.png" },
+  { id: "crest", label: "Property crest (original)", url: null },
+];
+
 const initialPropertyIdFromLocation = () => {
   const fallbackPropertyId = pilotFlyerProperties[0]?.id ?? "";
   if (typeof window === "undefined") return fallbackPropertyId;
@@ -166,6 +174,60 @@ export default function Home() {
     { enabled: Boolean(selectedPropertyId), staleTime: 30_000 },
   );
   const savePhotosMutation = trpc.photoLibrary.saveMany.useMutation();
+  const logoInputRef = useRef<HTMLInputElement>(null);
+  const logosQuery = trpc.logoLibrary.list.useQuery(undefined, { staleTime: 30_000 });
+  const saveLogoMutation = trpc.logoLibrary.save.useMutation();
+  const removeLogoMutation = trpc.logoLibrary.remove.useMutation();
+  const [selectedLogoId, setSelectedLogoId] = useState<string>(() => {
+    try { return window.localStorage.getItem(LOGO_STORAGE_KEY) ?? DEFAULT_LOGO_ID; } catch { return DEFAULT_LOGO_ID; }
+  });
+  const logoOptions = useMemo<LogoOption[]>(() => [
+    ...BUILT_IN_LOGOS,
+    ...(logosQuery.data ?? []).map((logo) => ({ id: `saved-${logo.id}`, label: logo.label, url: logo.url, savedLogoId: logo.id })),
+  ], [logosQuery.data]);
+  const selectedLogo = logoOptions.find((logo) => logo.id === selectedLogoId) ?? logoOptions[0]!;
+  const chooseLogo = (logoId: string) => {
+    setSelectedLogoId(logoId);
+    try { window.localStorage.setItem(LOGO_STORAGE_KEY, logoId); } catch { /* per-browser convenience only */ }
+  };
+  const handleLogoUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    if (!SUPPORTED_IMAGE_TYPES.includes(inferredImageType(file)) || /\.(heic|svg)$/i.test(file.name)) {
+      toast.error("Logos must be PNG, JPG, WebP or GIF.");
+      return;
+    }
+    if (file.size > MAX_PERSISTED_IMAGE_BYTES) {
+      toast.error("Logos must be 10 MB or smaller.");
+      return;
+    }
+    try {
+      const saved = await saveLogoMutation.mutateAsync({
+        label: photoLabel(file.name),
+        originalFileName: file.name,
+        mimeType: inferredImageType(file),
+        dataBase64: await fileToBase64(file),
+      });
+      await photoLibraryUtils.logoLibrary.list.invalidate();
+      chooseLogo(`saved-${saved.id}`);
+      toast.success("Logo saved. It's now available for every flyer.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "The logo could not be saved.");
+    }
+  };
+  const removeSelectedLogo = async () => {
+    if (selectedLogo.savedLogoId === undefined) return;
+    try {
+      await removeLogoMutation.mutateAsync({ logoId: selectedLogo.savedLogoId });
+      await photoLibraryUtils.logoLibrary.list.invalidate();
+      chooseLogo(DEFAULT_LOGO_ID);
+      toast.success("Logo removed.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "The logo could not be removed.");
+    }
+  };
+
   const removeSavedPhotoMutation = trpc.photoLibrary.remove.useMutation();
 
   useEffect(() => {
@@ -457,6 +519,29 @@ export default function Home() {
               </Select>
               <span>{selectedProperty.address}</span>
             </div>
+            <div className="control-field logo-control">
+              <Label htmlFor="header-logo">Header logo</Label>
+              <div className="logo-control__row">
+                <Select value={selectedLogo.id} onValueChange={chooseLogo}>
+                  <SelectTrigger id="header-logo"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {logoOptions.map((logo) => (
+                      <SelectItem key={logo.id} value={logo.id}>{logo.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Button type="button" variant="outline" className="h-9 text-sm" onClick={() => logoInputRef.current?.click()} disabled={saveLogoMutation.isPending}>
+                  <Upload size={14} /> {saveLogoMutation.isPending ? "Uploading…" : "Upload logo"}
+                </Button>
+                {selectedLogo.savedLogoId !== undefined && (
+                  <Button type="button" variant="outline" className="h-9" onClick={removeSelectedLogo} disabled={removeLogoMutation.isPending} aria-label={`Remove ${selectedLogo.label}`}>
+                    <Trash2 size={14} />
+                  </Button>
+                )}
+                <input ref={logoInputRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden onChange={handleLogoUpload} />
+              </div>
+              <span>PNG with a transparent background looks best. Uploaded logos are shared across all flyers.</span>
+            </div>
           </div>
           <div className="reward-grid">
             <div className="control-field reward-type-control">
@@ -650,6 +735,7 @@ export default function Home() {
               reward={reward || (rewardType === "ledger" ? "$0" : "Reward")}
               rewardType={rewardType}
               rewardScale={rewardScalePct / 100}
+              logoUrl={selectedLogo.url}
             />
           </div>
         </section>

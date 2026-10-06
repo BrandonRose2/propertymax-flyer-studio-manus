@@ -17,10 +17,12 @@ type SimpleFlyerPreviewProps = {
   rewardType?: RewardType;
   /** Multiplier for the big reward text, e.g. 0.8 = 80%. */
   rewardScale?: number;
+  /** Header logo image; null shows the original property crest. */
+  logoUrl?: string | null;
 };
 
 export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewProps>(
-  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1 }, ref) {
+  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = "/apartmentcorp-logo.png" }, ref) {
     const contactLine = property.officePhone;
     const isLedger = rewardType === "ledger";
     const flyerStyle = { "--reward-scale": String(rewardScale) } as React.CSSProperties;
@@ -34,7 +36,9 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
       >
         <header className="referral-flyer__top">
           <div className="property-wordmark">
-            <span className="property-wordmark__crest" aria-hidden="true"><i /></span>
+            {logoUrl
+              ? <img className="property-wordmark__logo" src={logoUrl} alt="Logo" crossOrigin="anonymous" />
+              : <span className="property-wordmark__crest" aria-hidden="true"><i /></span>}
             <span className="property-wordmark__type">
               <strong>{property.name}</strong>
               <small>APARTMENT HOMES</small>

@@ -131,6 +131,7 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .property-wordmark__crest::before { position: absolute; top: 21%; left: 25%; width: 50%; height: 18%; content: ""; border: 2px solid currentColor; border-bottom: 0; border-radius: 50% 50% 0 0; }
 .property-wordmark__crest::after { position: absolute; bottom: 18%; left: 27%; width: 46%; height: 40%; content: ""; border: 2px solid currentColor; background: repeating-linear-gradient(90deg, transparent 0 18%, currentColor 18% 24%, transparent 24% 44%); }
 .property-wordmark__crest i { position: absolute; z-index: 1; bottom: 18%; left: 47%; width: 8%; height: 40%; background: #fff; }
+.property-wordmark__logo { display: block; flex: none; width: auto; max-width: 42%; height: clamp(30px, 5vw, 44px); object-fit: contain; }
 .property-wordmark__type { min-width: 0; }
 .property-wordmark strong { display: block; max-height: 1.78em; overflow: hidden; color: #082d54; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(14px, 3.05vw, 25px); font-weight: 700; letter-spacing: .005em; line-height: .89; text-transform: uppercase; }
 .property-wordmark small { display: block; margin-top: 3px; color: #8daf24; font-family: "Oswald", "Arial Narrow", sans-serif; font-size: clamp(5px, .72vw, 6.8px); font-weight: 700; letter-spacing: .22em; line-height: 1; }
@@ -224,3 +225,6 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
   .flyer-page, .flyer-shell, .flyer-preview-section, .flyer-preview-frame { width: 100%; min-height: 0; margin: 0; padding: 0; background: #fff; }
   .referral-flyer { width: 8.5in; height: 11in; max-width: none; margin: 0; box-shadow: none; transform: none !important; }
 }
+
+.logo-control__row { display: flex; align-items: center; gap: 8px; }
+.logo-control__row > button:first-child { min-width: 220px; }
