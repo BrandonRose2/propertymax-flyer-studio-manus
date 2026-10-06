@@ -235,7 +235,7 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .text-size-panel__reset { margin-top: 8px; }
 .logo-control__row button[data-slot="button"], .text-size-panel__reset { height: 38px; font-size: 12px; font-weight: 700; border-radius: 3px; }
 .logo-control__row.is-dragging { outline: 2px dashed #719b22; outline-offset: 4px; border-radius: 4px; background: rgba(184, 221, 66, .08); }
-.referral-flyer__hero > img.hero-corner-logo { position: absolute; z-index: 3; left: 3.5%; bottom: 3%; display: block; width: auto; max-width: 42%; height: calc(17% * var(--corner-logo-scale, 1)); object-fit: contain; object-position: left bottom; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, .55)); }
+.referral-flyer__hero > img.hero-corner-logo { position: absolute; z-index: 3; left: 1.6%; bottom: 1.6%; display: block; width: auto; max-width: 42%; height: calc(17% * var(--corner-logo-scale, 1)); object-fit: contain; object-position: left bottom; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, .55)); }
 .corner-logo-toggle { display: flex; align-items: center; gap: 8px; color: #34434d; font-size: 11px; font-weight: 800; cursor: pointer; }
 .hero-collage { position: absolute; inset: 0; display: grid; gap: 3px; background: #fff; }
 .hero-collage--2 { grid-template-columns: 1fr 1fr; }
