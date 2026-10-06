@@ -31,7 +31,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { SimpleFlyerPreview, type RewardType } from "@/components/SimpleFlyerPreview";
 import { Slider } from "@/components/ui/slider";
 import { startLogin } from "@/const";
-import { buildingDropdownProperties, pilotFlyerProperties, type FlyerPhoto } from "@/data/pilotFlyerProperties";
+import { buildingDropdownProperties, pilotFlyerProperties, PLACEHOLDER_FLYER_PHOTO, type FlyerPhoto } from "@/data/pilotFlyerProperties";
 import { trpc } from "@/lib/trpc";
 import type { PropertyPhotoId } from "@shared/propertyPhotoConfig";
 
@@ -187,10 +187,11 @@ export default function Home() {
     [savedPhotosQuery.data],
   );
 
-  const availablePhotos = useMemo(
-    () => [...(selectedProperty?.photos ?? []), ...savedPhotos],
-    [savedPhotos, selectedProperty],
-  );
+  const availablePhotos = useMemo<FlyerPhoto[]>(() => {
+    const photos: FlyerPhoto[] = [...(selectedProperty?.photos ?? []), ...savedPhotos];
+    // Properties without a starter photo show a neutral placeholder until one is uploaded.
+    return photos.length > 0 ? photos : [PLACEHOLDER_FLYER_PHOTO];
+  }, [savedPhotos, selectedProperty]);
 
   const selectedPhoto = useMemo(
     () => availablePhotos.find((photo) => photo.id === selectedPhotoId) ?? availablePhotos[0],

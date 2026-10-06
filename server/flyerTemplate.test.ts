@@ -184,3 +184,18 @@ describe("custom rewards", () => {
     expect(stylesheet).toContain("calc(clamp(36px, 5.8vw, 55px) * var(--reward-scale, 1))");
   });
 });
+
+describe("full property roster", () => {
+  it("lists every active property in the dropdown with a matching photo-library id", async () => {
+    const { PROPERTY_PHOTO_IDS } = await import("../shared/propertyPhotoConfig");
+    const ids = pilotFlyerProperties.map((property) => property.id);
+    expect(ids.length).toBe(42);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect([...PROPERTY_PHOTO_IDS].sort()).toEqual([...ids].sort());
+    expect(buildingDropdownProperties).toHaveLength(ids.length);
+    for (const property of pilotFlyerProperties) {
+      expect(property.address).toMatch(/, [A-Z]{2} \d{5}$/);
+      expect(property.officePhone).toMatch(/^\(\d{3}\) \d{3}-\d{4}$/);
+    }
+  });
+});
