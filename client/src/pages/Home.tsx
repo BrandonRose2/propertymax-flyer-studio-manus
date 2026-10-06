@@ -5,6 +5,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import JSZip from "jszip";
+import { matchingLogoFor } from "@/lib/logoMatch";
 import { Archive, Check, ChevronDown, Download, ImagePlus, LogIn, Printer, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -43,7 +44,6 @@ const MAX_ZIP_EXTRACTED_BYTES = 200 * 1024 * 1024;
 const MAX_PERSISTED_IMAGE_BYTES = 10 * 1024 * 1024;
 const MAX_PERSISTED_BATCH_BYTES = 20 * 1024 * 1024;
 
-const LOGO_STORAGE_KEY = "flyer-header-logo";
 const TEXT_SIZE_STORAGE_KEY = "flyer-text-sizes";
 const TEXT_SIZE_CONTROLS = [...FLYER_TEXT_GROUPS, { id: "logo", label: "Header logo size" }] as const;
 const DEFAULT_LOGO_ID = "apartmentcorp";
@@ -191,43 +191,80 @@ export default function Home() {
   const logosQuery = trpc.logoLibrary.list.useQuery(undefined, { staleTime: 30_000 });
   const saveLogoMutation = trpc.logoLibrary.save.useMutation();
   const removeLogoMutation = trpc.logoLibrary.remove.useMutation();
-  const [selectedLogoId, setSelectedLogoId] = useState<string>(() => {
-    try { return window.localStorage.getItem(LOGO_STORAGE_KEY) ?? DEFAULT_LOGO_ID; } catch { return DEFAULT_LOGO_ID; }
-  });
+  const [selectedLogoId, setSelectedLogoId] = useState<string>(DEFAULT_LOGO_ID);
+  const autoLogoAppliedFor = useRef<string | null>(null);
   const logoOptions = useMemo<LogoOption[]>(() => [
     ...BUILT_IN_LOGOS,
     ...(logosQuery.data ?? []).map((logo) => ({ id: `saved-${logo.id}`, label: logo.label, url: logo.url, savedLogoId: logo.id })),
   ], [logosQuery.data]);
   const selectedLogo = logoOptions.find((logo) => logo.id === selectedLogoId) ?? logoOptions[0]!;
-  const chooseLogo = (logoId: string) => {
-    setSelectedLogoId(logoId);
-    try { window.localStorage.setItem(LOGO_STORAGE_KEY, logoId); } catch { /* per-browser convenience only */ }
+  const chooseLogo = (logoId: string) => setSelectedLogoId(logoId);
+
+
+  const [logoUploadStatus, setLogoUploadStatus] = useState<string | null>(null);
+  const [isLogoDropActive, setIsLogoDropActive] = useState(false);
+  const isLogoFile = (name: string) => /\.(png|jpe?g|webp|gif|avif)$/i.test(name);
+
+  /** Accepts any mix of logo images and ZIPs of logos; ZIPs are unpacked in the browser. */
+  const uploadLogoFiles = async (picked: File[]) => {
+    const images: File[] = [];
+    for (const file of picked) {
+      if (/\.zip$/i.test(file.name) || file.type === "application/zip") {
+        try {
+          const archive = await JSZip.loadAsync(file);
+          for (const entry of Object.values(archive.files)) {
+            const base = entry.name.split("/").pop() ?? "";
+            if (entry.dir || entry.name.startsWith("__MACOSX/") || base.startsWith(".") || !isLogoFile(base)) continue;
+            const blob = await entry.async("blob");
+            images.push(new File([blob], base, { type: imageType(base) }));
+          }
+        } catch {
+          toast.error(`${file.name} could not be opened as a ZIP.`);
+        }
+      } else if (isLogoFile(file.name)) {
+        images.push(file);
+      }
+    }
+    if (!images.length) {
+      toast.error("No PNG, JPG, WebP or GIF logos were found.");
+      return;
+    }
+
+    const existing = new Set((logosQuery.data ?? []).map((logo) => logo.originalFileName.toLowerCase()));
+    const toUpload = images.filter((file) => !existing.has(file.name.toLowerCase()));
+    const skipped = images.length - toUpload.length;
+    let saved = 0;
+    const failed: string[] = [];
+    for (let index = 0; index < toUpload.length; index += 1) {
+      const file = toUpload[index]!;
+      setLogoUploadStatus(`Uploading ${index + 1}/${toUpload.length}…`);
+      if (file.size > MAX_PERSISTED_IMAGE_BYTES) { failed.push(file.name); continue; }
+      try {
+        await saveLogoMutation.mutateAsync({
+          label: photoLabel(file.name),
+          originalFileName: file.name,
+          mimeType: inferredImageType(file),
+          dataBase64: await fileToBase64(file),
+        });
+        saved += 1;
+      } catch {
+        failed.push(file.name);
+      }
+    }
+    setLogoUploadStatus(null);
+    await photoLibraryUtils.logoLibrary.list.invalidate();
+    autoLogoAppliedFor.current = null; // re-run the building match against the new logos
+
+    const parts = [`${saved} logo${saved === 1 ? "" : "s"} saved`];
+    if (skipped) parts.push(`${skipped} already in the library`);
+    if (failed.length) parts.push(`${failed.length} failed (${failed.slice(0, 3).join(", ")}${failed.length > 3 ? "…" : ""})`);
+    (failed.length ? toast.error : toast.success)(`${parts.join(", ")}.`);
   };
-  const handleLogoUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+
+  const handleLogoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(event.target.files ?? []);
     event.target.value = "";
-    if (!file) return;
-    if (!SUPPORTED_IMAGE_TYPES.includes(inferredImageType(file)) || /\.(heic|svg)$/i.test(file.name)) {
-      toast.error("Logos must be PNG, JPG, WebP or GIF.");
-      return;
-    }
-    if (file.size > MAX_PERSISTED_IMAGE_BYTES) {
-      toast.error("Logos must be 10 MB or smaller.");
-      return;
-    }
-    try {
-      const saved = await saveLogoMutation.mutateAsync({
-        label: photoLabel(file.name),
-        originalFileName: file.name,
-        mimeType: inferredImageType(file),
-        dataBase64: await fileToBase64(file),
-      });
-      await photoLibraryUtils.logoLibrary.list.invalidate();
-      chooseLogo(`saved-${saved.id}`);
-      toast.success("Logo saved. It's now available for every flyer.");
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "The logo could not be saved.");
-    }
+    if (files.length) void uploadLogoFiles(files);
   };
   const removeSelectedLogo = async () => {
     if (selectedLogo.savedLogoId === undefined) return;
@@ -251,6 +288,15 @@ export default function Home() {
     () => pilotFlyerProperties.find((property) => property.id === selectedPropertyId) ?? pilotFlyerProperties[0],
     [selectedPropertyId],
   );
+
+  // Pick the building's own logo by default whenever the building changes; managers can still override it.
+  useEffect(() => {
+    if (!logosQuery.data || !selectedProperty) return;
+    if (autoLogoAppliedFor.current === selectedProperty.id) return;
+    autoLogoAppliedFor.current = selectedProperty.id;
+    const match = matchingLogoFor(selectedProperty.name, logosQuery.data);
+    setSelectedLogoId(match ? `saved-${match.id}` : DEFAULT_LOGO_ID);
+  }, [logosQuery.data, selectedProperty]);
 
   const savedPhotos = useMemo<SavedFlyerPhoto[]>(
     () => (savedPhotosQuery.data ?? []).map((photo) => ({
@@ -534,7 +580,18 @@ export default function Home() {
             </div>
             <div className="control-field logo-control">
               <Label htmlFor="header-logo">Header logo</Label>
-              <div className="logo-control__row">
+              <div
+                className={`logo-control__row ${isLogoDropActive ? "is-dragging" : ""}`}
+                onDragEnter={(event) => { event.preventDefault(); setIsLogoDropActive(true); }}
+                onDragOver={(event) => { event.preventDefault(); setIsLogoDropActive(true); }}
+                onDragLeave={(event) => { event.preventDefault(); setIsLogoDropActive(false); }}
+                onDrop={(event) => {
+                  event.preventDefault();
+                  setIsLogoDropActive(false);
+                  const files = Array.from(event.dataTransfer.files ?? []);
+                  if (files.length) void uploadLogoFiles(files);
+                }}
+              >
                 <Select value={selectedLogo.id} onValueChange={chooseLogo}>
                   <SelectTrigger id="header-logo"><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -543,17 +600,17 @@ export default function Home() {
                     ))}
                   </SelectContent>
                 </Select>
-                <Button type="button" variant="outline" className="h-9 text-sm" onClick={() => logoInputRef.current?.click()} disabled={saveLogoMutation.isPending}>
-                  <Upload size={14} /> {saveLogoMutation.isPending ? "Uploading…" : "Upload logo"}
+                <Button type="button" variant="outline" className="h-9 text-sm" onClick={() => logoInputRef.current?.click()} disabled={logoUploadStatus !== null}>
+                  <Upload size={14} /> {logoUploadStatus ?? "Upload logos or ZIP"}
                 </Button>
                 {selectedLogo.savedLogoId !== undefined && (
                   <Button type="button" variant="outline" className="h-9" onClick={removeSelectedLogo} disabled={removeLogoMutation.isPending} aria-label={`Remove ${selectedLogo.label}`}>
                     <Trash2 size={14} />
                   </Button>
                 )}
-                <input ref={logoInputRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden onChange={handleLogoUpload} />
+                <input ref={logoInputRef} type="file" accept="image/png,image/jpeg,image/webp,image/gif,.zip,application/zip" multiple hidden onChange={handleLogoUpload} />
               </div>
-              <span>PNG with a transparent background looks best. Uploaded logos are shared across all flyers.</span>
+              <span>Drop logo images or a ZIP of logos here, or click the button. PNG with a transparent background looks best. Logos are shared across all flyers.</span>
             </div>
           </div>
           <div className="reward-grid">

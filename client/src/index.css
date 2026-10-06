@@ -234,3 +234,4 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .text-size-grid .reward-size-control__row { display: flex; align-items: center; gap: 10px; }
 .text-size-panel__reset { margin-top: 8px; }
 .logo-control__row button[data-slot="button"], .text-size-panel__reset { height: 38px; font-size: 12px; font-weight: 700; border-radius: 3px; }
+.logo-control__row.is-dragging { outline: 2px dashed #719b22; outline-offset: 4px; border-radius: 4px; background: rgba(184, 221, 66, .08); }
