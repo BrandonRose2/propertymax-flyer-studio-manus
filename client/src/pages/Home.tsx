@@ -195,7 +195,9 @@ export default function Home() {
   const autoLogoAppliedFor = useRef<string | null>(null);
   const logoOptions = useMemo<LogoOption[]>(() => [
     ...BUILT_IN_LOGOS,
-    ...(logosQuery.data ?? []).map((logo) => ({ id: `saved-${logo.id}`, label: logo.label, url: logo.url, savedLogoId: logo.id })),
+    ...(logosQuery.data ?? [])
+      .map((logo) => ({ id: `saved-${logo.id}`, label: logo.label, url: logo.url, savedLogoId: logo.id }))
+      .sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base", numeric: true })),
   ], [logosQuery.data]);
   const selectedLogo = logoOptions.find((logo) => logo.id === selectedLogoId) ?? logoOptions[0]!;
   const chooseLogo = (logoId: string) => setSelectedLogoId(logoId);
