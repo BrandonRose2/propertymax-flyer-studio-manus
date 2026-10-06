@@ -411,22 +411,5 @@ export const pilotFlyerProperties: PilotFlyerProperty[] = [
   },
 ];
 
-const priorityBuildingIds = [
-  "walnut-hill-apartments",
-  "pelican-bay-apartments",
-  "grace-townhomes",
-  "gates-on-manhattan",
-  "arbor-crest",
-  "boca-ciega",
-] as const;
-
-const priorityBuildingIdSet = new Set<string>(priorityBuildingIds);
-
-export const buildingDropdownProperties: PilotFlyerProperty[] = [
-  ...priorityBuildingIds
-    .map((id) => pilotFlyerProperties.find((property) => property.id === id))
-    .filter((property): property is PilotFlyerProperty => Boolean(property)),
-  ...pilotFlyerProperties
-    .filter((property) => !priorityBuildingIdSet.has(property.id))
-    .sort((a, b) => a.name.localeCompare(b.name)),
-];
+export const buildingDropdownProperties: PilotFlyerProperty[] = [...pilotFlyerProperties]
+  .sort((a, b) => a.name.localeCompare(b.name));

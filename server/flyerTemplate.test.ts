@@ -108,15 +108,9 @@ describe("Pelican Bay flyer template", () => {
     expect(stylesheet).toContain("font-size: calc(clamp(7px, 1.05vw, 9px) * var(--fs-footer, 1))");
   });
 
-  it("places the user-requested buildings first in the Building dropdown", () => {
-    expect(buildingDropdownProperties.slice(0, 6).map((property) => property.id)).toEqual([
-      "walnut-hill-apartments",
-      "pelican-bay-apartments",
-      "grace-townhomes",
-      "gates-on-manhattan",
-      "arbor-crest",
-      "boca-ciega",
-    ]);
+  it("lists every building in alphabetical order in the Building dropdown", () => {
+    const names = buildingDropdownProperties.map((property) => property.name);
+    expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
     expect(buildingDropdownProperties).toHaveLength(pilotFlyerProperties.length);
   });
 
