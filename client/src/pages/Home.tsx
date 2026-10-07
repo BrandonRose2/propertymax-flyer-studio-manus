@@ -587,7 +587,7 @@ export default function Home() {
       const win = frame.contentWindow;
       if (!doc || !win) throw new Error("PRINT_FRAME_UNAVAILABLE");
       doc.open();
-      doc.write(`<!doctype html><html><head><title>${selectedProperty?.name ?? "Flyer"} referral flyer</title><style>@page{size:letter;margin:0.25in}html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden}body{display:flex;align-items:center;justify-content:center}img{display:block;width:auto;height:auto;max-width:100%;max-height:100vh;object-fit:contain;break-inside:avoid}</style></head><body><img alt="" /></body></html>`);
+      doc.write(`<!doctype html><html><head><title>${selectedProperty?.name ?? "Flyer"} referral flyer</title><style>@page{size:letter;margin:0.25in}html,body{margin:0;padding:0;overflow:hidden}img{display:block;margin:0 auto;width:auto;height:auto;max-width:100%;max-height:100vh;object-fit:contain;break-inside:avoid}</style></head><body><img alt="" /></body></html>`);
       doc.close();
       const img = doc.querySelector("img")!;
       await new Promise<void>((resolve, reject) => {
@@ -643,7 +643,7 @@ export default function Home() {
       const margin = 0.3;
       const width = 8.5 - margin * 2;
       const height = width * (11 / 8.5);
-      pdf.addImage(dataUrl, "JPEG", margin, (11 - height) / 2, width, height, undefined, "FAST");
+      pdf.addImage(dataUrl, "JPEG", margin, margin, width, height, undefined, "FAST");
       pdf.save(`${selectedProperty.id}-referral-flyer.pdf`);
       toast.success("Print-ready PDF downloaded.");
     } catch (error) {
