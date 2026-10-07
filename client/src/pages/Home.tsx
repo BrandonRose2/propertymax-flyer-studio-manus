@@ -666,7 +666,7 @@ export default function Home() {
       <div className="flyer-shell">
         <header className="tool-header no-print">
           <div className="tool-header__rule" aria-hidden="true" />
-          <div><h1>Print Property Flyer</h1></div>
+          <div><h1>Resident Referral Flyer Generator</h1></div>
         </header>
 
         <section className="flyer-controls no-print" aria-labelledby="controls-heading">
