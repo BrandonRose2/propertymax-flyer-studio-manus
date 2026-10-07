@@ -568,7 +568,45 @@ export default function Home() {
     void importZipArchive(file);
   };
 
-  const handlePrint = () => window.print();
+  /**
+   * Print the same rendered image that Download PNG produces, so photos always appear
+   * (some browsers drop the live photo when printing the page itself).
+   */
+  const handlePrint = async () => {
+    if (!flyerRef.current) return;
+    setIsExporting(true);
+    let frame: HTMLIFrameElement | null = null;
+    try {
+      const dataUrl = await toPng(flyerRef.current, { cacheBust: true, pixelRatio: 4, backgroundColor: "#ffffff" });
+      frame = document.createElement("iframe");
+      frame.setAttribute("aria-hidden", "true");
+      frame.style.cssText = "position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden;";
+      document.body.appendChild(frame);
+      const doc = frame.contentDocument;
+      const win = frame.contentWindow;
+      if (!doc || !win) throw new Error("PRINT_FRAME_UNAVAILABLE");
+      doc.open();
+      doc.write(`<!doctype html><html><head><title>${selectedProperty?.name ?? "Flyer"} referral flyer</title><style>@page{size:letter;margin:0.25in}html,body{margin:0;padding:0}img{display:block;width:auto;height:auto;max-width:8in;max-height:10.5in;margin:0 auto}</style></head><body><img alt="" /></body></html>`);
+      doc.close();
+      const img = doc.querySelector("img")!;
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error("PRINT_IMAGE_FAILED"));
+        img.src = dataUrl;
+      });
+      setIsExporting(false);
+      win.focus();
+      win.print();
+    } catch (error) {
+      console.error("[Print] Falling back to page print", error);
+      toast.error("Couldn't prepare the print image, so printing the page directly instead.");
+      setIsExporting(false);
+      window.print();
+    } finally {
+      const toRemove = frame;
+      if (toRemove) window.setTimeout(() => toRemove.remove(), 60_000);
+    }
+  };
 
   const handleDownload = async () => {
     if (!flyerRef.current || !selectedProperty) return;
