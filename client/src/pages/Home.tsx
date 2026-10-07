@@ -3,7 +3,8 @@
  * Uploaded property photos are persisted in the site-wide property library.
  */
 import { useEffect, useMemo, useRef, useState } from "react";
-import { toPng } from "html-to-image";
+import { toJpeg, toPng } from "html-to-image";
+import { jsPDF } from "jspdf";
 import JSZip from "jszip";
 import { matchingLogoFor } from "@/lib/logoMatch";
 import { Archive, Check, ChevronDown, Download, ImagePlus, LogIn, Printer, Trash2, Upload } from "lucide-react";
@@ -629,6 +630,30 @@ export default function Home() {
     }
   };
 
+  /**
+   * Letter-size PDF with a built-in 0.3in white border, so it prints the same on any office
+   * printer at "Actual size" or "Fit" without anyone changing settings.
+   */
+  const handleDownloadPdf = async () => {
+    if (!flyerRef.current || !selectedProperty) return;
+    setIsExporting(true);
+    try {
+      const dataUrl = await toJpeg(flyerRef.current, { cacheBust: true, pixelRatio: 4, quality: 0.92, backgroundColor: "#ffffff" });
+      const pdf = new jsPDF({ unit: "in", format: "letter", orientation: "portrait" });
+      const margin = 0.3;
+      const width = 8.5 - margin * 2;
+      const height = width * (11 / 8.5);
+      pdf.addImage(dataUrl, "JPEG", margin, (11 - height) / 2, width, height, undefined, "FAST");
+      pdf.save(`${selectedProperty.id}-referral-flyer.pdf`);
+      toast.success("Print-ready PDF downloaded.");
+    } catch (error) {
+      console.error("[PDF] Export failed", error);
+      toast.error("The PDF could not be created. Please try Print Flyer instead.");
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
   if (!selectedProperty || !selectedPhoto) {
     return <main className="flyer-page"><p>Property data is unavailable.</p></main>;
   }
@@ -922,8 +947,9 @@ export default function Home() {
 
           <div className="output-row">
             <Button type="button" className="print-flyer-button" onClick={handlePrint}><Printer size={15} /> Print Flyer</Button>
+            <Button type="button" variant="outline" className="download-flyer-button" onClick={handleDownloadPdf} disabled={isExporting}><Download size={15} /> {isExporting ? "Preparing…" : "Download PDF"}</Button>
             <Button type="button" variant="outline" className="download-flyer-button" onClick={handleDownload} disabled={isExporting}><Download size={15} /> {isExporting ? "Preparing…" : "Download PNG"}</Button>
-            <p>Print gives one 8.5×11 page (or <strong>Save as PDF</strong>). PNG is high-res for email and digital sharing.</p>
+            <p>Print and PDF always fit one 8.5×11 page on any printer. PNG is high-res for email and digital sharing.</p>
           </div>
         </section>
 
