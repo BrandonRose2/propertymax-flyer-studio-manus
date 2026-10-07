@@ -640,10 +640,13 @@ export default function Home() {
     try {
       const dataUrl = await toJpeg(flyerRef.current, { cacheBust: true, pixelRatio: 4, quality: 0.92, backgroundColor: "#ffffff" });
       const pdf = new jsPDF({ unit: "in", format: "letter", orientation: "portrait" });
-      const margin = 0.3;
+      // A half-inch safe border clears the unprintable edge of any office printer,
+      // even when the PDF is printed at 100% instead of "fit to page".
+      const margin = 0.5;
       const width = 8.5 - margin * 2;
       const height = width * (11 / 8.5);
-      pdf.addImage(dataUrl, "JPEG", margin, margin, width, height, undefined, "FAST");
+      pdf.viewerPreferences({ PrintScaling: "None" });
+      pdf.addImage(dataUrl, "JPEG", margin, (11 - height) / 2, width, height, undefined, "FAST");
       pdf.save(`${selectedProperty.id}-referral-flyer.pdf`);
       toast.success("Print-ready PDF downloaded.");
     } catch (error) {
