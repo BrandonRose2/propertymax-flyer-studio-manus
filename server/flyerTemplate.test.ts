@@ -35,9 +35,9 @@ describe("Pelican Bay flyer template", () => {
     const stylesheet = readFileSync(path.resolve(import.meta.dirname, "../client/src/index.css"), "utf8");
     const homePage = readFileSync(path.resolve(import.meta.dirname, "../client/src/pages/Home.tsx"), "utf8");
 
-    expect(stylesheet).toContain("@page { size: letter; margin: 0; }");
+    expect(stylesheet).toContain("@page { size: letter; margin: 0.25in; }");
     expect(stylesheet).toContain(".no-print, .tool-header, .preview-label { display: none !important; }");
-    expect(stylesheet).toContain("width: 8.5in; height: 11in");
+    expect(stylesheet).toContain("width: 8in; height: 10.35in");
     expect(homePage).toContain("window.print()");
     expect(homePage).toContain("pixelRatio: 4");
   });
