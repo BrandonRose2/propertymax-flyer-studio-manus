@@ -31,7 +31,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { SimpleFlyerPreview, type RewardType, FLYER_TEXT_GROUPS, type FlyerTextScales } from "@/components/SimpleFlyerPreview";
+import { SimpleFlyerPreview, type RewardType, type RewardArtPosition, FLYER_TEXT_GROUPS, type FlyerTextScales } from "@/components/SimpleFlyerPreview";
+import { NO_REWARD_ART_ID, REWARD_ART, suggestRewardArtId } from "@/data/rewardArt";
 import { Slider } from "@/components/ui/slider";
 import { startLogin } from "@/const";
 import { buildingDropdownProperties, pilotFlyerProperties, PLACEHOLDER_FLYER_PHOTO, type FlyerPhoto } from "@/data/pilotFlyerProperties";
@@ -47,7 +48,7 @@ const MAX_PERSISTED_IMAGE_BYTES = 10 * 1024 * 1024;
 const MAX_PERSISTED_BATCH_BYTES = 20 * 1024 * 1024;
 
 const TEXT_SIZE_STORAGE_KEY = "flyer-text-sizes";
-const TEXT_SIZE_CONTROLS = [...FLYER_TEXT_GROUPS, { id: "logo", label: "Header logo size" }, { id: "cornerLogo", label: "Photo corner logo size" }] as const;
+const TEXT_SIZE_CONTROLS = [...FLYER_TEXT_GROUPS, { id: "logo", label: "Header logo size" }, { id: "cornerLogo", label: "Photo corner logo size" }, { id: "rewardArt", label: "Prize artwork size" }] as const;
 const NO_CORNER_LOGO_ID = "none";
 // Three photos put one under the reward badge, so collages stop at two.
 const MAX_COLLAGE_PHOTOS = 2;
@@ -166,6 +167,12 @@ export default function Home() {
   const [rewardScalePct, setRewardScalePct] = useState(100);
   const reward = rewardType === "ledger" ? ledgerReward : otherReward;
   const setReward = rewardType === "ledger" ? setLedgerReward : setOtherReward;
+  const [showRewardArt, setShowRewardArt] = useState(true);
+  // null = follow the reward text (TV → television, $ → cash); a manager's pick sticks until they change it.
+  const [rewardArtId, setRewardArtId] = useState<string | null>(null);
+  const [rewardArtPosition, setRewardArtPosition] = useState<RewardArtPosition>("footer");
+  const effectiveRewardArtId = rewardArtId ?? suggestRewardArtId(reward, rewardType === "ledger");
+  const rewardArt = showRewardArt ? REWARD_ART.find((art) => art.id === effectiveRewardArtId) : undefined;
   const changeRewardType = (next: RewardType) => {
     setRewardType(next);
     // Words take more room than a dollar amount, so start them a bit smaller.
@@ -779,6 +786,35 @@ export default function Home() {
               <span>Shrink long rewards so they fit the badge.</span>
             </div>
           </div>
+          <div className="control-field reward-art-control">
+            <label className="corner-logo-toggle" htmlFor="show-reward-art">
+              <Checkbox id="show-reward-art" checked={showRewardArt} onCheckedChange={(checked) => setShowRewardArt(checked === true)} />
+              Add prize artwork to the photo
+            </label>
+            {showRewardArt && (
+              <div className="reward-art-control__row">
+                {rewardArt && <img className="reward-art-control__thumb" src={rewardArt.url} alt="" aria-hidden="true" />}
+                <Select value={effectiveRewardArtId === NO_REWARD_ART_ID ? "" : effectiveRewardArtId} onValueChange={setRewardArtId}>
+                  <SelectTrigger id="reward-art" aria-label="Prize artwork"><SelectValue placeholder="Choose artwork" /></SelectTrigger>
+                  <SelectContent>
+                    {REWARD_ART.map((art) => (
+                      <SelectItem key={art.id} value={art.id}>
+                        <span className="reward-art-option"><img src={art.url} alt="" aria-hidden="true" />{art.label}</span>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select value={rewardArtPosition} onValueChange={(value) => setRewardArtPosition(value as RewardArtPosition)}>
+                  <SelectTrigger id="reward-art-position" aria-label="Prize artwork position"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="footer">Bottom right (white space)</SelectItem>
+                    <SelectItem value="photo">On the photo, by the badge</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+            <span>Picked automatically from your reward (e.g. TV, PS5, gift card, $). Resize it under Text sizes.</span>
+          </div>
           <details className="text-size-panel">
             <summary>Text sizes</summary>
             <div className="text-size-grid">
@@ -969,6 +1005,8 @@ export default function Home() {
               rewardScale={rewardScalePct / 100}
               logoUrl={selectedLogo.url}
               cornerLogoUrl={cornerLogo?.url ?? null}
+              rewardArtUrl={rewardArt?.url ?? null}
+              rewardArtPosition={rewardArtPosition}
               textScales={textScales}
             />
           </div>

@@ -242,3 +242,12 @@ button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], sel
 .referral-flyer__hero .hero-collage > img { width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: center 48%; }
 .collage-toggle { display: flex; align-items: center; gap: 8px; margin-top: 6px; color: #34434d; font-size: 11px; font-weight: 800; cursor: pointer; }
 .photo-choice > b.collage-order { position: absolute; top: 6px; left: 6px; display: grid; place-items: center; width: 21px; height: 21px; color: #fff; border-radius: 50%; background: #082d54; font-size: 11px; font-weight: 900; }
+/* Cartoon prize artwork: "footer" fills the white space left of the Equal Housing mark; "photo" sits just left of the EARN badge, above the banner. */
+.footer-reward-art { position: absolute; z-index: 1; right: 15.5%; bottom: 27%; display: block; width: auto; height: calc(74% * var(--reward-art-scale, 1)); max-width: 30%; object-fit: contain; object-position: right bottom; filter: drop-shadow(0 3px 5px rgba(8, 45, 84, .22)); }
+.referral-flyer__hero > img.hero-reward-art { position: absolute; z-index: 2; right: 31.5%; bottom: 21%; display: block; width: auto; height: calc(52% * var(--reward-art-scale, 1)); max-width: 46%; object-fit: contain; object-position: right bottom; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, .45)); }
+.reward-art-control { margin-top: 12px; }
+.reward-art-control__row { display: flex; align-items: center; gap: 8px; }
+.reward-art-control__row > button { flex: 1 1 0; min-width: 0; }
+.reward-art-control__thumb { flex: 0 0 auto; width: 40px; height: 40px; object-fit: contain; }
+.reward-art-option { display: inline-flex; align-items: center; gap: 8px; }
+.reward-art-option img { width: 28px; height: 28px; object-fit: contain; }

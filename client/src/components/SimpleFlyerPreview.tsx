@@ -18,7 +18,9 @@ export const FLYER_TEXT_GROUPS = [
   { id: "footer", label: "Footer & contact line" },
 ] as const;
 export type FlyerTextGroup = (typeof FLYER_TEXT_GROUPS)[number]["id"];
-export type FlyerTextScales = Partial<Record<FlyerTextGroup | "logo" | "cornerLogo", number>>;
+export type FlyerTextScales = Partial<Record<FlyerTextGroup | "logo" | "cornerLogo" | "rewardArt", number>>;
+/** Where prize artwork sits on the photo. */
+export type RewardArtPosition = "footer" | "photo";
 
 type SimpleFlyerPreviewProps = {
   property: PilotFlyerProperty;
@@ -37,10 +39,13 @@ type SimpleFlyerPreviewProps = {
   cornerLogoUrl?: string | null;
   /** Two photo URLs turn the hero into a side-by-side collage; otherwise imageUrl is used. */
   collageUrls?: string[];
+  /** Optional cartoon prize artwork shown on the photo; null hides it. */
+  rewardArtUrl?: string | null;
+  rewardArtPosition?: RewardArtPosition;
 };
 
 export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewProps>(
-  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = null, textScales = {}, cornerLogoUrl = null, collageUrls = [] }, ref) {
+  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = null, textScales = {}, cornerLogoUrl = null, collageUrls = [], rewardArtUrl = null, rewardArtPosition = "footer" }, ref) {
     const contactLine = property.officePhone;
     const isLedger = rewardType === "ledger";
     const flyerStyle = {
@@ -48,6 +53,7 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
       ...Object.fromEntries(FLYER_TEXT_GROUPS.map(({ id }) => [`--fs-${id}`, String(textScales[id] ?? 1)])),
       "--logo-scale": String(textScales.logo ?? 1),
       "--corner-logo-scale": String(textScales.cornerLogo ?? 1),
+      "--reward-art-scale": String(textScales.rewardArt ?? 1),
     } as React.CSSProperties;
 
     return (
@@ -89,7 +95,8 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
             )
             : <img src={imageUrl} alt={`${property.name} flyer hero: ${imageLabel}`} crossOrigin="anonymous" />}
           <div className="hero-vignette" aria-hidden="true" />
-          {cornerLogoUrl && <img className="hero-corner-logo" src={cornerLogoUrl} alt="ApartmentCorp" crossOrigin="anonymous" />}
+          {cornerLogoUrl && <img className="hero-corner-logo" src={cornerLogoUrl} alt="Property logo" crossOrigin="anonymous" />}
+          {rewardArtUrl && rewardArtPosition === "photo" && <img className="hero-reward-art" src={rewardArtUrl} alt="" aria-hidden="true" crossOrigin="anonymous" />}
           <div className="community-ribbon">
             <span className="community-ribbon__headline">
               <b>GOOD NEIGHBORS.</b>
@@ -137,6 +144,7 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
         </section>
 
         <footer className="referral-flyer__bottom">
+          {rewardArtUrl && rewardArtPosition === "footer" && <img className="footer-reward-art" src={rewardArtUrl} alt="" aria-hidden="true" crossOrigin="anonymous" />}
           <div className="flyer-footer__main">
             <div className="spread-word-mark" aria-hidden="true">
               <span>SPREAD<br />THE WORD.</span>
