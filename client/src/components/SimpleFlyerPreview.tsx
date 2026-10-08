@@ -40,7 +40,7 @@ type SimpleFlyerPreviewProps = {
 };
 
 export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewProps>(
-  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = "/apartmentcorp-logo.png", textScales = {}, cornerLogoUrl = null, collageUrls = [] }, ref) {
+  function SimpleFlyerPreview({ property, imageUrl, imageLabel, reward, rewardType = "ledger", rewardScale = 1, logoUrl = null, textScales = {}, cornerLogoUrl = null, collageUrls = [] }, ref) {
     const contactLine = property.officePhone;
     const isLedger = rewardType === "ledger";
     const flyerStyle = {
