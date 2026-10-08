@@ -144,7 +144,6 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
         </section>
 
         <footer className="referral-flyer__bottom">
-          {rewardArtUrl && rewardArtPosition === "footer" && <img className="footer-reward-art" src={rewardArtUrl} alt="" aria-hidden="true" crossOrigin="anonymous" />}
           <div className="flyer-footer__main">
             <div className="spread-word-mark" aria-hidden="true">
               <span>SPREAD<br />THE WORD.</span>
@@ -169,6 +168,7 @@ export const SimpleFlyerPreview = forwardRef<HTMLDivElement, SimpleFlyerPreviewP
             <strong>{contactLine}</strong>
           </p>
         </footer>
+        {rewardArtUrl && rewardArtPosition === "footer" && <img className="footer-reward-art" src={rewardArtUrl} alt="" aria-hidden="true" crossOrigin="anonymous" />}
       </article>
     );
   },
