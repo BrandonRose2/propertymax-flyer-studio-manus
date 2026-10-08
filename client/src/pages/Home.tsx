@@ -47,7 +47,8 @@ const MAX_PERSISTED_IMAGE_BYTES = 10 * 1024 * 1024;
 const MAX_PERSISTED_BATCH_BYTES = 20 * 1024 * 1024;
 
 const TEXT_SIZE_STORAGE_KEY = "flyer-text-sizes";
-const TEXT_SIZE_CONTROLS = [...FLYER_TEXT_GROUPS, { id: "logo", label: "Header logo size" }] as const;
+const TEXT_SIZE_CONTROLS = [...FLYER_TEXT_GROUPS, { id: "logo", label: "Header logo size" }, { id: "cornerLogo", label: "Photo corner logo size" }] as const;
+const NO_CORNER_LOGO_ID = "none";
 // Three photos put one under the reward badge, so collages stop at two.
 const MAX_COLLAGE_PHOTOS = 2;
 // ApartmentCorp branding is not offered on flyers; those logos stay in the library but are hidden here.
@@ -208,6 +209,12 @@ export default function Home() {
       .sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: "base", numeric: true })),
   ], [logosQuery.data]);
   const selectedLogo = logoOptions.find((logo) => logo.id === selectedLogoId) ?? logoOptions[0]!;
+  const cornerLogoOptions = useMemo(() => logoOptions.filter((logo) => logo.url), [logoOptions]);
+  const [cornerLogoId, setCornerLogoId] = useState<string | null>(null);
+  const [showCornerLogo, setShowCornerLogo] = useState(true);
+  // Until a manager picks one, the corner shows the building's own logo (the auto-matched header logo).
+  const effectiveCornerLogoId = cornerLogoId ?? (selectedLogo.url ? selectedLogo.id : NO_CORNER_LOGO_ID);
+  const cornerLogo = showCornerLogo ? cornerLogoOptions.find((logo) => logo.id === effectiveCornerLogoId) : undefined;
   const chooseLogo = (logoId: string) => setSelectedLogoId(logoId);
 
 
@@ -306,6 +313,7 @@ export default function Home() {
     autoLogoAppliedFor.current = selectedProperty.id;
     const match = matchingLogoFor(selectedProperty.name, logosQuery.data);
     setSelectedLogoId(match ? `saved-${match.id}` : DEFAULT_LOGO_ID);
+    setCornerLogoId(null); // corner follows the new building's logo again
   }, [logosQuery.data, selectedProperty]);
 
   const savedPhotos = useMemo<SavedFlyerPhoto[]>(
@@ -711,6 +719,25 @@ export default function Home() {
               </div>
               <span>Drop logo images or a ZIP of logos here, or click the button. PNG with a transparent background looks best. Logos are shared across all flyers.</span>
             </div>
+            <div className="control-field logo-control">
+              <label className="corner-logo-toggle" htmlFor="show-corner-logo">
+                <Checkbox id="show-corner-logo" checked={showCornerLogo} onCheckedChange={(checked) => setShowCornerLogo(checked === true)} />
+                Show a logo in the photo corner
+              </label>
+              {showCornerLogo && (
+                <div className="logo-control__row">
+                  <Select value={effectiveCornerLogoId === NO_CORNER_LOGO_ID ? "" : effectiveCornerLogoId} onValueChange={setCornerLogoId}>
+                    <SelectTrigger id="corner-logo" aria-label="Photo corner logo"><SelectValue placeholder="Choose a logo" /></SelectTrigger>
+                    <SelectContent>
+                      {cornerLogoOptions.map((logo) => (
+                        <SelectItem key={logo.id} value={logo.id}>{logo.label}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+              <span>Bottom-left of the photo, across from the Good Neighbors banner. Resize it under Text sizes.</span>
+            </div>
           </div>
           <div className="reward-grid">
             <div className="control-field reward-type-control">
@@ -941,6 +968,7 @@ export default function Home() {
               rewardType={rewardType}
               rewardScale={rewardScalePct / 100}
               logoUrl={selectedLogo.url}
+              cornerLogoUrl={cornerLogo?.url ?? null}
               textScales={textScales}
             />
           </div>
